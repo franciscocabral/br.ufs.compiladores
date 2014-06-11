@@ -1,0 +1,10 @@
+programa teste7 
+inicio
+
+    real: x, y, media;
+     
+    leia(x,y);
+ 
+    media <- (x + y)/2;
+    escreva(media);   
+fim.

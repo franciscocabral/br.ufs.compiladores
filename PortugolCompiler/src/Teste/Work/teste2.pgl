@@ -1,0 +1,13 @@
+programa teste2
+inicio
+    /*Esse comentario fecha
+     *mais de uma
+     *linha!
+     */
+    //E esse nao precisa fechar
+
+    caractere: leianome[10], sobrenome[10];
+
+    leia(leianome,sobrenome);
+    escreva(leianome, sobrenome);
+fim.

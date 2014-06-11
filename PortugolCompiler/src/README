@@ -1,0 +1,25 @@
+Projeto desenvolvido por: 
+-
+Francisco Cabral & Ygor Max
+
+Sob orientação do professor:
+-
+Kalil
+
+Matéria:
+-
+Compiladores
+
+Objetivo:
+-
+Construir um compilador de uma versão de Prolog.
+
+
+
+
+cd %Local do Sablecc%\lib
+java -jar sablecc.jar %Local do Projeto%\doc.sablecc3
+
+
+C:\Users\Francisco\Downloads\sablecc-3.7\lib\sablecc.jar
+E:\Documentos\UFS\Compiladores\PrologCompiler\src\doc.sablecc3

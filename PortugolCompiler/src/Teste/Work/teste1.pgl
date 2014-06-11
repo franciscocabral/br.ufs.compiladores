@@ -1,0 +1,23 @@
+programa teste1
+inicio
+    /*
+        Comentário
+        /*Comentário anninhado*/
+        /*Mais comentário aninhado*/
+        resto do comentário
+        /**/
+    */
+    inteiro: x, y;
+    inteiro: z;
+
+    leia(x,y);
+    se(x > y) entao
+        escreva(x-y);
+    senao
+        escreva(x+y);
+    fim se;
+
+    /*
+        //
+    */
+fim.

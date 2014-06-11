@@ -1,0 +1,16 @@
+programa teste9
+inicio
+ 
+  inteiro: n, i, fatorial; 
+
+  //escreva('Digite um numero: '); 
+  //leia(n); 
+
+  fatorial <- 1; 
+  para i de 1 ate 10 faca 
+    fatorial <- fatorial * i;
+  fim para; 
+
+  escreva('O fatorial de ', n ,' e: ',fatorial); 
+ 
+fim.

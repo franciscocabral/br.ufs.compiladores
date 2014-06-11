@@ -1,0 +1,14 @@
+programa teste6
+inicio
+
+    inteiro: x;
+    
+    leia(x);
+
+    // "se" que dirá se o valor do x é divisivel por 2  
+    se ((x resto 2) = 0) entao 
+      escreva('Divisivel por dois');  
+    senao  
+      escreva('Nao é divisivel por dois');  
+    fim se;     
+fim.

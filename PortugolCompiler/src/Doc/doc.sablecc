@@ -1,0 +1,249 @@
+Package expression;
+
+Helpers
+
+    unicode             = [0x0 .. 0xfffff];
+
+    unicode_letras      = [0x0041..0x005a] | [0x0061..0x007a];
+    unicode_numeros     = [0x0030..0x0039];
+
+    ht                  = 0x0009;
+    lf                  = 0x000a;
+    ff                  = 0x000c;
+    cr                  = 0x000d;
+    espaco              = ' ';
+
+    fim_de_linha        = lf | cr | cr lf;
+    branco              = (espaco | ht | ff | fim_de_linha);
+
+    estrela             = '*';
+    barra               = '/';
+    aspas               = ''';
+    sublinhado          = '_';
+
+    nao_estrela         = [unicode - estrela];
+    nao_barra           = [unicode - barra];
+    nao_estrela_ou_barra= [unicode - [estrela + barra]];
+    nao_aspas           = [unicode - aspas];
+    nao_fim_de_linha    = [unicode - [lf + cr]];
+
+    letras              = unicode_letras | sublinhado;
+    letras_ou_numeros   = unicode_letras | unicode_numeros | sublinhado;
+    
+    comentario_linha    = '//' nao_fim_de_linha* fim_de_linha?; 
+    comentario_inicio   = '/*';
+    comentario_corpo    = nao_estrela_ou_barra* | (estrela nao_barra)* | (nao_estrela barra)*;
+    comentario_final    = '*/';
+
+    sinal               = ('+'|'-')?;
+
+    digitos             = unicode_numeros+;
+    inteiro             = sinal digitos;
+    real                = inteiro; //inteiro ponto digitos;
+    caractere           = [nao_aspas - [lf + cr]];
+
+
+States
+  normal,
+  comentario;
+
+Tokens
+
+    {normal} branco              = branco;
+    {normal, comentario} 
+    comentario_linha             = comentario_linha;
+
+    {normal->comentario, comentario} 
+    comentario                   = comentario_inicio;
+    {comentario} comentario_final= comentario_final;
+    {comentario} comentario_corpo= comentario_corpo;
+    
+
+    {normal} recebe              = '<-';
+    {normal} pontovirgula        = ';';
+    {normal} virgula             = ',';
+    {normal} ponto               = '.';
+    {normal} doispontos          = ':';
+    {normal} a_cochete           = '[';
+    {normal} f_cochete           = ']';
+    {normal} a_parenteses        = '(';
+    {normal} f_parenteses        = ')';
+
+    {normal} menos               = '-';
+    {normal} mais                = '+';
+    {normal} vezes               = '*';
+    {normal} dividido            = '/';
+    {normal} resto               = 'resto';
+
+
+    {normal} e                   = 'e';
+    {normal} ou                  = 'ou';
+    {normal} xor                 = 'xor';
+    {normal} nao                 = 'nao';
+
+    {normal} igual               = '=';
+    {normal} diferente           = '<>';
+    {normal} menorigual          = '<=';
+    {normal} maiorigual          = '>=';
+    {normal} maior               = '>';
+    {normal} menor               = '<';
+
+    {normal} constante           = 'const';
+    
+    {normal} retorne             = 'retorne'; 
+
+    {normal} programa            = 'programa';
+    {normal} inicio              = 'inicio';
+    {normal} fim                 = 'fim';
+    {normal} proximo             = 'proximo';
+    
+    {normal} leia                = 'leia';
+    {normal} escreva             = 'escreva';
+    {normal} escrevaln           = 'escrevaln';
+    
+    {normal} se                  = 'se';
+    {normal} entao               = 'entao';
+    {normal} senao               = 'senao';
+    {normal} fim_se              = 'fim se';
+
+    {normal} avalie              = 'avalie';
+    {normal} caso                = 'caso';
+    {normal} fim_avalie          = 'fim avalie';
+    
+    {normal} enquanto            = 'enquanto';
+    {normal} faca                = 'faca';
+    {normal} fim_enquanto        = 'fim enquanto';
+
+    {normal} repita              = 'repita';
+    {normal} ate                 = 'ate';
+    
+    {normal} para                = 'para';
+    {normal} de                  = 'de';
+    {normal} passo               = 'passo';
+    {normal} fim_para            = 'fim para';
+    
+    {normal} inteiro             = inteiro;
+    {normal} caractere           = aspas caractere* aspas;
+    {normal} real                = real;
+
+
+    {normal} n_real              = 'real';
+    {normal} n_inteiro           = 'inteiro';
+    {normal} n_caractere         = 'caractere';
+
+    {normal} id                  = letras letras_ou_numeros*;
+
+Ignored Tokens
+   comentario, comentario_linha, branco;
+
+Productions
+    start               = {start}               instancia_programa;
+
+    identficador        = {id}                  id;
+    
+    bloco_comando       = {comando_simples}     comando
+                        | {bloco_comandos}      bloco_comando comando;
+    bloco_expressao     = {expressao_simples}   expressao 
+                        | {bloco_espressoes}    bloco_expressao virgula expressao;
+    bloco_variavel      = {variavel_simples}    variavel
+                        | {bloco_variaveis}     bloco_variavel virgula variavel;
+    bloco_caso          = {caso_simples}        caso valor doispontos bloco_comando
+                        | {bloco_casos}         bloco_caso caso valor doispontos bloco_comando;
+    bloco_declaracao    = {declaracao_simples}  declaracao
+                        | {bloco_declaracao}    bloco_declaracao declaracao;
+
+    instancia_programa  = {programa}            programa identficador inicio bloco_declaracao bloco_comando fim ponto;
+    
+    declaracao          = {declaracao_variavel} tipo doispontos bloco_variavel pontovirgula
+                        | {declaracao_const}    constante id valor pontovirgula;
+
+    tipo                = {real}                n_real 
+                        | {inteiro}             n_inteiro 
+                        | {caractere}           n_caractere;
+
+    variavel            = {variavel}            identficador 
+                        | {variavel_vetor}      identficador a_cochete inteiro f_cochete;
+
+    valor               = {valor_real}          real 
+                        | {valor_inteiro}       inteiro 
+                        | {valor_caractere}     caractere;
+
+    comando             = {atribuicao}          atribuicoes
+                        | {funcoes}             funcoes
+                        | {se}                  se_estruturas
+                        | {se_entao}            se_entao_estruturas
+                        | {avalie}              avalie_estruturas
+                        | {enquanto}            enquanto_estruturas
+                        | {repita}              repita_estruturas
+                        | {para}                para_estruturas;
+            
+    atribuicoes         = {atribuicao}          variavel recebe expressao pontovirgula;
+
+    funcoes             = {leia}                leia a_parenteses bloco_variavel f_parenteses pontovirgula
+                        | {escreva}             escreva a_parenteses bloco_expressao f_parenteses pontovirgula;
+   
+    senao_estruturas    = {senao}               senao bloco_comando;
+    
+    passo_estruturas    = {passo}               passo inteiro     
+                        | {nada}                ;   
+    
+    ate_estrutura       = {ate}                 ate inteiro;
+
+    se_estruturas       = {se}                  se a_parenteses expressao_logica f_parenteses entao bloco_comando fim_se;
+    se_entao_estruturas = {se_entao}            se a_parenteses expressao_logica f_parenteses entao bloco_comando senao_estruturas fim_se pontovirgula;
+    avalie_estruturas   = {avalie}              avalie a_parenteses expressao f_parenteses bloco_caso senao_estruturas fim_avalie pontovirgula;
+    enquanto_estruturas = {enquanto}            enquanto a_parenteses expressao_logica f_parenteses faca bloco_comando fim_enquanto pontovirgula;
+    repita_estruturas   = {repita}              repita bloco_comando a_parenteses ate expressao_logica f_parenteses pontovirgula;
+    para_estruturas     = {para}                para variavel de inteiro passo_estruturas ate_estrutura faca bloco_comando fim_para pontovirgula;
+                 
+    expressao           = {somas}               expressao soma termo 
+                        | {termo}               termo;
+    termo               = {multiplicacoes}      termo multiplicacao fator 
+                        | {fator}               fator;
+    fator               = {parenteses}          a_parenteses expressao f_parenteses
+                        | {valor}               valor
+                        | {var}                  variavel;
+    
+    soma                = {mais}                mais
+                        | {menos}               menos;
+
+    multiplicacao       = {vezes}               vezes 
+                        | {dividido}            dividido 
+                        | {resto}               resto;
+
+
+    sinal_relacional    = {igualdade}           igual
+                        | {diferenca}           diferente
+                        | {maior_igual}         maiorigual
+                        | {menor_igual}         menorigual
+                        | {maior}               maior
+                        | {menor}               menor;
+
+    sinal_logico_ou     = {ou}                  ou
+                        | {xor}                 xor;
+
+    sinal_logico_e      = {e}                   e;
+
+    sinal_logico_nao    = {nao}                 nao;
+
+    // Tem coisa errada aqui, tem que dar uma boa olhada.
+    // Não esta aceitando os parenteses. Se habilitar a produção simplesmente ára de funcionar.
+    // A lógica esta errada aqui, tem que ver com calma o que esta errado e corrigir
+
+    expressao_logica    = {expressao_logica}    expressao_logica sinal_relacional termo_logico
+                        | {termo_logico}        termo_logico;
+    termo_logico        = {termo_logico}        termo_logico sinal_logico_ou fator_logico
+                        | {fator_logico}        fator_logico;
+    fator_logico        = {fator_logico}        fator_logico sinal_logico_e negacao_logica
+                        | {negacao_logica}      negacao_logica;
+    // Assim você testou?
+    negacao_logica      = {negacao_logica}      sinal_logico_nao expressao   
+                        //| {negacao_parenteses}  sinal_logico_nao a_parenteses expressao_logica f_parenteses
+                        //| {parenteses}          a_parenteses expressao_logica f_parenteses
+                        | {expressao}           expressao;
+
+    // Fiz desta forma baseado em um exemplo. Veja se funciona. Não testei.
+    //expressao_logica1    = {expressao_logica} a_parenteses [esquerda]:valor sinal_relacional [direita]:valor f_parenteses 
+    //                    | {duas_exp_e} a_parenteses [esquerda]:valor sinal_logico_e [direita]:valor f_parenteses 
+    //                    | {duas_exp_ou} a_parenteses [esquerda]:valor sinal_logico_ou [direita]:valor f_parenteses 
+    //                    | {uma_exp} nao? valor;

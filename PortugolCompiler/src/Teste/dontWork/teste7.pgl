@@ -1,0 +1,10 @@
+programa teste7 
+inicio
+
+    real: x, y, media;
+     
+    leia(x,y);
+ 
+    media <= x + y/2; //Sem os parenteses entre x e y o valor da media esta incorreto
+    escreva(media);   
+fim.

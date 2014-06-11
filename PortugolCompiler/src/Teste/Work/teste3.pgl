@@ -1,0 +1,10 @@
+programa teste3
+inicio
+
+    real: x,z;
+
+    leia(x);
+    z <- (x + 1);
+    escreva(z);
+
+fim.

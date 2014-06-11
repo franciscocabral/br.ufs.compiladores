@@ -1,0 +1,14 @@
+programa teste4
+inicio
+   
+    //inteiro: x = 4;
+    //inteiro: y = 2;
+
+    inteiro:  x,y; 
+    x <- 4;
+    y <- 2;
+
+    escreva(x);
+    escreva(y);
+
+fim.

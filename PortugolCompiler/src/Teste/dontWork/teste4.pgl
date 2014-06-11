@@ -1,0 +1,10 @@
+programa teste4
+inicio
+
+    inteiro: x = 4;
+    inteiro: y = 2;
+
+    escreva(z); //Variavel não declarada
+    escreva(y);
+
+fim.

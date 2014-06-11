@@ -1,0 +1,15 @@
+programa teste8
+inicio
+
+  inteiro x, y, i, mdc; //x-primeiro número, y-segundo número
+  leia(x);
+  leia(y);
+ 
+  //Calculo do MDC
+  para 1 ate x passo    // declaracao incorreta do para. 
+     se (x resto i = 0) e (y resto i = 0) entao
+       mdc <= i;
+     fim se;
+  fim para;
+  escreva(mdc);   
+fim.

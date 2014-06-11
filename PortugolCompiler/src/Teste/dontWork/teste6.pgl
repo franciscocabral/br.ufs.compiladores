@@ -1,0 +1,13 @@
+programa teste6
+inicio
+
+    inteiro: x;
+    
+    leia(x);
+ 
+    se ((x resto 2) == 0) entao   //Igual dobrado não existe
+      escreva('Divisivel por dois');  
+    senao  
+      escreva('Nao é divisivel por dois');  
+    fim se;     
+fim.

@@ -1,0 +1,11 @@
+programa teste8
+inicio
+
+  inteiro x, y, i;
+  leia(x,y);
+ 
+  para i de 0 ate 4 passo 2 faca
+     
+  fim para;
+ 
+fim.

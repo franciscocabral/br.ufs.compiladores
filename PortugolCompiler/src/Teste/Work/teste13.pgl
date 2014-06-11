@@ -1,0 +1,19 @@
+programa teste13
+inicio
+   
+    real: nota1, nota2, media; //declaração das variáveis do algoritmo
+    inteiro: contador; //declaração do contador
+    
+    contador <- 1; //atribuição de valor ao contador
+    repita //início da estrutura de repetição 
+         escreva('Digite as notas do aluno ',contador,':');
+         escreva('Primeira nota:');
+         leia(nota1);
+         escreva('Segunda nota:');
+         leia (nota2);
+         media <- (nota1 + nota2)/2;
+         escreva('O aluno ',contador,' teve media igual a: ',media);
+         contador <- contador + 1;
+    ate (contador < 10);
+
+fim.

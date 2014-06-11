@@ -1,0 +1,13 @@
+programa teste1
+inicio
+    blablabla
+    inteiro: x, y;
+    inteiro: z;
+
+    leia(x,y);
+    se(x > y) entao
+        escreva(x-y);
+    senao
+        escreva(x+y);
+    fim se;
+fim

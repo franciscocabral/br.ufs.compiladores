@@ -1,0 +1,8 @@
+programa teste2
+inicio
+    /* Esse Comentario nunca feixa
+    caractere: nome[10], sobrenome[10];
+
+    leia(nome,sobrenome);
+    escreva(nome, sobrenome);
+fim.
