@@ -9,8 +9,8 @@ public final class ARepitaRepitaEstruturas extends PRepitaEstruturas
 {
     private TRepita _repita_;
     private PBlocoComando _blocoComando_;
-    private TAParenteses _aParenteses_;
     private TAte _ate_;
+    private TAParenteses _aParenteses_;
     private PExpressaoLogica _expressaoLogica_;
     private TFParenteses _fParenteses_;
     private TPontovirgula _pontovirgula_;
@@ -23,8 +23,8 @@ public final class ARepitaRepitaEstruturas extends PRepitaEstruturas
     public ARepitaRepitaEstruturas(
         @SuppressWarnings("hiding") TRepita _repita_,
         @SuppressWarnings("hiding") PBlocoComando _blocoComando_,
-        @SuppressWarnings("hiding") TAParenteses _aParenteses_,
         @SuppressWarnings("hiding") TAte _ate_,
+        @SuppressWarnings("hiding") TAParenteses _aParenteses_,
         @SuppressWarnings("hiding") PExpressaoLogica _expressaoLogica_,
         @SuppressWarnings("hiding") TFParenteses _fParenteses_,
         @SuppressWarnings("hiding") TPontovirgula _pontovirgula_)
@@ -34,9 +34,9 @@ public final class ARepitaRepitaEstruturas extends PRepitaEstruturas
 
         setBlocoComando(_blocoComando_);
 
-        setAParenteses(_aParenteses_);
-
         setAte(_ate_);
+
+        setAParenteses(_aParenteses_);
 
         setExpressaoLogica(_expressaoLogica_);
 
@@ -52,8 +52,8 @@ public final class ARepitaRepitaEstruturas extends PRepitaEstruturas
         return new ARepitaRepitaEstruturas(
             cloneNode(this._repita_),
             cloneNode(this._blocoComando_),
-            cloneNode(this._aParenteses_),
             cloneNode(this._ate_),
+            cloneNode(this._aParenteses_),
             cloneNode(this._expressaoLogica_),
             cloneNode(this._fParenteses_),
             cloneNode(this._pontovirgula_));
@@ -115,31 +115,6 @@ public final class ARepitaRepitaEstruturas extends PRepitaEstruturas
         this._blocoComando_ = node;
     }
 
-    public TAParenteses getAParenteses()
-    {
-        return this._aParenteses_;
-    }
-
-    public void setAParenteses(TAParenteses node)
-    {
-        if(this._aParenteses_ != null)
-        {
-            this._aParenteses_.parent(null);
-        }
-
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
-                node.parent().removeChild(node);
-            }
-
-            node.parent(this);
-        }
-
-        this._aParenteses_ = node;
-    }
-
     public TAte getAte()
     {
         return this._ate_;
@@ -163,6 +138,31 @@ public final class ARepitaRepitaEstruturas extends PRepitaEstruturas
         }
 
         this._ate_ = node;
+    }
+
+    public TAParenteses getAParenteses()
+    {
+        return this._aParenteses_;
+    }
+
+    public void setAParenteses(TAParenteses node)
+    {
+        if(this._aParenteses_ != null)
+        {
+            this._aParenteses_.parent(null);
+        }
+
+        if(node != null)
+        {
+            if(node.parent() != null)
+            {
+                node.parent().removeChild(node);
+            }
+
+            node.parent(this);
+        }
+
+        this._aParenteses_ = node;
     }
 
     public PExpressaoLogica getExpressaoLogica()
@@ -246,8 +246,8 @@ public final class ARepitaRepitaEstruturas extends PRepitaEstruturas
         return ""
             + toString(this._repita_)
             + toString(this._blocoComando_)
-            + toString(this._aParenteses_)
             + toString(this._ate_)
+            + toString(this._aParenteses_)
             + toString(this._expressaoLogica_)
             + toString(this._fParenteses_)
             + toString(this._pontovirgula_);
@@ -269,15 +269,15 @@ public final class ARepitaRepitaEstruturas extends PRepitaEstruturas
             return;
         }
 
-        if(this._aParenteses_ == child)
-        {
-            this._aParenteses_ = null;
-            return;
-        }
-
         if(this._ate_ == child)
         {
             this._ate_ = null;
+            return;
+        }
+
+        if(this._aParenteses_ == child)
+        {
+            this._aParenteses_ = null;
             return;
         }
 
@@ -318,15 +318,15 @@ public final class ARepitaRepitaEstruturas extends PRepitaEstruturas
             return;
         }
 
-        if(this._aParenteses_ == oldChild)
-        {
-            setAParenteses((TAParenteses) newChild);
-            return;
-        }
-
         if(this._ate_ == oldChild)
         {
             setAte((TAte) newChild);
+            return;
+        }
+
+        if(this._aParenteses_ == oldChild)
+        {
+            setAParenteses((TAParenteses) newChild);
             return;
         }
 

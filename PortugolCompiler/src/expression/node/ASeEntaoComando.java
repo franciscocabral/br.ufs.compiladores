@@ -7,7 +7,7 @@ import expression.analysis.*;
 @SuppressWarnings("nls")
 public final class ASeEntaoComando extends PComando
 {
-    private PSeEntaoEstruturas _seEntaoEstruturas_;
+    private PSeSenaoEstruturas _seSenaoEstruturas_;
 
     public ASeEntaoComando()
     {
@@ -15,10 +15,10 @@ public final class ASeEntaoComando extends PComando
     }
 
     public ASeEntaoComando(
-        @SuppressWarnings("hiding") PSeEntaoEstruturas _seEntaoEstruturas_)
+        @SuppressWarnings("hiding") PSeSenaoEstruturas _seSenaoEstruturas_)
     {
         // Constructor
-        setSeEntaoEstruturas(_seEntaoEstruturas_);
+        setSeSenaoEstruturas(_seSenaoEstruturas_);
 
     }
 
@@ -26,7 +26,7 @@ public final class ASeEntaoComando extends PComando
     public Object clone()
     {
         return new ASeEntaoComando(
-            cloneNode(this._seEntaoEstruturas_));
+            cloneNode(this._seSenaoEstruturas_));
     }
 
     @Override
@@ -35,16 +35,16 @@ public final class ASeEntaoComando extends PComando
         ((Analysis) sw).caseASeEntaoComando(this);
     }
 
-    public PSeEntaoEstruturas getSeEntaoEstruturas()
+    public PSeSenaoEstruturas getSeSenaoEstruturas()
     {
-        return this._seEntaoEstruturas_;
+        return this._seSenaoEstruturas_;
     }
 
-    public void setSeEntaoEstruturas(PSeEntaoEstruturas node)
+    public void setSeSenaoEstruturas(PSeSenaoEstruturas node)
     {
-        if(this._seEntaoEstruturas_ != null)
+        if(this._seSenaoEstruturas_ != null)
         {
-            this._seEntaoEstruturas_.parent(null);
+            this._seSenaoEstruturas_.parent(null);
         }
 
         if(node != null)
@@ -57,23 +57,23 @@ public final class ASeEntaoComando extends PComando
             node.parent(this);
         }
 
-        this._seEntaoEstruturas_ = node;
+        this._seSenaoEstruturas_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._seEntaoEstruturas_);
+            + toString(this._seSenaoEstruturas_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._seEntaoEstruturas_ == child)
+        if(this._seSenaoEstruturas_ == child)
         {
-            this._seEntaoEstruturas_ = null;
+            this._seSenaoEstruturas_ = null;
             return;
         }
 
@@ -84,9 +84,9 @@ public final class ASeEntaoComando extends PComando
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._seEntaoEstruturas_ == oldChild)
+        if(this._seSenaoEstruturas_ == oldChild)
         {
-            setSeEntaoEstruturas((PSeEntaoEstruturas) newChild);
+            setSeSenaoEstruturas((PSeSenaoEstruturas) newChild);
             return;
         }
 

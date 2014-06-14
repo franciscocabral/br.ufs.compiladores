@@ -14,6 +14,7 @@ public final class ASeSeEstruturas extends PSeEstruturas
     private TEntao _entao_;
     private PBlocoComando _blocoComando_;
     private TFimSe _fimSe_;
+    private TPontovirgula _pontovirgula_;
 
     public ASeSeEstruturas()
     {
@@ -27,7 +28,8 @@ public final class ASeSeEstruturas extends PSeEstruturas
         @SuppressWarnings("hiding") TFParenteses _fParenteses_,
         @SuppressWarnings("hiding") TEntao _entao_,
         @SuppressWarnings("hiding") PBlocoComando _blocoComando_,
-        @SuppressWarnings("hiding") TFimSe _fimSe_)
+        @SuppressWarnings("hiding") TFimSe _fimSe_,
+        @SuppressWarnings("hiding") TPontovirgula _pontovirgula_)
     {
         // Constructor
         setSe(_se_);
@@ -44,6 +46,8 @@ public final class ASeSeEstruturas extends PSeEstruturas
 
         setFimSe(_fimSe_);
 
+        setPontovirgula(_pontovirgula_);
+
     }
 
     @Override
@@ -56,7 +60,8 @@ public final class ASeSeEstruturas extends PSeEstruturas
             cloneNode(this._fParenteses_),
             cloneNode(this._entao_),
             cloneNode(this._blocoComando_),
-            cloneNode(this._fimSe_));
+            cloneNode(this._fimSe_),
+            cloneNode(this._pontovirgula_));
     }
 
     @Override
@@ -240,6 +245,31 @@ public final class ASeSeEstruturas extends PSeEstruturas
         this._fimSe_ = node;
     }
 
+    public TPontovirgula getPontovirgula()
+    {
+        return this._pontovirgula_;
+    }
+
+    public void setPontovirgula(TPontovirgula node)
+    {
+        if(this._pontovirgula_ != null)
+        {
+            this._pontovirgula_.parent(null);
+        }
+
+        if(node != null)
+        {
+            if(node.parent() != null)
+            {
+                node.parent().removeChild(node);
+            }
+
+            node.parent(this);
+        }
+
+        this._pontovirgula_ = node;
+    }
+
     @Override
     public String toString()
     {
@@ -250,7 +280,8 @@ public final class ASeSeEstruturas extends PSeEstruturas
             + toString(this._fParenteses_)
             + toString(this._entao_)
             + toString(this._blocoComando_)
-            + toString(this._fimSe_);
+            + toString(this._fimSe_)
+            + toString(this._pontovirgula_);
     }
 
     @Override
@@ -296,6 +327,12 @@ public final class ASeSeEstruturas extends PSeEstruturas
         if(this._fimSe_ == child)
         {
             this._fimSe_ = null;
+            return;
+        }
+
+        if(this._pontovirgula_ == child)
+        {
+            this._pontovirgula_ = null;
             return;
         }
 
@@ -345,6 +382,12 @@ public final class ASeSeEstruturas extends PSeEstruturas
         if(this._fimSe_ == oldChild)
         {
             setFimSe((TFimSe) newChild);
+            return;
+        }
+
+        if(this._pontovirgula_ == oldChild)
+        {
+            setPontovirgula((TPontovirgula) newChild);
             return;
         }
 

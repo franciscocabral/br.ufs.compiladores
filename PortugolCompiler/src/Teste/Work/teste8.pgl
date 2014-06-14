@@ -1,11 +1,12 @@
 programa teste8
 inicio
 
-  inteiro x, y, i;
-  leia(x,y);
- 
-  para i de 0 ate 4 passo 2 faca
-     
+  inteiro: x, i;
+   
+  leia(x);
+  
+  para i de 1 ate x passo 2 faca
+  	escreva(i);   
   fim para;
  
 fim.

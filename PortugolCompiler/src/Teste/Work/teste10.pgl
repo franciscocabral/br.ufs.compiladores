@@ -1,18 +1,22 @@
 programa teste10
 inicio
    
-   inteiro: anterior, atual, proximo;
+   inteiro: anterior, atual, proxima;
 
    anterior <- 0;      //Valor anterior
    atual <- 1;         //Valor atual
-   proximo <- 1;        //Proximo valor
+   proxima <- 1;        //Proximo valor
    
    // Sequencia de Fibonacci
    enquanto (atual < 10) faca 
-       proximo <- anterior + atual; //Expressão soma de anterior + atual = proximo
-       escreva(proximo); 
+       proxima <- anterior + atual; //Expressão soma de anterior + atual = proxima
+       escreva(proxima); 
        anterior <- atual; 
-       atual <- proximo; 
+       atual <- proxima; 
    fim enquanto;
+ 
+ se ((a e b) ou (b e c) ou ((b=3) ou (c=4))) entao
+ 	escreva(a);
+ fim se;
  
 fim.

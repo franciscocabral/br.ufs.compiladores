@@ -261,6 +261,12 @@ public class AnalysisAdapter implements Analysis
     }
 
     @Override
+    public void caseAParaPassoComando(AParaPassoComando node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
     public void caseAAtribuicaoAtribuicoes(AAtribuicaoAtribuicoes node)
     {
         defaultCase(node);
@@ -291,12 +297,6 @@ public class AnalysisAdapter implements Analysis
     }
 
     @Override
-    public void caseANadaPassoEstruturas(ANadaPassoEstruturas node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
     public void caseAAteAteEstrutura(AAteAteEstrutura node)
     {
         defaultCase(node);
@@ -309,7 +309,7 @@ public class AnalysisAdapter implements Analysis
     }
 
     @Override
-    public void caseASeEntaoSeEntaoEstruturas(ASeEntaoSeEntaoEstruturas node)
+    public void caseASeSenaoSeSenaoEstruturas(ASeSenaoSeSenaoEstruturas node)
     {
         defaultCase(node);
     }
@@ -334,6 +334,12 @@ public class AnalysisAdapter implements Analysis
 
     @Override
     public void caseAParaParaEstruturas(AParaParaEstruturas node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAParaPassoParaPassoEstruturas(AParaPassoParaPassoEstruturas node)
     {
         defaultCase(node);
     }
@@ -375,7 +381,7 @@ public class AnalysisAdapter implements Analysis
     }
 
     @Override
-    public void caseAIdFator(AIdFator node)
+    public void caseAVarFator(AVarFator node)
     {
         defaultCase(node);
     }
@@ -598,6 +604,18 @@ public class AnalysisAdapter implements Analysis
 
     @Override
     public void caseTFParenteses(TFParenteses node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseTAChave(TAChave node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseTFChave(TFChave node)
     {
         defaultCase(node);
     }

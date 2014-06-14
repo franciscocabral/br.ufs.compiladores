@@ -708,9 +708,9 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
     public void caseASeEntaoComando(ASeEntaoComando node)
     {
         inASeEntaoComando(node);
-        if(node.getSeEntaoEstruturas() != null)
+        if(node.getSeSenaoEstruturas() != null)
         {
-            node.getSeEntaoEstruturas().apply(this);
+            node.getSeSenaoEstruturas().apply(this);
         }
         outASeEntaoComando(node);
     }
@@ -797,6 +797,27 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
             node.getParaEstruturas().apply(this);
         }
         outAParaComando(node);
+    }
+
+    public void inAParaPassoComando(AParaPassoComando node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAParaPassoComando(AParaPassoComando node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAParaPassoComando(AParaPassoComando node)
+    {
+        inAParaPassoComando(node);
+        if(node.getParaPassoEstruturas() != null)
+        {
+            node.getParaPassoEstruturas().apply(this);
+        }
+        outAParaPassoComando(node);
     }
 
     public void inAAtribuicaoAtribuicoes(AAtribuicaoAtribuicoes node)
@@ -956,23 +977,6 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         outAPassoPassoEstruturas(node);
     }
 
-    public void inANadaPassoEstruturas(ANadaPassoEstruturas node)
-    {
-        defaultIn(node);
-    }
-
-    public void outANadaPassoEstruturas(ANadaPassoEstruturas node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseANadaPassoEstruturas(ANadaPassoEstruturas node)
-    {
-        inANadaPassoEstruturas(node);
-        outANadaPassoEstruturas(node);
-    }
-
     public void inAAteAteEstrutura(AAteAteEstrutura node)
     {
         defaultIn(node);
@@ -987,9 +991,9 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
     public void caseAAteAteEstrutura(AAteAteEstrutura node)
     {
         inAAteAteEstrutura(node);
-        if(node.getInteiro() != null)
+        if(node.getVariavel() != null)
         {
-            node.getInteiro().apply(this);
+            node.getVariavel().apply(this);
         }
         if(node.getAte() != null)
         {
@@ -1012,6 +1016,10 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
     public void caseASeSeEstruturas(ASeSeEstruturas node)
     {
         inASeSeEstruturas(node);
+        if(node.getPontovirgula() != null)
+        {
+            node.getPontovirgula().apply(this);
+        }
         if(node.getFimSe() != null)
         {
             node.getFimSe().apply(this);
@@ -1043,20 +1051,20 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         outASeSeEstruturas(node);
     }
 
-    public void inASeEntaoSeEntaoEstruturas(ASeEntaoSeEntaoEstruturas node)
+    public void inASeSenaoSeSenaoEstruturas(ASeSenaoSeSenaoEstruturas node)
     {
         defaultIn(node);
     }
 
-    public void outASeEntaoSeEntaoEstruturas(ASeEntaoSeEntaoEstruturas node)
+    public void outASeSenaoSeSenaoEstruturas(ASeSenaoSeSenaoEstruturas node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseASeEntaoSeEntaoEstruturas(ASeEntaoSeEntaoEstruturas node)
+    public void caseASeSenaoSeSenaoEstruturas(ASeSenaoSeSenaoEstruturas node)
     {
-        inASeEntaoSeEntaoEstruturas(node);
+        inASeSenaoSeSenaoEstruturas(node);
         if(node.getPontovirgula() != null)
         {
             node.getPontovirgula().apply(this);
@@ -1093,7 +1101,7 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         {
             node.getSe().apply(this);
         }
-        outASeEntaoSeEntaoEstruturas(node);
+        outASeSenaoSeSenaoEstruturas(node);
     }
 
     public void inAAvalieAvalieEstruturas(AAvalieAvalieEstruturas node)
@@ -1220,13 +1228,13 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         {
             node.getExpressaoLogica().apply(this);
         }
-        if(node.getAte() != null)
-        {
-            node.getAte().apply(this);
-        }
         if(node.getAParenteses() != null)
         {
             node.getAParenteses().apply(this);
+        }
+        if(node.getAte() != null)
+        {
+            node.getAte().apply(this);
         }
         if(node.getBlocoComando() != null)
         {
@@ -1273,10 +1281,6 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         {
             node.getAteEstrutura().apply(this);
         }
-        if(node.getPassoEstruturas() != null)
-        {
-            node.getPassoEstruturas().apply(this);
-        }
         if(node.getInteiro() != null)
         {
             node.getInteiro().apply(this);
@@ -1294,6 +1298,63 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
             node.getPara().apply(this);
         }
         outAParaParaEstruturas(node);
+    }
+
+    public void inAParaPassoParaPassoEstruturas(AParaPassoParaPassoEstruturas node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAParaPassoParaPassoEstruturas(AParaPassoParaPassoEstruturas node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAParaPassoParaPassoEstruturas(AParaPassoParaPassoEstruturas node)
+    {
+        inAParaPassoParaPassoEstruturas(node);
+        if(node.getPontovirgula() != null)
+        {
+            node.getPontovirgula().apply(this);
+        }
+        if(node.getFimPara() != null)
+        {
+            node.getFimPara().apply(this);
+        }
+        if(node.getBlocoComando() != null)
+        {
+            node.getBlocoComando().apply(this);
+        }
+        if(node.getFaca() != null)
+        {
+            node.getFaca().apply(this);
+        }
+        if(node.getPassoEstruturas() != null)
+        {
+            node.getPassoEstruturas().apply(this);
+        }
+        if(node.getAteEstrutura() != null)
+        {
+            node.getAteEstrutura().apply(this);
+        }
+        if(node.getInteiro() != null)
+        {
+            node.getInteiro().apply(this);
+        }
+        if(node.getDe() != null)
+        {
+            node.getDe().apply(this);
+        }
+        if(node.getVariavel() != null)
+        {
+            node.getVariavel().apply(this);
+        }
+        if(node.getPara() != null)
+        {
+            node.getPara().apply(this);
+        }
+        outAParaPassoParaPassoEstruturas(node);
     }
 
     public void inASomasExpressao(ASomasExpressao node)
@@ -1446,25 +1507,25 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         outAValorFator(node);
     }
 
-    public void inAIdFator(AIdFator node)
+    public void inAVarFator(AVarFator node)
     {
         defaultIn(node);
     }
 
-    public void outAIdFator(AIdFator node)
+    public void outAVarFator(AVarFator node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAIdFator(AIdFator node)
+    public void caseAVarFator(AVarFator node)
     {
-        inAIdFator(node);
+        inAVarFator(node);
         if(node.getVariavel() != null)
         {
             node.getVariavel().apply(this);
         }
-        outAIdFator(node);
+        outAVarFator(node);
     }
 
     public void inAMaisSoma(AMaisSoma node)

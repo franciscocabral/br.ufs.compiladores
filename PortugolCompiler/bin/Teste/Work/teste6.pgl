@@ -5,10 +5,10 @@ inicio
     
     leia(x);
 
-    // "se" que dir√° se o valor do x √© divisivel por 2  
+    // "se" que dir· se o valor do x È divisivel por 2  
     se ((x resto 2) = 0) entao 
       escreva('Divisivel por dois');  
     senao  
-      escreva('Nao √© divisivel por dois');  
+      escreva('Nao È divisivel por dois');  
     fim se;     
 fim.

@@ -3,11 +3,11 @@ inicio
  
   inteiro: n, i, fatorial; 
 
-  //escreva('Digite um numero: '); 
-  //leia(n); 
+  escreva('Digite um numero: '); 
+  leia(n); 
 
   fatorial <- 1; 
-  para i de 1 ate 10 faca 
+  para i de 1 ate n faca 
     fatorial <- fatorial * i;
   fim para; 
 
