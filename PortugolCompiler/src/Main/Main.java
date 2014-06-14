@@ -30,7 +30,7 @@ public class Main {
         //Entrada por argumentos
         String fileDir = "";
         if (TEST) {
-            fileDir = "C:\\Users\\ygormax\\Documents\\NetBeansProjects\\Trabalho-de-Compiladores-UFS-2014.1\\src\\Teste\\Work\\teste1.pgl";
+            fileDir = "C:\\Users\\ygormax\\git\\portugol-compiler\\PortugolCompiler\\src\\Teste\\Work\\teste1.pgl";
         } else {
             if (arguments.length < 1) {
                 System.out.println("File:");

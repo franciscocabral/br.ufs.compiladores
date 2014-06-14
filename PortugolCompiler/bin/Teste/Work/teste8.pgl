@@ -1,12 +1,13 @@
 programa teste8
 inicio
 
+          
   inteiro: x, i;
    
   leia(x);
   
   para i de 1 ate x passo 2 faca
-  	escreva(i);   
+  	 escreva(i);   
   fim para;
  
 fim.

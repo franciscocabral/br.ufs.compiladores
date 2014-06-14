@@ -133,7 +133,7 @@ Tokens
     {normal} n_inteiro           = 'inteiro';
     {normal} n_caractere         = 'caractere';
 
-    {normal} id                  = letras letras_ou_numeros*;
+    {normal} id                  = letras | letras letras_ou_numeros*;
 
 Ignored Tokens
    comentario, comentario_linha, branco;
@@ -244,8 +244,8 @@ Productions
     negacao_logica      = {negacao_logica}      sinal_logico_nao expressao   
                         //| {negacao_parenteses}  sinal_logico_nao a_parenteses expressao_logica f_parenteses
                         //| {parenteses}          a_parenteses expressao_logica f_parenteses
-                        | {expressao}           expressao;
-                        |{expressao_logica}           expressao_logica;
+                          | {expressao}           expressao;
+                        //|{expressao_logica}           expressao_logica;
 
     // Fiz desta forma baseado em um exemplo. Veja se funciona. Não testei.
     //expressao_logica1    = {expressao_logica} a_parenteses [esquerda]:valor sinal_relacional [direita]:valor f_parenteses 

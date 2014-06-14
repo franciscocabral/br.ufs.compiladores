@@ -1,26 +1,23 @@
 programa teste12
 inicio
    
-    inteiro: vetor[5];
-    inteiro: x, i;
- 
-    escreva('digite 5 numeros ');
- 
-    para i de 0 ate 5 passo 1 faca   /*Este laco faz a leitura de cada elemento do vetor*/  
+    inteiro: vetor[4];
+    inteiro: k,x, i;
+       
+    k <- 4;
+                          
+    para i de 0 ate k passo 1 faca   /*Este laco faz a leitura de cada elemento do vetor*/  
        leia(vetor[i]);
     fim para;
-    i <- 1;
-    x <- vetor[0];
 
-    enquanto (i < 5) faca /*Este laco compara cada elemento do vetor*/
-        se (vetor[i] > x)
-           x <- vetor[i];
-        fim se;
-        i<- i + 1;
+    x <- 0;
+    enquanto (x < 5) faca /*Este laco compara cada elemento do vetor*/
+       leia(vetor[0]);
+       x <- x + 1;
     fim enquanto;
     
-    escreva(' O maior numero que voce digitou foi ', x);
+   // escreva(' O maior numero que voce digitou foi ', x);
 
-  retorne 0;
+  //retorne 0;
 
 fim.
