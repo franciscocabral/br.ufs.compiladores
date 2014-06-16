@@ -1,23 +1,26 @@
 programa teste12
 inicio
    
-    inteiro: vetor[4];
-    inteiro: k,x, i;
+    inteiro: k, i;
        
-    k <- 4;
-                          
-    para i de 0 ate k passo 1 faca   /*Este laco faz a leitura de cada elemento do vetor*/  
-       leia(vetor[i]);
-    fim para;
-
-    x <- 0;
-    enquanto (x < 5) faca /*Este laco compara cada elemento do vetor*/
-       leia(vetor[0]);
-       x <- x + 1;
-    fim enquanto;
+    leia(k);
     
-   // escreva(' O maior numero que voce digitou foi ', x);
-
-  //retorne 0;
+    se (k > 0) entao                    
+       para i de 0 ate k faca  
+         escreva('Numeros positivos:', i);   
+         i <- i + 1;
+        fim para;
+    senao 
+       se (k < 0) entao 
+          para i de 0 ate k faca  
+            escreva('Numeros negativos:', i);   
+            i <- i - 1;
+          fim para;
+       senao
+          se (k = 0) entao
+            escreva(k);
+          fim se;
+       fim se;
+    fim se;   
 
 fim.
