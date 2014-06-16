@@ -1,10 +1,16 @@
-programa teste10
+programa teste16
 inicio
    
-   inteiro: anterior, atual, prox_val;
-
-    se ((a e b) ou (b e c) ou ((b=3) ou (c=4))) entao
- 	  escreva(a);
+   inteiro: a,b;
+   leia(a,b);
+   
+    se ((a) e (b)) entao
+      escreva(a); 
     fim se;
+    
+    se (a ou b) entao
+       escreva(b); 
+    fim se;   
+    
 
 fim.

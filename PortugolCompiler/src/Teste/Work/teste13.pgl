@@ -5,7 +5,7 @@ inicio
     inteiro: contador; //declaração do contador
     
     contador <- 1; //atribuição de valor ao contador
-    repita //início da estrutura de repetição 
+    repita //inicio da estrutura de repeti�ao 
          escreva('Digite as notas do aluno ',contador,':');
          escreva('Primeira nota:');
          leia(nota1);

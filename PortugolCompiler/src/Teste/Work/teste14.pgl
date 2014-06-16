@@ -1,32 +1,29 @@
 programa teste14
 inicio
    
-    inteiro: valor; 
+    inteiro: numero; 
     
-    escreva('Digite um valor de 1 a 7: ');
-    leia(valor);
+    escreva('Digite um numero de 1 a 7: ');
+    leia(numero);
  
-    avalie (valor)
+    avalie (numero)
      caso 1 :
-       escreva('Domingo');     
-      
+       escreva('Domingo');        
      caso 2 :
        escreva('Segunda');
-      
      caso 3 :
-        escreva('TerÃ§a');
-           
+        escreva('Terça');
      caso 4 :
         escreva('Quarta');
-      
      caso 5 :
         escreva('Quinta');
-      
      caso 6 :
         escreva('Sexta');
-    
      caso 7 :
         escreva('Sabado');
+   
+     senao
+        escreva('Valor invalido');
     
     fim avalie;
 
