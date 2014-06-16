@@ -192,6 +192,7 @@ Productions
     ate_estrutura       = {ate}                 ate variavel;
 
     se_estruturas       = {se}                  se a_parenteses expressao_logica f_parenteses entao bloco_comando fim_se pontovirgula;
+                        //| {se_a}                  se a_parenteses* expressao_logica f_parenteses* entao bloco_comando fim_se pontovirgula;
     se_senao_estruturas = {se_senao}            se a_parenteses expressao_logica f_parenteses entao bloco_comando senao_estruturas fim_se pontovirgula;
     avalie_estruturas   = {avalie}              avalie a_parenteses expressao f_parenteses bloco_caso senao_estruturas fim_avalie pontovirgula;
     enquanto_estruturas = {enquanto}            enquanto a_parenteses expressao_logica f_parenteses faca bloco_comando fim_enquanto pontovirgula;
@@ -206,7 +207,7 @@ Productions
     fator               = {parenteses}          a_parenteses expressao f_parenteses
                         | {valor}               valor
                         | {var}                 variavel;
-                        //|{expressao_logica}   expressao_logica;
+                      //  | {expressao_logica}    a_parenteses expressao_logica f_parenteses;
     
     soma                = {mais}                mais
                         | {menos}               menos;
@@ -223,8 +224,9 @@ Productions
                         | {maior}               maior
                         | {menor}               menor;
 
-    sinal_logico_ou     = {ou}                  ou
+    sinal_logico_ou   = {ou}                  ou
                         | {xor}                 xor;
+                        //| {e}                   e;
 
     sinal_logico_e      = {e}                   e;
 
@@ -239,16 +241,20 @@ Productions
     termo_logico        = {termo_logico}        termo_logico sinal_logico_ou fator_logico
                         | {fator_logico}        fator_logico;
     fator_logico        = {fator_logico}        fator_logico sinal_logico_e negacao_logica
-                        | {negacao_logica}      negacao_logica;
+                        //  | {fator_a}           a_parenteses expressao_logica f_parenteses
+                        //| {fator_logicoo}       fator_logico negacao_logica
+                        | {negacao_logica}      negacao_logica?;
+          
     // Assim você testou?
     negacao_logica      = {negacao_logica}      sinal_logico_nao expressao   
                         //| {negacao_parenteses}  sinal_logico_nao a_parenteses expressao_logica f_parenteses
                         //| {parenteses}          a_parenteses expressao_logica f_parenteses
                           | {expressao}           expressao;
-                        //|{expressao_logica}           expressao_logica;
+                        //  | {expressao_logica}     a_parenteses expressao_logica f_parenteses;
 
-    // Fiz desta forma baseado em um exemplo. Veja se funciona. Não testei.
-    //expressao_logica1    = {expressao_logica} a_parenteses [esquerda]:valor sinal_relacional [direita]:valor f_parenteses 
-    //                    | {duas_exp_e} a_parenteses [esquerda]:valor sinal_logico_e [direita]:valor f_parenteses 
-    //                    | {duas_exp_ou} a_parenteses [esquerda]:valor sinal_logico_ou [direita]:valor f_parenteses 
-    //                    | {uma_exp} nao? valor;
+    // Fiz desta forma baseado em um exemplo. 
+  /*  expressao_logica    = {expressao_logica} a_parenteses variavel sinal_relacional variavel f_parenteses 
+                        | {duas_exp_e} a_parenteses variavel sinal_logico_e variavel f_parenteses 
+                        | {duas_exp_ou} a_parenteses variavel sinal_logico_ou variavel f_parenteses 
+                        | {uma_exp} nao? variavel;
+  */
