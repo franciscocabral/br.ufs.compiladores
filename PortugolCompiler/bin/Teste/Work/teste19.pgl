@@ -1,0 +1,31 @@
+programa teste17
+inicio
+   
+   inteiro: x,y;
+   leia(x,y);
+   
+    se nao(x = y) entao // Equivalente a x <> y
+        escreva(x); 
+    fim se;
+    
+    se nao(x <> y) entao // Equivalente a x = y
+      escreva(x); 
+    fim se;
+
+    se !(x > y) entao // Equivalente a x <= y
+      escreva(x); 
+    fim se;
+    
+    se nao(x < y) entao // Equivalente a x >= y
+       escreva(x); 
+    fim se;
+    
+    se nao(x >= y) entao // Equivalente a x < y
+      escreva(x); 
+    fim se;
+    
+    se nao(x <= y) entao // Equivalente a x > y
+      escreva(x); 
+    fim se;
+     
+fim.
