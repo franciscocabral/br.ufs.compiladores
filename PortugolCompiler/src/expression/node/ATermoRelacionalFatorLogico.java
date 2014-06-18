@@ -5,46 +5,46 @@ package expression.node;
 import expression.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AIgualdadeSinalRelacional extends PSinalRelacional
+public final class ATermoRelacionalFatorLogico extends PFatorLogico
 {
-    private TIgual _igual_;
+    private PTermoRelacional _termoRelacional_;
 
-    public AIgualdadeSinalRelacional()
+    public ATermoRelacionalFatorLogico()
     {
         // Constructor
     }
 
-    public AIgualdadeSinalRelacional(
-        @SuppressWarnings("hiding") TIgual _igual_)
+    public ATermoRelacionalFatorLogico(
+        @SuppressWarnings("hiding") PTermoRelacional _termoRelacional_)
     {
         // Constructor
-        setIgual(_igual_);
+        setTermoRelacional(_termoRelacional_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new AIgualdadeSinalRelacional(
-            cloneNode(this._igual_));
+        return new ATermoRelacionalFatorLogico(
+            cloneNode(this._termoRelacional_));
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAIgualdadeSinalRelacional(this);
+        ((Analysis) sw).caseATermoRelacionalFatorLogico(this);
     }
 
-    public TIgual getIgual()
+    public PTermoRelacional getTermoRelacional()
     {
-        return this._igual_;
+        return this._termoRelacional_;
     }
 
-    public void setIgual(TIgual node)
+    public void setTermoRelacional(PTermoRelacional node)
     {
-        if(this._igual_ != null)
+        if(this._termoRelacional_ != null)
         {
-            this._igual_.parent(null);
+            this._termoRelacional_.parent(null);
         }
 
         if(node != null)
@@ -57,23 +57,23 @@ public final class AIgualdadeSinalRelacional extends PSinalRelacional
             node.parent(this);
         }
 
-        this._igual_ = node;
+        this._termoRelacional_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._igual_);
+            + toString(this._termoRelacional_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._igual_ == child)
+        if(this._termoRelacional_ == child)
         {
-            this._igual_ = null;
+            this._termoRelacional_ = null;
             return;
         }
 
@@ -84,9 +84,9 @@ public final class AIgualdadeSinalRelacional extends PSinalRelacional
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._igual_ == oldChild)
+        if(this._termoRelacional_ == oldChild)
         {
-            setIgual((TIgual) newChild);
+            setTermoRelacional((PTermoRelacional) newChild);
             return;
         }
 

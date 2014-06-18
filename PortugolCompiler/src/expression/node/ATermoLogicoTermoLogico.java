@@ -8,7 +8,7 @@ import expression.analysis.*;
 public final class ATermoLogicoTermoLogico extends PTermoLogico
 {
     private PTermoLogico _termoLogico_;
-    private PSinalLogicoOu _sinalLogicoOu_;
+    private PSinalLogicoE _sinalLogicoE_;
     private PFatorLogico _fatorLogico_;
 
     public ATermoLogicoTermoLogico()
@@ -18,13 +18,13 @@ public final class ATermoLogicoTermoLogico extends PTermoLogico
 
     public ATermoLogicoTermoLogico(
         @SuppressWarnings("hiding") PTermoLogico _termoLogico_,
-        @SuppressWarnings("hiding") PSinalLogicoOu _sinalLogicoOu_,
+        @SuppressWarnings("hiding") PSinalLogicoE _sinalLogicoE_,
         @SuppressWarnings("hiding") PFatorLogico _fatorLogico_)
     {
         // Constructor
         setTermoLogico(_termoLogico_);
 
-        setSinalLogicoOu(_sinalLogicoOu_);
+        setSinalLogicoE(_sinalLogicoE_);
 
         setFatorLogico(_fatorLogico_);
 
@@ -35,7 +35,7 @@ public final class ATermoLogicoTermoLogico extends PTermoLogico
     {
         return new ATermoLogicoTermoLogico(
             cloneNode(this._termoLogico_),
-            cloneNode(this._sinalLogicoOu_),
+            cloneNode(this._sinalLogicoE_),
             cloneNode(this._fatorLogico_));
     }
 
@@ -70,16 +70,16 @@ public final class ATermoLogicoTermoLogico extends PTermoLogico
         this._termoLogico_ = node;
     }
 
-    public PSinalLogicoOu getSinalLogicoOu()
+    public PSinalLogicoE getSinalLogicoE()
     {
-        return this._sinalLogicoOu_;
+        return this._sinalLogicoE_;
     }
 
-    public void setSinalLogicoOu(PSinalLogicoOu node)
+    public void setSinalLogicoE(PSinalLogicoE node)
     {
-        if(this._sinalLogicoOu_ != null)
+        if(this._sinalLogicoE_ != null)
         {
-            this._sinalLogicoOu_.parent(null);
+            this._sinalLogicoE_.parent(null);
         }
 
         if(node != null)
@@ -92,7 +92,7 @@ public final class ATermoLogicoTermoLogico extends PTermoLogico
             node.parent(this);
         }
 
-        this._sinalLogicoOu_ = node;
+        this._sinalLogicoE_ = node;
     }
 
     public PFatorLogico getFatorLogico()
@@ -125,7 +125,7 @@ public final class ATermoLogicoTermoLogico extends PTermoLogico
     {
         return ""
             + toString(this._termoLogico_)
-            + toString(this._sinalLogicoOu_)
+            + toString(this._sinalLogicoE_)
             + toString(this._fatorLogico_);
     }
 
@@ -139,9 +139,9 @@ public final class ATermoLogicoTermoLogico extends PTermoLogico
             return;
         }
 
-        if(this._sinalLogicoOu_ == child)
+        if(this._sinalLogicoE_ == child)
         {
-            this._sinalLogicoOu_ = null;
+            this._sinalLogicoE_ = null;
             return;
         }
 
@@ -164,9 +164,9 @@ public final class ATermoLogicoTermoLogico extends PTermoLogico
             return;
         }
 
-        if(this._sinalLogicoOu_ == oldChild)
+        if(this._sinalLogicoE_ == oldChild)
         {
-            setSinalLogicoOu((PSinalLogicoOu) newChild);
+            setSinalLogicoE((PSinalLogicoE) newChild);
             return;
         }
 

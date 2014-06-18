@@ -5,18 +5,18 @@ package expression.node;
 import expression.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AExpressaoLogicaFator extends PFator
+public final class AParentesesParenteses extends PParenteses
 {
     private TAParenteses _aParenteses_;
     private PExpressaoLogica _expressaoLogica_;
     private TFParenteses _fParenteses_;
 
-    public AExpressaoLogicaFator()
+    public AParentesesParenteses()
     {
         // Constructor
     }
 
-    public AExpressaoLogicaFator(
+    public AParentesesParenteses(
         @SuppressWarnings("hiding") TAParenteses _aParenteses_,
         @SuppressWarnings("hiding") PExpressaoLogica _expressaoLogica_,
         @SuppressWarnings("hiding") TFParenteses _fParenteses_)
@@ -33,7 +33,7 @@ public final class AExpressaoLogicaFator extends PFator
     @Override
     public Object clone()
     {
-        return new AExpressaoLogicaFator(
+        return new AParentesesParenteses(
             cloneNode(this._aParenteses_),
             cloneNode(this._expressaoLogica_),
             cloneNode(this._fParenteses_));
@@ -42,7 +42,7 @@ public final class AExpressaoLogicaFator extends PFator
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAExpressaoLogicaFator(this);
+        ((Analysis) sw).caseAParentesesParenteses(this);
     }
 
     public TAParenteses getAParenteses()

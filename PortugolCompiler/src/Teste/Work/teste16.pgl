@@ -10,7 +10,6 @@ inicio
     
     se (a ou b) entao
        escreva(b); 
-    fim se;   
-    
+    fim se;     
 
 fim.

@@ -5,46 +5,46 @@ package expression.node;
 import expression.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AFatorAFatorLogico extends PFatorLogico
+public final class AFatorAritmeticoTermoAritmetico extends PTermoAritmetico
 {
-    private PExpressaoLogica _expressaoLogica_;
+    private PFatorAritmetico _fatorAritmetico_;
 
-    public AFatorAFatorLogico()
+    public AFatorAritmeticoTermoAritmetico()
     {
         // Constructor
     }
 
-    public AFatorAFatorLogico(
-        @SuppressWarnings("hiding") PExpressaoLogica _expressaoLogica_)
+    public AFatorAritmeticoTermoAritmetico(
+        @SuppressWarnings("hiding") PFatorAritmetico _fatorAritmetico_)
     {
         // Constructor
-        setExpressaoLogica(_expressaoLogica_);
+        setFatorAritmetico(_fatorAritmetico_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new AFatorAFatorLogico(
-            cloneNode(this._expressaoLogica_));
+        return new AFatorAritmeticoTermoAritmetico(
+            cloneNode(this._fatorAritmetico_));
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAFatorAFatorLogico(this);
+        ((Analysis) sw).caseAFatorAritmeticoTermoAritmetico(this);
     }
 
-    public PExpressaoLogica getExpressaoLogica()
+    public PFatorAritmetico getFatorAritmetico()
     {
-        return this._expressaoLogica_;
+        return this._fatorAritmetico_;
     }
 
-    public void setExpressaoLogica(PExpressaoLogica node)
+    public void setFatorAritmetico(PFatorAritmetico node)
     {
-        if(this._expressaoLogica_ != null)
+        if(this._fatorAritmetico_ != null)
         {
-            this._expressaoLogica_.parent(null);
+            this._fatorAritmetico_.parent(null);
         }
 
         if(node != null)
@@ -57,23 +57,23 @@ public final class AFatorAFatorLogico extends PFatorLogico
             node.parent(this);
         }
 
-        this._expressaoLogica_ = node;
+        this._fatorAritmetico_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._expressaoLogica_);
+            + toString(this._fatorAritmetico_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._expressaoLogica_ == child)
+        if(this._fatorAritmetico_ == child)
         {
-            this._expressaoLogica_ = null;
+            this._fatorAritmetico_ = null;
             return;
         }
 
@@ -84,9 +84,9 @@ public final class AFatorAFatorLogico extends PFatorLogico
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._expressaoLogica_ == oldChild)
+        if(this._fatorAritmetico_ == oldChild)
         {
-            setExpressaoLogica((PExpressaoLogica) newChild);
+            setFatorAritmetico((PFatorAritmetico) newChild);
             return;
         }
 

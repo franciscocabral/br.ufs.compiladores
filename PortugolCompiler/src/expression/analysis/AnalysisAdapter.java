@@ -345,6 +345,96 @@ public class AnalysisAdapter implements Analysis
     }
 
     @Override
+    public void caseAVezesMultiplicacao(AVezesMultiplicacao node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseADivididoMultiplicacao(ADivididoMultiplicacao node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseARestoMultiplicacao(ARestoMultiplicacao node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAMaisSoma(AMaisSoma node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAMenosSoma(AMenosSoma node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAMaiorIgualSinalRelacional(AMaiorIgualSinalRelacional node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAMenorIgualSinalRelacional(AMenorIgualSinalRelacional node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAMaiorSinalRelacional(AMaiorSinalRelacional node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAMenorSinalRelacional(AMenorSinalRelacional node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAIgualdadeSinalIgualgade(AIgualdadeSinalIgualgade node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseADiferencaSinalIgualgade(ADiferencaSinalIgualgade node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAOuSinalLogicoOu(AOuSinalLogicoOu node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAXorSinalLogicoOu(AXorSinalLogicoOu node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAESinalLogicoE(AESinalLogicoE node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseANaoSinalLogicoNao(ANaoSinalLogicoNao node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
     public void caseASomasExpressao(ASomasExpressao node)
     {
         defaultCase(node);
@@ -387,96 +477,6 @@ public class AnalysisAdapter implements Analysis
     }
 
     @Override
-    public void caseAMaisSoma(AMaisSoma node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
-    public void caseAMenosSoma(AMenosSoma node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
-    public void caseAVezesMultiplicacao(AVezesMultiplicacao node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
-    public void caseADivididoMultiplicacao(ADivididoMultiplicacao node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
-    public void caseARestoMultiplicacao(ARestoMultiplicacao node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
-    public void caseAIgualdadeSinalRelacional(AIgualdadeSinalRelacional node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
-    public void caseADiferencaSinalRelacional(ADiferencaSinalRelacional node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
-    public void caseAMaiorIgualSinalRelacional(AMaiorIgualSinalRelacional node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
-    public void caseAMenorIgualSinalRelacional(AMenorIgualSinalRelacional node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
-    public void caseAMaiorSinalRelacional(AMaiorSinalRelacional node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
-    public void caseAMenorSinalRelacional(AMenorSinalRelacional node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
-    public void caseAOuSinalLogicoOu(AOuSinalLogicoOu node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
-    public void caseAXorSinalLogicoOu(AXorSinalLogicoOu node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
-    public void caseAESinalLogicoE(AESinalLogicoE node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
-    public void caseANaoSinalLogicoNao(ANaoSinalLogicoNao node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
     public void caseAExpressaoLogicaExpressaoLogica(AExpressaoLogicaExpressaoLogica node)
     {
         defaultCase(node);
@@ -507,19 +507,73 @@ public class AnalysisAdapter implements Analysis
     }
 
     @Override
-    public void caseANegacaoLogicaFatorLogico(ANegacaoLogicaFatorLogico node)
+    public void caseATermoRelacionalFatorLogico(ATermoRelacionalFatorLogico node)
     {
         defaultCase(node);
     }
 
     @Override
-    public void caseANegacaoLogicaNegacaoLogica(ANegacaoLogicaNegacaoLogica node)
+    public void caseATermoRelacionalTermoRelacional(ATermoRelacionalTermoRelacional node)
     {
         defaultCase(node);
     }
 
     @Override
-    public void caseAExpressaoNegacaoLogica(AExpressaoNegacaoLogica node)
+    public void caseAFatorRelacionalTermoRelacional(AFatorRelacionalTermoRelacional node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAFatorRelacionalFatorRelacional(AFatorRelacionalFatorRelacional node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseATermoAritmeticoFatorRelacional(ATermoAritmeticoFatorRelacional node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseATermoAritmeticoTermoAritmetico(ATermoAritmeticoTermoAritmetico node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAFatorAritmeticoTermoAritmetico(AFatorAritmeticoTermoAritmetico node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAFatorAritmeticoFatorAritmetico(AFatorAritmeticoFatorAritmetico node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseATermoAritmeticoFatorAritmetico(ATermoAritmeticoFatorAritmetico node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAParentesesParenteses(AParentesesParenteses node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAValorParenteses(AValorParenteses node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAVarParenteses(AVarParenteses node)
     {
         defaultCase(node);
     }

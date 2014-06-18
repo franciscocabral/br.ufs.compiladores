@@ -5,46 +5,46 @@ package expression.node;
 import expression.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AExpressaoNegacaoLogica extends PNegacaoLogica
+public final class AIgualdadeSinalIgualgade extends PSinalIgualgade
 {
-    private PExpressao _expressao_;
+    private TIgual _igual_;
 
-    public AExpressaoNegacaoLogica()
+    public AIgualdadeSinalIgualgade()
     {
         // Constructor
     }
 
-    public AExpressaoNegacaoLogica(
-        @SuppressWarnings("hiding") PExpressao _expressao_)
+    public AIgualdadeSinalIgualgade(
+        @SuppressWarnings("hiding") TIgual _igual_)
     {
         // Constructor
-        setExpressao(_expressao_);
+        setIgual(_igual_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new AExpressaoNegacaoLogica(
-            cloneNode(this._expressao_));
+        return new AIgualdadeSinalIgualgade(
+            cloneNode(this._igual_));
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAExpressaoNegacaoLogica(this);
+        ((Analysis) sw).caseAIgualdadeSinalIgualgade(this);
     }
 
-    public PExpressao getExpressao()
+    public TIgual getIgual()
     {
-        return this._expressao_;
+        return this._igual_;
     }
 
-    public void setExpressao(PExpressao node)
+    public void setIgual(TIgual node)
     {
-        if(this._expressao_ != null)
+        if(this._igual_ != null)
         {
-            this._expressao_.parent(null);
+            this._igual_.parent(null);
         }
 
         if(node != null)
@@ -57,23 +57,23 @@ public final class AExpressaoNegacaoLogica extends PNegacaoLogica
             node.parent(this);
         }
 
-        this._expressao_ = node;
+        this._igual_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._expressao_);
+            + toString(this._igual_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._expressao_ == child)
+        if(this._igual_ == child)
         {
-            this._expressao_ = null;
+            this._igual_ = null;
             return;
         }
 
@@ -84,9 +84,9 @@ public final class AExpressaoNegacaoLogica extends PNegacaoLogica
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._expressao_ == oldChild)
+        if(this._igual_ == oldChild)
         {
-            setExpressao((PExpressao) newChild);
+            setIgual((TIgual) newChild);
             return;
         }
 

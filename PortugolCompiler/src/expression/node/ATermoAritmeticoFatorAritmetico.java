@@ -5,46 +5,46 @@ package expression.node;
 import expression.analysis.*;
 
 @SuppressWarnings("nls")
-public final class ADiferencaSinalRelacional extends PSinalRelacional
+public final class ATermoAritmeticoFatorAritmetico extends PFatorAritmetico
 {
-    private TDiferente _diferente_;
+    private PParenteses _parenteses_;
 
-    public ADiferencaSinalRelacional()
+    public ATermoAritmeticoFatorAritmetico()
     {
         // Constructor
     }
 
-    public ADiferencaSinalRelacional(
-        @SuppressWarnings("hiding") TDiferente _diferente_)
+    public ATermoAritmeticoFatorAritmetico(
+        @SuppressWarnings("hiding") PParenteses _parenteses_)
     {
         // Constructor
-        setDiferente(_diferente_);
+        setParenteses(_parenteses_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new ADiferencaSinalRelacional(
-            cloneNode(this._diferente_));
+        return new ATermoAritmeticoFatorAritmetico(
+            cloneNode(this._parenteses_));
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseADiferencaSinalRelacional(this);
+        ((Analysis) sw).caseATermoAritmeticoFatorAritmetico(this);
     }
 
-    public TDiferente getDiferente()
+    public PParenteses getParenteses()
     {
-        return this._diferente_;
+        return this._parenteses_;
     }
 
-    public void setDiferente(TDiferente node)
+    public void setParenteses(PParenteses node)
     {
-        if(this._diferente_ != null)
+        if(this._parenteses_ != null)
         {
-            this._diferente_.parent(null);
+            this._parenteses_.parent(null);
         }
 
         if(node != null)
@@ -57,23 +57,23 @@ public final class ADiferencaSinalRelacional extends PSinalRelacional
             node.parent(this);
         }
 
-        this._diferente_ = node;
+        this._parenteses_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._diferente_);
+            + toString(this._parenteses_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._diferente_ == child)
+        if(this._parenteses_ == child)
         {
-            this._diferente_ = null;
+            this._parenteses_ = null;
             return;
         }
 
@@ -84,9 +84,9 @@ public final class ADiferencaSinalRelacional extends PSinalRelacional
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._diferente_ == oldChild)
+        if(this._parenteses_ == oldChild)
         {
-            setDiferente((TDiferente) newChild);
+            setParenteses((PParenteses) newChild);
             return;
         }
 

@@ -8,8 +8,8 @@ import expression.analysis.*;
 public final class AFatorLogicoFatorLogico extends PFatorLogico
 {
     private PFatorLogico _fatorLogico_;
-    private PSinalLogicoE _sinalLogicoE_;
-    private PNegacaoLogica _negacaoLogica_;
+    private PSinalLogicoOu _sinalLogicoOu_;
+    private PTermoRelacional _termoRelacional_;
 
     public AFatorLogicoFatorLogico()
     {
@@ -18,15 +18,15 @@ public final class AFatorLogicoFatorLogico extends PFatorLogico
 
     public AFatorLogicoFatorLogico(
         @SuppressWarnings("hiding") PFatorLogico _fatorLogico_,
-        @SuppressWarnings("hiding") PSinalLogicoE _sinalLogicoE_,
-        @SuppressWarnings("hiding") PNegacaoLogica _negacaoLogica_)
+        @SuppressWarnings("hiding") PSinalLogicoOu _sinalLogicoOu_,
+        @SuppressWarnings("hiding") PTermoRelacional _termoRelacional_)
     {
         // Constructor
         setFatorLogico(_fatorLogico_);
 
-        setSinalLogicoE(_sinalLogicoE_);
+        setSinalLogicoOu(_sinalLogicoOu_);
 
-        setNegacaoLogica(_negacaoLogica_);
+        setTermoRelacional(_termoRelacional_);
 
     }
 
@@ -35,8 +35,8 @@ public final class AFatorLogicoFatorLogico extends PFatorLogico
     {
         return new AFatorLogicoFatorLogico(
             cloneNode(this._fatorLogico_),
-            cloneNode(this._sinalLogicoE_),
-            cloneNode(this._negacaoLogica_));
+            cloneNode(this._sinalLogicoOu_),
+            cloneNode(this._termoRelacional_));
     }
 
     @Override
@@ -70,16 +70,16 @@ public final class AFatorLogicoFatorLogico extends PFatorLogico
         this._fatorLogico_ = node;
     }
 
-    public PSinalLogicoE getSinalLogicoE()
+    public PSinalLogicoOu getSinalLogicoOu()
     {
-        return this._sinalLogicoE_;
+        return this._sinalLogicoOu_;
     }
 
-    public void setSinalLogicoE(PSinalLogicoE node)
+    public void setSinalLogicoOu(PSinalLogicoOu node)
     {
-        if(this._sinalLogicoE_ != null)
+        if(this._sinalLogicoOu_ != null)
         {
-            this._sinalLogicoE_.parent(null);
+            this._sinalLogicoOu_.parent(null);
         }
 
         if(node != null)
@@ -92,19 +92,19 @@ public final class AFatorLogicoFatorLogico extends PFatorLogico
             node.parent(this);
         }
 
-        this._sinalLogicoE_ = node;
+        this._sinalLogicoOu_ = node;
     }
 
-    public PNegacaoLogica getNegacaoLogica()
+    public PTermoRelacional getTermoRelacional()
     {
-        return this._negacaoLogica_;
+        return this._termoRelacional_;
     }
 
-    public void setNegacaoLogica(PNegacaoLogica node)
+    public void setTermoRelacional(PTermoRelacional node)
     {
-        if(this._negacaoLogica_ != null)
+        if(this._termoRelacional_ != null)
         {
-            this._negacaoLogica_.parent(null);
+            this._termoRelacional_.parent(null);
         }
 
         if(node != null)
@@ -117,7 +117,7 @@ public final class AFatorLogicoFatorLogico extends PFatorLogico
             node.parent(this);
         }
 
-        this._negacaoLogica_ = node;
+        this._termoRelacional_ = node;
     }
 
     @Override
@@ -125,8 +125,8 @@ public final class AFatorLogicoFatorLogico extends PFatorLogico
     {
         return ""
             + toString(this._fatorLogico_)
-            + toString(this._sinalLogicoE_)
-            + toString(this._negacaoLogica_);
+            + toString(this._sinalLogicoOu_)
+            + toString(this._termoRelacional_);
     }
 
     @Override
@@ -139,15 +139,15 @@ public final class AFatorLogicoFatorLogico extends PFatorLogico
             return;
         }
 
-        if(this._sinalLogicoE_ == child)
+        if(this._sinalLogicoOu_ == child)
         {
-            this._sinalLogicoE_ = null;
+            this._sinalLogicoOu_ = null;
             return;
         }
 
-        if(this._negacaoLogica_ == child)
+        if(this._termoRelacional_ == child)
         {
-            this._negacaoLogica_ = null;
+            this._termoRelacional_ = null;
             return;
         }
 
@@ -164,15 +164,15 @@ public final class AFatorLogicoFatorLogico extends PFatorLogico
             return;
         }
 
-        if(this._sinalLogicoE_ == oldChild)
+        if(this._sinalLogicoOu_ == oldChild)
         {
-            setSinalLogicoE((PSinalLogicoE) newChild);
+            setSinalLogicoOu((PSinalLogicoOu) newChild);
             return;
         }
 
-        if(this._negacaoLogica_ == oldChild)
+        if(this._termoRelacional_ == oldChild)
         {
-            setNegacaoLogica((PNegacaoLogica) newChild);
+            setTermoRelacional((PTermoRelacional) newChild);
             return;
         }
 

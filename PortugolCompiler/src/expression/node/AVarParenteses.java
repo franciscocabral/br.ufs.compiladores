@@ -5,46 +5,46 @@ package expression.node;
 import expression.analysis.*;
 
 @SuppressWarnings("nls")
-public final class ANegacaoLogicaFatorLogico extends PFatorLogico
+public final class AVarParenteses extends PParenteses
 {
-    private PNegacaoLogica _negacaoLogica_;
+    private PVariavel _variavel_;
 
-    public ANegacaoLogicaFatorLogico()
+    public AVarParenteses()
     {
         // Constructor
     }
 
-    public ANegacaoLogicaFatorLogico(
-        @SuppressWarnings("hiding") PNegacaoLogica _negacaoLogica_)
+    public AVarParenteses(
+        @SuppressWarnings("hiding") PVariavel _variavel_)
     {
         // Constructor
-        setNegacaoLogica(_negacaoLogica_);
+        setVariavel(_variavel_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new ANegacaoLogicaFatorLogico(
-            cloneNode(this._negacaoLogica_));
+        return new AVarParenteses(
+            cloneNode(this._variavel_));
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseANegacaoLogicaFatorLogico(this);
+        ((Analysis) sw).caseAVarParenteses(this);
     }
 
-    public PNegacaoLogica getNegacaoLogica()
+    public PVariavel getVariavel()
     {
-        return this._negacaoLogica_;
+        return this._variavel_;
     }
 
-    public void setNegacaoLogica(PNegacaoLogica node)
+    public void setVariavel(PVariavel node)
     {
-        if(this._negacaoLogica_ != null)
+        if(this._variavel_ != null)
         {
-            this._negacaoLogica_.parent(null);
+            this._variavel_.parent(null);
         }
 
         if(node != null)
@@ -57,23 +57,23 @@ public final class ANegacaoLogicaFatorLogico extends PFatorLogico
             node.parent(this);
         }
 
-        this._negacaoLogica_ = node;
+        this._variavel_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._negacaoLogica_);
+            + toString(this._variavel_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._negacaoLogica_ == child)
+        if(this._variavel_ == child)
         {
-            this._negacaoLogica_ = null;
+            this._variavel_ = null;
             return;
         }
 
@@ -84,9 +84,9 @@ public final class ANegacaoLogicaFatorLogico extends PFatorLogico
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._negacaoLogica_ == oldChild)
+        if(this._variavel_ == oldChild)
         {
-            setNegacaoLogica((PNegacaoLogica) newChild);
+            setVariavel((PVariavel) newChild);
             return;
         }
 

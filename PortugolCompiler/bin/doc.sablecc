@@ -192,7 +192,6 @@ Productions
     ate_estrutura       = {ate}                 ate variavel;
 
     se_estruturas       = {se}                  se a_parenteses expressao_logica f_parenteses entao bloco_comando fim_se pontovirgula;
-                        //| {se_a}                  se a_parenteses* expressao_logica f_parenteses* entao bloco_comando fim_se pontovirgula;
     se_senao_estruturas = {se_senao}            se a_parenteses expressao_logica f_parenteses entao bloco_comando senao_estruturas fim_se pontovirgula;
     avalie_estruturas   = {avalie}              avalie a_parenteses expressao f_parenteses bloco_caso senao_estruturas fim_avalie pontovirgula;
     enquanto_estruturas = {enquanto}            enquanto a_parenteses expressao_logica f_parenteses faca bloco_comando fim_enquanto pontovirgula;
@@ -200,61 +199,55 @@ Productions
     para_estruturas     = {para}                para variavel de inteiro ate_estrutura faca bloco_comando fim_para pontovirgula;
     para_passo_estruturas={para_passo}          para variavel de inteiro ate_estrutura passo_estruturas faca bloco_comando fim_para pontovirgula;
                  
-    expressao           = {somas}               expressao soma termo 
-                        | {termo}               termo;
-    termo               = {multiplicacoes}      termo multiplicacao fator 
-                        | {fator}               fator;
-    fator               = {parenteses}          a_parenteses expressao f_parenteses
-                        | {valor}               valor
-                        | {var}                 variavel;
-                      //  | {expressao_logica}    a_parenteses expressao_logica f_parenteses;
-    
-    soma                = {mais}                mais
-                        | {menos}               menos;
+//Sinais Aritmeticos
+    multiplicacao =       {vezes} vezes
+                        | {dividido} dividido
+                        | {resto} resto;
+    soma = {mais} mais
+                        | {menos} menos;
 
-    multiplicacao       = {vezes}               vezes 
-                        | {dividido}            dividido 
-                        | {resto}               resto;
+//Sinais Relacionais
+    sinal_relacional = {maior_igual} maiorigual
+                        | {menor_igual} menorigual
+                        | {maior} maior
+                        | {menor} menor;
+//Sinais de Igualdade
+    sinal_igualgade = {igualdade} igual
+                        | {diferenca} diferente;
+
+//Sinais Logicos
+    sinal_logico_ou  = {ou} ou
+                        | {xor} xor;
+    sinal_logico_e   = {e} e;
+    sinal_logico_nao = {nao} nao;
 
 
-    sinal_relacional    = {igualdade}           igual
-                        | {diferenca}           diferente
-                        | {maior_igual}         maiorigual
-                        | {menor_igual}         menorigual
-                        | {maior}               maior
-                        | {menor}               menor;
+//Expressao Aritmetica Pura
+    expressao = {somas} expressao soma termo
+                        | {termo} termo;
+    termo = {multiplicacoes} termo multiplicacao fator
+                        | {fator} fator;
+    fator = {parenteses} a_parenteses expressao f_parenteses
+                        | {valor} valor
+                        | {var} variavel;
 
-    sinal_logico_ou   = {ou}                  ou
-                        | {xor}                 xor;
-                        //| {e}                   e;
 
-    sinal_logico_e      = {e}                   e;
-
-    sinal_logico_nao    = {nao}                 nao;
-
-    // Tem coisa errada aqui, tem que dar uma boa olhada.
-    // Não esta aceitando os parenteses. Se habilitar a produção simplesmente ára de funcionar.
-    // A lógica esta errada aqui, tem que ver com calma o que esta errado e corrigir
-
-    expressao_logica    = {expressao_logica}    expressao_logica sinal_relacional termo_logico
-                        | {termo_logico}        termo_logico;
-    termo_logico        = {termo_logico}        termo_logico sinal_logico_ou fator_logico
-                        | {fator_logico}        fator_logico;
-    fator_logico        = {fator_logico}        fator_logico sinal_logico_e negacao_logica
-                        //  | {fator_a}           a_parenteses expressao_logica f_parenteses
-                        //| {fator_logicoo}       fator_logico negacao_logica
-                        | {negacao_logica}      negacao_logica?;
-          
-    // Assim você testou?
-    negacao_logica      = {negacao_logica}      sinal_logico_nao expressao   
-                        //| {negacao_parenteses}  sinal_logico_nao a_parenteses expressao_logica f_parenteses
-                        //| {parenteses}          a_parenteses expressao_logica f_parenteses
-                          | {expressao}           expressao;
-                        //  | {expressao_logica}     a_parenteses expressao_logica f_parenteses;
-
-    // Fiz desta forma baseado em um exemplo. 
-  /*  expressao_logica    = {expressao_logica} a_parenteses variavel sinal_relacional variavel f_parenteses 
-                        | {duas_exp_e} a_parenteses variavel sinal_logico_e variavel f_parenteses 
-                        | {duas_exp_ou} a_parenteses variavel sinal_logico_ou variavel f_parenteses 
-                        | {uma_exp} nao? variavel;
-  */
+//Expressao Logico-Relacional-Aritmetica
+    expressao_logica =  {expressao_logica} sinal_logico_nao  termo_logico 
+                        | {termo_logico} termo_logico;
+    termo_logico     =  {termo_logico} termo_logico sinal_logico_e fator_logico
+                        | {fator_logico} fator_logico;
+    fator_logico     =  {fator_logico} fator_logico sinal_logico_ou termo_relacional
+                        | {termo_relacional} termo_relacional;
+    termo_relacional =  {termo_relacional} termo_relacional sinal_igualgade fator_relacional
+                        | {fator_relacional} fator_relacional;
+    fator_relacional =  {fator_relacional} fator_relacional sinal_relacional termo_aritmetico
+                        | {termo_aritmetico} termo_aritmetico;
+    termo_aritmetico =  {termo_aritmetico} termo_aritmetico soma fator_aritmetico
+                        | {fator_aritmetico} fator_aritmetico;
+    fator_aritmetico =  {fator_aritmetico} fator_aritmetico multiplicacao parenteses
+                        | {termo_aritmetico} parenteses;
+    parenteses       = {parenteses} a_parenteses expressao_logica f_parenteses
+                        | {valor} valor
+                        | {var} variavel;
+                    //  | {expressao_logica} expressao_logica; 

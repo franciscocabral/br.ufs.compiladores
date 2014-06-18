@@ -2,7 +2,7 @@
 
 package expression.node;
 
-public abstract class PNegacaoLogica extends Node
+public abstract class PTermoRelacional extends Node
 {
     // Empty body
 }

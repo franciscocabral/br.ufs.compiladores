@@ -7,8 +7,7 @@ import expression.analysis.*;
 @SuppressWarnings("nls")
 public final class AExpressaoLogicaExpressaoLogica extends PExpressaoLogica
 {
-    private PExpressaoLogica _expressaoLogica_;
-    private PSinalRelacional _sinalRelacional_;
+    private PSinalLogicoNao _sinalLogicoNao_;
     private PTermoLogico _termoLogico_;
 
     public AExpressaoLogicaExpressaoLogica()
@@ -17,14 +16,11 @@ public final class AExpressaoLogicaExpressaoLogica extends PExpressaoLogica
     }
 
     public AExpressaoLogicaExpressaoLogica(
-        @SuppressWarnings("hiding") PExpressaoLogica _expressaoLogica_,
-        @SuppressWarnings("hiding") PSinalRelacional _sinalRelacional_,
+        @SuppressWarnings("hiding") PSinalLogicoNao _sinalLogicoNao_,
         @SuppressWarnings("hiding") PTermoLogico _termoLogico_)
     {
         // Constructor
-        setExpressaoLogica(_expressaoLogica_);
-
-        setSinalRelacional(_sinalRelacional_);
+        setSinalLogicoNao(_sinalLogicoNao_);
 
         setTermoLogico(_termoLogico_);
 
@@ -34,8 +30,7 @@ public final class AExpressaoLogicaExpressaoLogica extends PExpressaoLogica
     public Object clone()
     {
         return new AExpressaoLogicaExpressaoLogica(
-            cloneNode(this._expressaoLogica_),
-            cloneNode(this._sinalRelacional_),
+            cloneNode(this._sinalLogicoNao_),
             cloneNode(this._termoLogico_));
     }
 
@@ -45,16 +40,16 @@ public final class AExpressaoLogicaExpressaoLogica extends PExpressaoLogica
         ((Analysis) sw).caseAExpressaoLogicaExpressaoLogica(this);
     }
 
-    public PExpressaoLogica getExpressaoLogica()
+    public PSinalLogicoNao getSinalLogicoNao()
     {
-        return this._expressaoLogica_;
+        return this._sinalLogicoNao_;
     }
 
-    public void setExpressaoLogica(PExpressaoLogica node)
+    public void setSinalLogicoNao(PSinalLogicoNao node)
     {
-        if(this._expressaoLogica_ != null)
+        if(this._sinalLogicoNao_ != null)
         {
-            this._expressaoLogica_.parent(null);
+            this._sinalLogicoNao_.parent(null);
         }
 
         if(node != null)
@@ -67,32 +62,7 @@ public final class AExpressaoLogicaExpressaoLogica extends PExpressaoLogica
             node.parent(this);
         }
 
-        this._expressaoLogica_ = node;
-    }
-
-    public PSinalRelacional getSinalRelacional()
-    {
-        return this._sinalRelacional_;
-    }
-
-    public void setSinalRelacional(PSinalRelacional node)
-    {
-        if(this._sinalRelacional_ != null)
-        {
-            this._sinalRelacional_.parent(null);
-        }
-
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
-                node.parent().removeChild(node);
-            }
-
-            node.parent(this);
-        }
-
-        this._sinalRelacional_ = node;
+        this._sinalLogicoNao_ = node;
     }
 
     public PTermoLogico getTermoLogico()
@@ -124,8 +94,7 @@ public final class AExpressaoLogicaExpressaoLogica extends PExpressaoLogica
     public String toString()
     {
         return ""
-            + toString(this._expressaoLogica_)
-            + toString(this._sinalRelacional_)
+            + toString(this._sinalLogicoNao_)
             + toString(this._termoLogico_);
     }
 
@@ -133,15 +102,9 @@ public final class AExpressaoLogicaExpressaoLogica extends PExpressaoLogica
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._expressaoLogica_ == child)
+        if(this._sinalLogicoNao_ == child)
         {
-            this._expressaoLogica_ = null;
-            return;
-        }
-
-        if(this._sinalRelacional_ == child)
-        {
-            this._sinalRelacional_ = null;
+            this._sinalLogicoNao_ = null;
             return;
         }
 
@@ -158,15 +121,9 @@ public final class AExpressaoLogicaExpressaoLogica extends PExpressaoLogica
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._expressaoLogica_ == oldChild)
+        if(this._sinalLogicoNao_ == oldChild)
         {
-            setExpressaoLogica((PExpressaoLogica) newChild);
-            return;
-        }
-
-        if(this._sinalRelacional_ == oldChild)
-        {
-            setSinalRelacional((PSinalRelacional) newChild);
+            setSinalLogicoNao((PSinalLogicoNao) newChild);
             return;
         }
 
