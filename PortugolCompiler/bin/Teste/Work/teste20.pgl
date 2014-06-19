@@ -6,6 +6,5 @@ inicio
    se ((a e b) ou (b e c) ou ((b=3) ou (c=4))) entao
  	  escreva(a);
    fim se;
-    
      
 fim.
