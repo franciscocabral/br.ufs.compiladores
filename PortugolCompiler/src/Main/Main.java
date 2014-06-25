@@ -12,10 +12,6 @@ import expression.parser.ParserException;
 
 import java.io.*;
 
-/**
- *
- * @author Francisco
- */
 import java.io.FileReader;
 import java.io.PushbackReader;
 import java.io.BufferedReader;

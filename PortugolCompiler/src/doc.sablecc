@@ -254,4 +254,3 @@ Productions
     parenteses       =  {parenteses} a_parenteses expressao_logica f_parenteses
                         | {valor} valor
                         | {var} variavel;
-                    //  | {expressao_logica} expressao_logica; 
