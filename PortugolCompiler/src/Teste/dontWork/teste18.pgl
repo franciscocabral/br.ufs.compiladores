@@ -1,11 +1,11 @@
-programa teste8
+programa teste18
 inicio
-         
+   
   inteiro: x, i;
    
   leia(x);
   
-  para i de 1 ate x passo 2 faca
+  para i de 1 ate x passo 2 
   	 escreva(i);   
   fim para;
  

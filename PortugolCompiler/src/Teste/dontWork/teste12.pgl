@@ -1,0 +1,10 @@
+programa teste12
+inicio
+   
+   inteiro: vetor[x];
+   vetor[0] <- 1;
+   vetor[1] <- 2;
+   vetor[2] <- 3;
+   escreva('O vetor possui os valores '+vetor[0]+', '+vetor[1]+' e '+vetor[2]);
+ 
+fim.

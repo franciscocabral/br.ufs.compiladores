@@ -1,7 +1,6 @@
 programa teste8
 inicio
-
-          
+         
   inteiro: x, i;
    
   leia(x);

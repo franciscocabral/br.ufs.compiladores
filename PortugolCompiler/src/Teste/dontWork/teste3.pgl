@@ -2,7 +2,7 @@ programa teste3
 inicio
 
     real: x,z;
-    1cd; 
+    // 1cd; 
     leia(x);
     z <= x;  // Token "Recebe" esta de forma incorreta
     escreva(@z);

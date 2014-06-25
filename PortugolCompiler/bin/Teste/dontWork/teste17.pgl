@@ -1,0 +1,11 @@
+programa teste17
+inicio
+   
+   inteiro: x,y;
+   leia(x,y);
+   
+   nao (x = 0) entao
+      escreva(x);
+   fim se;
+   
+fim.

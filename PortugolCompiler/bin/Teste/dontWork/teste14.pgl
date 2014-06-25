@@ -1,0 +1,28 @@
+programa teste14
+inicio
+   
+    inteiro: numero; 
+    
+    escreva('Digite um numero de 1 a 7: ');
+    leia(numero);
+ 
+    avalie (numero)
+     caso 1 :
+       escreva('Domingo');        
+     caso 2 :
+       escreva('Segunda');
+     caso 3 :
+        escreva('Terça');
+     caso 4 :
+        escreva('Quarta');
+     caso 5 :
+        escreva('Quinta');
+     caso 6 :
+        escreva('Sexta');
+     caso 7 :
+        escreva('Sabado');
+   
+    
+    fim avalie;
+
+fim.

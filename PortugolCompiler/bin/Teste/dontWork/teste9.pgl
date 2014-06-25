@@ -1,0 +1,14 @@
+
+programa teste9
+inicio
+
+    inteiro: x, y;
+
+    leia(x,y);
+    se x > y entao        // Sem o entao
+        escreva(x*y);
+    senao
+        escreva(x/y);
+    fim se;
+
+fim.

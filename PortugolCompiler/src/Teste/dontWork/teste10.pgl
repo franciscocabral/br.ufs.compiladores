@@ -1,0 +1,12 @@
+
+programa teste10
+inicio
+
+    inteiro: x, y;
+
+    leia(x,y);
+    se (x < y) entao        // Sem o entao
+        escreva(x*y);
+    
+
+fim.

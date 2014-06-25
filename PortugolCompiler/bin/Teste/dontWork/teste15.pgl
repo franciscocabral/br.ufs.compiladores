@@ -1,0 +1,15 @@
+programa teste15
+inicio
+     
+    inteiro: a, b, c, g, z; 
+    a <- 1
+    b <- 1;
+    g <- 1;
+    z <- 8;
+
+    a <- a + b;  // Resultado de a = 2
+    c <- a - g;  // Resultado de c = 1
+    g <- c * z;  // Resultado de g = 8
+    z <- g / a;  // Resultado de z = 4
+
+fim.
