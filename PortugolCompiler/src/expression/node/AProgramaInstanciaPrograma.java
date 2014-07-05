@@ -12,8 +12,7 @@ public final class AProgramaInstanciaPrograma extends PInstanciaPrograma
     private TInicio _inicio_;
     private PBlocoDeclaracao _blocoDeclaracao_;
     private PBlocoComando _blocoComando_;
-    private TFim _fim_;
-    private TPonto _ponto_;
+    private TFimPonto _fimPonto_;
 
     public AProgramaInstanciaPrograma()
     {
@@ -26,8 +25,7 @@ public final class AProgramaInstanciaPrograma extends PInstanciaPrograma
         @SuppressWarnings("hiding") TInicio _inicio_,
         @SuppressWarnings("hiding") PBlocoDeclaracao _blocoDeclaracao_,
         @SuppressWarnings("hiding") PBlocoComando _blocoComando_,
-        @SuppressWarnings("hiding") TFim _fim_,
-        @SuppressWarnings("hiding") TPonto _ponto_)
+        @SuppressWarnings("hiding") TFimPonto _fimPonto_)
     {
         // Constructor
         setPrograma(_programa_);
@@ -40,9 +38,7 @@ public final class AProgramaInstanciaPrograma extends PInstanciaPrograma
 
         setBlocoComando(_blocoComando_);
 
-        setFim(_fim_);
-
-        setPonto(_ponto_);
+        setFimPonto(_fimPonto_);
 
     }
 
@@ -55,8 +51,7 @@ public final class AProgramaInstanciaPrograma extends PInstanciaPrograma
             cloneNode(this._inicio_),
             cloneNode(this._blocoDeclaracao_),
             cloneNode(this._blocoComando_),
-            cloneNode(this._fim_),
-            cloneNode(this._ponto_));
+            cloneNode(this._fimPonto_));
     }
 
     @Override
@@ -190,16 +185,16 @@ public final class AProgramaInstanciaPrograma extends PInstanciaPrograma
         this._blocoComando_ = node;
     }
 
-    public TFim getFim()
+    public TFimPonto getFimPonto()
     {
-        return this._fim_;
+        return this._fimPonto_;
     }
 
-    public void setFim(TFim node)
+    public void setFimPonto(TFimPonto node)
     {
-        if(this._fim_ != null)
+        if(this._fimPonto_ != null)
         {
-            this._fim_.parent(null);
+            this._fimPonto_.parent(null);
         }
 
         if(node != null)
@@ -212,32 +207,7 @@ public final class AProgramaInstanciaPrograma extends PInstanciaPrograma
             node.parent(this);
         }
 
-        this._fim_ = node;
-    }
-
-    public TPonto getPonto()
-    {
-        return this._ponto_;
-    }
-
-    public void setPonto(TPonto node)
-    {
-        if(this._ponto_ != null)
-        {
-            this._ponto_.parent(null);
-        }
-
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
-                node.parent().removeChild(node);
-            }
-
-            node.parent(this);
-        }
-
-        this._ponto_ = node;
+        this._fimPonto_ = node;
     }
 
     @Override
@@ -249,8 +219,7 @@ public final class AProgramaInstanciaPrograma extends PInstanciaPrograma
             + toString(this._inicio_)
             + toString(this._blocoDeclaracao_)
             + toString(this._blocoComando_)
-            + toString(this._fim_)
-            + toString(this._ponto_);
+            + toString(this._fimPonto_);
     }
 
     @Override
@@ -287,15 +256,9 @@ public final class AProgramaInstanciaPrograma extends PInstanciaPrograma
             return;
         }
 
-        if(this._fim_ == child)
+        if(this._fimPonto_ == child)
         {
-            this._fim_ = null;
-            return;
-        }
-
-        if(this._ponto_ == child)
-        {
-            this._ponto_ = null;
+            this._fimPonto_ = null;
             return;
         }
 
@@ -336,15 +299,9 @@ public final class AProgramaInstanciaPrograma extends PInstanciaPrograma
             return;
         }
 
-        if(this._fim_ == oldChild)
+        if(this._fimPonto_ == oldChild)
         {
-            setFim((TFim) newChild);
-            return;
-        }
-
-        if(this._ponto_ == oldChild)
-        {
-            setPonto((TPonto) newChild);
+            setFimPonto((TFimPonto) newChild);
             return;
         }
 

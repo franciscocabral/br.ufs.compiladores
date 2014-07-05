@@ -50,7 +50,7 @@ States
 Tokens
 
     {normal} branco              = branco;
-    {normal, comentario} 
+    {normal} 
     comentario_linha             = comentario_linha;
 
     {normal->comentario, comentario} 
@@ -77,7 +77,6 @@ Tokens
     {normal} dividido            = '/';
     {normal} resto               = 'resto';
 
-
     {normal} e                   = 'e';
     {normal} ou                  = 'ou';
     {normal} xor                 = 'xor';
@@ -96,7 +95,7 @@ Tokens
 
     {normal} programa            = 'programa';
     {normal} inicio              = 'inicio';
-    {normal} fim                 = 'fim';
+    {normal} fim_ponto			 = 'fim.';
     {normal} proximo             = 'proximo';
     
     {normal} leia                = 'leia';
@@ -128,7 +127,6 @@ Tokens
     {normal} caractere           = aspas caractere* aspas;
     {normal} real                = real;
 
-
     {normal} n_real              = 'real';
     {normal} n_inteiro           = 'inteiro';
     {normal} n_caractere         = 'caractere';
@@ -145,16 +143,20 @@ Productions
     
     bloco_comando       = {comando_simples}     comando
                         | {bloco_comandos}      bloco_comando comando;
-    bloco_expressao     = {expressao_simples}   expressao 
-                        | {bloco_espressoes}    bloco_expressao virgula expressao;
+                        
+    bloco_expressao     = {expressao_logica_simples}  expressao_logica
+                        | {bloco_espressoes_logica}    bloco_expressao virgula expressao_logica;
+                        
     bloco_variavel      = {variavel_simples}    variavel
                         | {bloco_variaveis}     bloco_variavel virgula variavel;
+                        
     bloco_caso          = {caso_simples}        caso valor doispontos bloco_comando
                         | {bloco_casos}         bloco_caso caso valor doispontos bloco_comando;
+                        
     bloco_declaracao    = {declaracao_simples}  declaracao
                         | {bloco_declaracao}    bloco_declaracao declaracao;
 
-    instancia_programa  = {programa}            programa identficador inicio bloco_declaracao bloco_comando fim ponto;
+    instancia_programa  = {programa}            programa identficador inicio bloco_declaracao bloco_comando fim_ponto;
     
     declaracao          = {declaracao_variavel} tipo doispontos bloco_variavel pontovirgula
                         | {declaracao_const}    constante id valor pontovirgula;
@@ -202,30 +204,39 @@ Productions
     repita_estruturas   = {repita}              repita bloco_comando ate a_parenteses expressao_logica f_parenteses pontovirgula;
     para_estruturas     = {para}                para variavel de inteiro ate_estrutura faca bloco_comando fim_para pontovirgula;
     para_passo_estruturas={para_passo}          para variavel de inteiro ate_estrutura passo_estruturas faca bloco_comando fim_para pontovirgula;
-                 
-//Sinais Aritmeticos
+             
+//Lista de prioridades: http://pt.wikipedia.org/wiki/Operadores_em_C_e_C%2B%2B
+//Parenteses
+
+//Sinais Logicos - Negação
+    sinal_logico_nao = {nao} nao;
+    
+//Sinais Aritmeticos - Multiplicação
     multiplicacao =       {vezes} vezes
                         | {dividido} dividido
                         | {resto} resto;
+
+//Sinais Aritmeticos - Soma
     soma = {mais} mais
                         | {menos} menos;
-
-//Sinais Relacionais
+                        
+//Sinais Relacionais - Menor que
     sinal_relacional = {maior_igual} maiorigual
                         | {menor_igual} menorigual
                         | {maior} maior
                         | {menor} menor;
-//Sinais de Igualdade
-    sinal_igualgade = {igualdade} igual
+
+//Sinais Relacionais - Igualdade
+    sinal_igualdade = {igualdade} igual
                         | {diferenca} diferente;
 
-//Sinais Logicos
+//Sinais Logicos - E
+    sinal_logico_e   = {e} e;
+
+//Sinais Logicos - Ou
     sinal_logico_ou  = {ou} ou
                         | {xor} xor;
-    sinal_logico_e   = {e} e;
-    sinal_logico_nao = {nao} nao;
-
-
+    
 //Expressao Aritmetica Pura
     expressao = {somas} expressao soma termo
                         | {termo} termo;
@@ -235,22 +246,18 @@ Productions
                         | {valor} valor
                         | {var} variavel;
 
-
-//Expressao Logico-Relacional-Aritmetica
-    expressao_logica =  {expressao_logica} sinal_logico_nao  termo_logico 
-                        | {termo_logico} termo_logico;
-    termo_logico     =  {termo_logico} termo_logico sinal_logico_e fator_logico
-                        | {fator_logico} fator_logico;
-    fator_logico     =  {fator_logico} fator_logico sinal_logico_ou termo_relacional
-                        | {termo_relacional} termo_relacional;
-    termo_relacional =  {termo_relacional} termo_relacional sinal_igualgade fator_relacional
-                        | {fator_relacional} fator_relacional;
-    fator_relacional =  {fator_relacional} fator_relacional sinal_relacional termo_aritmetico
-                        | {termo_aritmetico} termo_aritmetico;
-    termo_aritmetico =  {termo_aritmetico} termo_aritmetico soma fator_aritmetico
-                        | {fator_aritmetico} fator_aritmetico;
-    fator_aritmetico =  {fator_aritmetico} fator_aritmetico multiplicacao parenteses
-                        | {termo_aritmetico} parenteses;
-    parenteses       =  {parenteses} a_parenteses expressao_logica f_parenteses
-                        | {valor} valor
-                        | {var} variavel;
+//Expressao Logico-Relacional
+	expressao_logica =	{expressao_logica} parenteses sinal_logico_ou termo_logico
+						| {termo_logico} termo_logico;
+	termo_logico	 =	{termo_logico} parenteses sinal_logico_e expressao_relac
+						| {expressao_relacional} expressao_relac;
+	expressao_relac  =	{expressao_relacional} parenteses sinal_igualdade termo_relac
+						| {termo_relac} termo_relac;
+	termo_relac		 =	{termo_relacional} parenteses sinal_relacional negacao
+						| {negacao}  negacao;
+    negacao			 =  {negacao} sinal_logico_nao parenteses
+    					| parenteses;
+    parenteses		 =	{parenteses} a_parenteses parenteses_termo f_parenteses;
+    parenteses_termo =  {expressao_logica} expressao_logica ;
+//    					| {expressao} expressao ;
+	                 

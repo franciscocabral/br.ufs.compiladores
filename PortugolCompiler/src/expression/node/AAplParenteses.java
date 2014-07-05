@@ -5,44 +5,39 @@ package expression.node;
 import expression.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AParentesesParenteses extends PParenteses
+public final class AAplParenteses extends PParenteses
 {
     private TAParenteses _aParenteses_;
-    private PParentesesTermo _parentesesTermo_;
-    private TFParenteses _fParenteses_;
+    private PApl _apl_;
 
-    public AParentesesParenteses()
+    public AAplParenteses()
     {
         // Constructor
     }
 
-    public AParentesesParenteses(
+    public AAplParenteses(
         @SuppressWarnings("hiding") TAParenteses _aParenteses_,
-        @SuppressWarnings("hiding") PParentesesTermo _parentesesTermo_,
-        @SuppressWarnings("hiding") TFParenteses _fParenteses_)
+        @SuppressWarnings("hiding") PApl _apl_)
     {
         // Constructor
         setAParenteses(_aParenteses_);
 
-        setParentesesTermo(_parentesesTermo_);
-
-        setFParenteses(_fParenteses_);
+        setApl(_apl_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new AParentesesParenteses(
+        return new AAplParenteses(
             cloneNode(this._aParenteses_),
-            cloneNode(this._parentesesTermo_),
-            cloneNode(this._fParenteses_));
+            cloneNode(this._apl_));
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAParentesesParenteses(this);
+        ((Analysis) sw).caseAAplParenteses(this);
     }
 
     public TAParenteses getAParenteses()
@@ -70,16 +65,16 @@ public final class AParentesesParenteses extends PParenteses
         this._aParenteses_ = node;
     }
 
-    public PParentesesTermo getParentesesTermo()
+    public PApl getApl()
     {
-        return this._parentesesTermo_;
+        return this._apl_;
     }
 
-    public void setParentesesTermo(PParentesesTermo node)
+    public void setApl(PApl node)
     {
-        if(this._parentesesTermo_ != null)
+        if(this._apl_ != null)
         {
-            this._parentesesTermo_.parent(null);
+            this._apl_.parent(null);
         }
 
         if(node != null)
@@ -92,32 +87,7 @@ public final class AParentesesParenteses extends PParenteses
             node.parent(this);
         }
 
-        this._parentesesTermo_ = node;
-    }
-
-    public TFParenteses getFParenteses()
-    {
-        return this._fParenteses_;
-    }
-
-    public void setFParenteses(TFParenteses node)
-    {
-        if(this._fParenteses_ != null)
-        {
-            this._fParenteses_.parent(null);
-        }
-
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
-                node.parent().removeChild(node);
-            }
-
-            node.parent(this);
-        }
-
-        this._fParenteses_ = node;
+        this._apl_ = node;
     }
 
     @Override
@@ -125,8 +95,7 @@ public final class AParentesesParenteses extends PParenteses
     {
         return ""
             + toString(this._aParenteses_)
-            + toString(this._parentesesTermo_)
-            + toString(this._fParenteses_);
+            + toString(this._apl_);
     }
 
     @Override
@@ -139,15 +108,9 @@ public final class AParentesesParenteses extends PParenteses
             return;
         }
 
-        if(this._parentesesTermo_ == child)
+        if(this._apl_ == child)
         {
-            this._parentesesTermo_ = null;
-            return;
-        }
-
-        if(this._fParenteses_ == child)
-        {
-            this._fParenteses_ = null;
+            this._apl_ = null;
             return;
         }
 
@@ -164,15 +127,9 @@ public final class AParentesesParenteses extends PParenteses
             return;
         }
 
-        if(this._parentesesTermo_ == oldChild)
+        if(this._apl_ == oldChild)
         {
-            setParentesesTermo((PParentesesTermo) newChild);
-            return;
-        }
-
-        if(this._fParenteses_ == oldChild)
-        {
-            setFParenteses((TFParenteses) newChild);
+            setApl((PApl) newChild);
             return;
         }
 

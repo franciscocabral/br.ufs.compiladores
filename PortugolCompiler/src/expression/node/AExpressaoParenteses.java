@@ -5,26 +5,26 @@ package expression.node;
 import expression.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AParentesesParenteses extends PParenteses
+public final class AExpressaoParenteses extends PParenteses
 {
     private TAParenteses _aParenteses_;
-    private PParentesesTermo _parentesesTermo_;
+    private PExpressao _expressao_;
     private TFParenteses _fParenteses_;
 
-    public AParentesesParenteses()
+    public AExpressaoParenteses()
     {
         // Constructor
     }
 
-    public AParentesesParenteses(
+    public AExpressaoParenteses(
         @SuppressWarnings("hiding") TAParenteses _aParenteses_,
-        @SuppressWarnings("hiding") PParentesesTermo _parentesesTermo_,
+        @SuppressWarnings("hiding") PExpressao _expressao_,
         @SuppressWarnings("hiding") TFParenteses _fParenteses_)
     {
         // Constructor
         setAParenteses(_aParenteses_);
 
-        setParentesesTermo(_parentesesTermo_);
+        setExpressao(_expressao_);
 
         setFParenteses(_fParenteses_);
 
@@ -33,16 +33,16 @@ public final class AParentesesParenteses extends PParenteses
     @Override
     public Object clone()
     {
-        return new AParentesesParenteses(
+        return new AExpressaoParenteses(
             cloneNode(this._aParenteses_),
-            cloneNode(this._parentesesTermo_),
+            cloneNode(this._expressao_),
             cloneNode(this._fParenteses_));
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAParentesesParenteses(this);
+        ((Analysis) sw).caseAExpressaoParenteses(this);
     }
 
     public TAParenteses getAParenteses()
@@ -70,16 +70,16 @@ public final class AParentesesParenteses extends PParenteses
         this._aParenteses_ = node;
     }
 
-    public PParentesesTermo getParentesesTermo()
+    public PExpressao getExpressao()
     {
-        return this._parentesesTermo_;
+        return this._expressao_;
     }
 
-    public void setParentesesTermo(PParentesesTermo node)
+    public void setExpressao(PExpressao node)
     {
-        if(this._parentesesTermo_ != null)
+        if(this._expressao_ != null)
         {
-            this._parentesesTermo_.parent(null);
+            this._expressao_.parent(null);
         }
 
         if(node != null)
@@ -92,7 +92,7 @@ public final class AParentesesParenteses extends PParenteses
             node.parent(this);
         }
 
-        this._parentesesTermo_ = node;
+        this._expressao_ = node;
     }
 
     public TFParenteses getFParenteses()
@@ -125,7 +125,7 @@ public final class AParentesesParenteses extends PParenteses
     {
         return ""
             + toString(this._aParenteses_)
-            + toString(this._parentesesTermo_)
+            + toString(this._expressao_)
             + toString(this._fParenteses_);
     }
 
@@ -139,9 +139,9 @@ public final class AParentesesParenteses extends PParenteses
             return;
         }
 
-        if(this._parentesesTermo_ == child)
+        if(this._expressao_ == child)
         {
-            this._parentesesTermo_ = null;
+            this._expressao_ = null;
             return;
         }
 
@@ -164,9 +164,9 @@ public final class AParentesesParenteses extends PParenteses
             return;
         }
 
-        if(this._parentesesTermo_ == oldChild)
+        if(this._expressao_ == oldChild)
         {
-            setParentesesTermo((PParentesesTermo) newChild);
+            setExpressao((PExpressao) newChild);
             return;
         }
 

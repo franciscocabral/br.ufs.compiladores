@@ -5,44 +5,44 @@ package expression.node;
 import expression.analysis.*;
 
 @SuppressWarnings("nls")
-public final class ATermoLogicoTermoLogico extends PTermoLogico
+public final class ATermoRelacionalTermoRelac extends PTermoRelac
 {
     private PParenteses _parenteses_;
-    private PSinalLogicoE _sinalLogicoE_;
-    private PExpressaoRelac _expressaoRelac_;
+    private PSinalRelacional _sinalRelacional_;
+    private PNegacao _negacao_;
 
-    public ATermoLogicoTermoLogico()
+    public ATermoRelacionalTermoRelac()
     {
         // Constructor
     }
 
-    public ATermoLogicoTermoLogico(
+    public ATermoRelacionalTermoRelac(
         @SuppressWarnings("hiding") PParenteses _parenteses_,
-        @SuppressWarnings("hiding") PSinalLogicoE _sinalLogicoE_,
-        @SuppressWarnings("hiding") PExpressaoRelac _expressaoRelac_)
+        @SuppressWarnings("hiding") PSinalRelacional _sinalRelacional_,
+        @SuppressWarnings("hiding") PNegacao _negacao_)
     {
         // Constructor
         setParenteses(_parenteses_);
 
-        setSinalLogicoE(_sinalLogicoE_);
+        setSinalRelacional(_sinalRelacional_);
 
-        setExpressaoRelac(_expressaoRelac_);
+        setNegacao(_negacao_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new ATermoLogicoTermoLogico(
+        return new ATermoRelacionalTermoRelac(
             cloneNode(this._parenteses_),
-            cloneNode(this._sinalLogicoE_),
-            cloneNode(this._expressaoRelac_));
+            cloneNode(this._sinalRelacional_),
+            cloneNode(this._negacao_));
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseATermoLogicoTermoLogico(this);
+        ((Analysis) sw).caseATermoRelacionalTermoRelac(this);
     }
 
     public PParenteses getParenteses()
@@ -70,16 +70,16 @@ public final class ATermoLogicoTermoLogico extends PTermoLogico
         this._parenteses_ = node;
     }
 
-    public PSinalLogicoE getSinalLogicoE()
+    public PSinalRelacional getSinalRelacional()
     {
-        return this._sinalLogicoE_;
+        return this._sinalRelacional_;
     }
 
-    public void setSinalLogicoE(PSinalLogicoE node)
+    public void setSinalRelacional(PSinalRelacional node)
     {
-        if(this._sinalLogicoE_ != null)
+        if(this._sinalRelacional_ != null)
         {
-            this._sinalLogicoE_.parent(null);
+            this._sinalRelacional_.parent(null);
         }
 
         if(node != null)
@@ -92,19 +92,19 @@ public final class ATermoLogicoTermoLogico extends PTermoLogico
             node.parent(this);
         }
 
-        this._sinalLogicoE_ = node;
+        this._sinalRelacional_ = node;
     }
 
-    public PExpressaoRelac getExpressaoRelac()
+    public PNegacao getNegacao()
     {
-        return this._expressaoRelac_;
+        return this._negacao_;
     }
 
-    public void setExpressaoRelac(PExpressaoRelac node)
+    public void setNegacao(PNegacao node)
     {
-        if(this._expressaoRelac_ != null)
+        if(this._negacao_ != null)
         {
-            this._expressaoRelac_.parent(null);
+            this._negacao_.parent(null);
         }
 
         if(node != null)
@@ -117,7 +117,7 @@ public final class ATermoLogicoTermoLogico extends PTermoLogico
             node.parent(this);
         }
 
-        this._expressaoRelac_ = node;
+        this._negacao_ = node;
     }
 
     @Override
@@ -125,8 +125,8 @@ public final class ATermoLogicoTermoLogico extends PTermoLogico
     {
         return ""
             + toString(this._parenteses_)
-            + toString(this._sinalLogicoE_)
-            + toString(this._expressaoRelac_);
+            + toString(this._sinalRelacional_)
+            + toString(this._negacao_);
     }
 
     @Override
@@ -139,15 +139,15 @@ public final class ATermoLogicoTermoLogico extends PTermoLogico
             return;
         }
 
-        if(this._sinalLogicoE_ == child)
+        if(this._sinalRelacional_ == child)
         {
-            this._sinalLogicoE_ = null;
+            this._sinalRelacional_ = null;
             return;
         }
 
-        if(this._expressaoRelac_ == child)
+        if(this._negacao_ == child)
         {
-            this._expressaoRelac_ = null;
+            this._negacao_ = null;
             return;
         }
 
@@ -164,15 +164,15 @@ public final class ATermoLogicoTermoLogico extends PTermoLogico
             return;
         }
 
-        if(this._sinalLogicoE_ == oldChild)
+        if(this._sinalRelacional_ == oldChild)
         {
-            setSinalLogicoE((PSinalLogicoE) newChild);
+            setSinalRelacional((PSinalRelacional) newChild);
             return;
         }
 
-        if(this._expressaoRelac_ == oldChild)
+        if(this._negacao_ == oldChild)
         {
-            setExpressaoRelac((PExpressaoRelac) newChild);
+            setNegacao((PNegacao) newChild);
             return;
         }
 

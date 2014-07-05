@@ -202,7 +202,7 @@ class TokenIndex extends AnalysisAdapter
     }
 
     @Override
-    public void caseTFim(@SuppressWarnings("unused") TFim node)
+    public void caseTFimPonto(@SuppressWarnings("unused") TFimPonto node)
     {
         this.index = 32;
     }

@@ -124,44 +124,44 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         outABlocoComandosBlocoComando(node);
     }
 
-    public void inAExpressaoSimplesBlocoExpressao(AExpressaoSimplesBlocoExpressao node)
+    public void inAExpressaoLogicaSimplesBlocoExpressao(AExpressaoLogicaSimplesBlocoExpressao node)
     {
         defaultIn(node);
     }
 
-    public void outAExpressaoSimplesBlocoExpressao(AExpressaoSimplesBlocoExpressao node)
+    public void outAExpressaoLogicaSimplesBlocoExpressao(AExpressaoLogicaSimplesBlocoExpressao node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAExpressaoSimplesBlocoExpressao(AExpressaoSimplesBlocoExpressao node)
+    public void caseAExpressaoLogicaSimplesBlocoExpressao(AExpressaoLogicaSimplesBlocoExpressao node)
     {
-        inAExpressaoSimplesBlocoExpressao(node);
-        if(node.getExpressao() != null)
+        inAExpressaoLogicaSimplesBlocoExpressao(node);
+        if(node.getExpressaoLogica() != null)
         {
-            node.getExpressao().apply(this);
+            node.getExpressaoLogica().apply(this);
         }
-        outAExpressaoSimplesBlocoExpressao(node);
+        outAExpressaoLogicaSimplesBlocoExpressao(node);
     }
 
-    public void inABlocoEspressoesBlocoExpressao(ABlocoEspressoesBlocoExpressao node)
+    public void inABlocoEspressoesLogicaBlocoExpressao(ABlocoEspressoesLogicaBlocoExpressao node)
     {
         defaultIn(node);
     }
 
-    public void outABlocoEspressoesBlocoExpressao(ABlocoEspressoesBlocoExpressao node)
+    public void outABlocoEspressoesLogicaBlocoExpressao(ABlocoEspressoesLogicaBlocoExpressao node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseABlocoEspressoesBlocoExpressao(ABlocoEspressoesBlocoExpressao node)
+    public void caseABlocoEspressoesLogicaBlocoExpressao(ABlocoEspressoesLogicaBlocoExpressao node)
     {
-        inABlocoEspressoesBlocoExpressao(node);
-        if(node.getExpressao() != null)
+        inABlocoEspressoesLogicaBlocoExpressao(node);
+        if(node.getExpressaoLogica() != null)
         {
-            node.getExpressao().apply(this);
+            node.getExpressaoLogica().apply(this);
         }
         if(node.getVirgula() != null)
         {
@@ -171,7 +171,7 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         {
             node.getBlocoExpressao().apply(this);
         }
-        outABlocoEspressoesBlocoExpressao(node);
+        outABlocoEspressoesLogicaBlocoExpressao(node);
     }
 
     public void inAVariavelSimplesBlocoVariavel(AVariavelSimplesBlocoVariavel node)
@@ -354,13 +354,9 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
     public void caseAProgramaInstanciaPrograma(AProgramaInstanciaPrograma node)
     {
         inAProgramaInstanciaPrograma(node);
-        if(node.getPonto() != null)
+        if(node.getFimPonto() != null)
         {
-            node.getPonto().apply(this);
-        }
-        if(node.getFim() != null)
-        {
-            node.getFim().apply(this);
+            node.getFimPonto().apply(this);
         }
         if(node.getBlocoComando() != null)
         {
@@ -1509,6 +1505,27 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         outAParaPassoParaPassoEstruturas(node);
     }
 
+    public void inANaoSinalLogicoNao(ANaoSinalLogicoNao node)
+    {
+        defaultIn(node);
+    }
+
+    public void outANaoSinalLogicoNao(ANaoSinalLogicoNao node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseANaoSinalLogicoNao(ANaoSinalLogicoNao node)
+    {
+        inANaoSinalLogicoNao(node);
+        if(node.getNao() != null)
+        {
+            node.getNao().apply(this);
+        }
+        outANaoSinalLogicoNao(node);
+    }
+
     public void inAVezesMultiplicacao(AVezesMultiplicacao node)
     {
         defaultIn(node);
@@ -1698,46 +1715,67 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         outAMenorSinalRelacional(node);
     }
 
-    public void inAIgualdadeSinalIgualgade(AIgualdadeSinalIgualgade node)
+    public void inAIgualdadeSinalIgualdade(AIgualdadeSinalIgualdade node)
     {
         defaultIn(node);
     }
 
-    public void outAIgualdadeSinalIgualgade(AIgualdadeSinalIgualgade node)
+    public void outAIgualdadeSinalIgualdade(AIgualdadeSinalIgualdade node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAIgualdadeSinalIgualgade(AIgualdadeSinalIgualgade node)
+    public void caseAIgualdadeSinalIgualdade(AIgualdadeSinalIgualdade node)
     {
-        inAIgualdadeSinalIgualgade(node);
+        inAIgualdadeSinalIgualdade(node);
         if(node.getIgual() != null)
         {
             node.getIgual().apply(this);
         }
-        outAIgualdadeSinalIgualgade(node);
+        outAIgualdadeSinalIgualdade(node);
     }
 
-    public void inADiferencaSinalIgualgade(ADiferencaSinalIgualgade node)
+    public void inADiferencaSinalIgualdade(ADiferencaSinalIgualdade node)
     {
         defaultIn(node);
     }
 
-    public void outADiferencaSinalIgualgade(ADiferencaSinalIgualgade node)
+    public void outADiferencaSinalIgualdade(ADiferencaSinalIgualdade node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseADiferencaSinalIgualgade(ADiferencaSinalIgualgade node)
+    public void caseADiferencaSinalIgualdade(ADiferencaSinalIgualdade node)
     {
-        inADiferencaSinalIgualgade(node);
+        inADiferencaSinalIgualdade(node);
         if(node.getDiferente() != null)
         {
             node.getDiferente().apply(this);
         }
-        outADiferencaSinalIgualgade(node);
+        outADiferencaSinalIgualdade(node);
+    }
+
+    public void inAESinalLogicoE(AESinalLogicoE node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAESinalLogicoE(AESinalLogicoE node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAESinalLogicoE(AESinalLogicoE node)
+    {
+        inAESinalLogicoE(node);
+        if(node.getE() != null)
+        {
+            node.getE().apply(this);
+        }
+        outAESinalLogicoE(node);
     }
 
     public void inAOuSinalLogicoOu(AOuSinalLogicoOu node)
@@ -1780,48 +1818,6 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
             node.getXor().apply(this);
         }
         outAXorSinalLogicoOu(node);
-    }
-
-    public void inAESinalLogicoE(AESinalLogicoE node)
-    {
-        defaultIn(node);
-    }
-
-    public void outAESinalLogicoE(AESinalLogicoE node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseAESinalLogicoE(AESinalLogicoE node)
-    {
-        inAESinalLogicoE(node);
-        if(node.getE() != null)
-        {
-            node.getE().apply(this);
-        }
-        outAESinalLogicoE(node);
-    }
-
-    public void inANaoSinalLogicoNao(ANaoSinalLogicoNao node)
-    {
-        defaultIn(node);
-    }
-
-    public void outANaoSinalLogicoNao(ANaoSinalLogicoNao node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseANaoSinalLogicoNao(ANaoSinalLogicoNao node)
-    {
-        inANaoSinalLogicoNao(node);
-        if(node.getNao() != null)
-        {
-            node.getNao().apply(this);
-        }
-        outANaoSinalLogicoNao(node);
     }
 
     public void inASomasExpressao(ASomasExpressao node)
@@ -2013,9 +2009,13 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         {
             node.getTermoLogico().apply(this);
         }
-        if(node.getSinalLogicoNao() != null)
+        if(node.getSinalLogicoOu() != null)
         {
-            node.getSinalLogicoNao().apply(this);
+            node.getSinalLogicoOu().apply(this);
+        }
+        if(node.getParenteses() != null)
+        {
+            node.getParenteses().apply(this);
         }
         outAExpressaoLogicaExpressaoLogica(node);
     }
@@ -2055,290 +2055,186 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
     public void caseATermoLogicoTermoLogico(ATermoLogicoTermoLogico node)
     {
         inATermoLogicoTermoLogico(node);
-        if(node.getFatorLogico() != null)
+        if(node.getExpressaoRelac() != null)
         {
-            node.getFatorLogico().apply(this);
+            node.getExpressaoRelac().apply(this);
         }
         if(node.getSinalLogicoE() != null)
         {
             node.getSinalLogicoE().apply(this);
         }
-        if(node.getTermoLogico() != null)
+        if(node.getParenteses() != null)
         {
-            node.getTermoLogico().apply(this);
+            node.getParenteses().apply(this);
         }
         outATermoLogicoTermoLogico(node);
     }
 
-    public void inAFatorLogicoTermoLogico(AFatorLogicoTermoLogico node)
+    public void inAExpressaoRelacionalTermoLogico(AExpressaoRelacionalTermoLogico node)
     {
         defaultIn(node);
     }
 
-    public void outAFatorLogicoTermoLogico(AFatorLogicoTermoLogico node)
+    public void outAExpressaoRelacionalTermoLogico(AExpressaoRelacionalTermoLogico node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAFatorLogicoTermoLogico(AFatorLogicoTermoLogico node)
+    public void caseAExpressaoRelacionalTermoLogico(AExpressaoRelacionalTermoLogico node)
     {
-        inAFatorLogicoTermoLogico(node);
-        if(node.getFatorLogico() != null)
+        inAExpressaoRelacionalTermoLogico(node);
+        if(node.getExpressaoRelac() != null)
         {
-            node.getFatorLogico().apply(this);
+            node.getExpressaoRelac().apply(this);
         }
-        outAFatorLogicoTermoLogico(node);
+        outAExpressaoRelacionalTermoLogico(node);
     }
 
-    public void inAFatorLogicoFatorLogico(AFatorLogicoFatorLogico node)
+    public void inAExpressaoRelacionalExpressaoRelac(AExpressaoRelacionalExpressaoRelac node)
     {
         defaultIn(node);
     }
 
-    public void outAFatorLogicoFatorLogico(AFatorLogicoFatorLogico node)
+    public void outAExpressaoRelacionalExpressaoRelac(AExpressaoRelacionalExpressaoRelac node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAFatorLogicoFatorLogico(AFatorLogicoFatorLogico node)
+    public void caseAExpressaoRelacionalExpressaoRelac(AExpressaoRelacionalExpressaoRelac node)
     {
-        inAFatorLogicoFatorLogico(node);
-        if(node.getTermoRelacional() != null)
+        inAExpressaoRelacionalExpressaoRelac(node);
+        if(node.getTermoRelac() != null)
         {
-            node.getTermoRelacional().apply(this);
+            node.getTermoRelac().apply(this);
         }
-        if(node.getSinalLogicoOu() != null)
+        if(node.getSinalIgualdade() != null)
         {
-            node.getSinalLogicoOu().apply(this);
+            node.getSinalIgualdade().apply(this);
         }
-        if(node.getFatorLogico() != null)
+        if(node.getParenteses() != null)
         {
-            node.getFatorLogico().apply(this);
+            node.getParenteses().apply(this);
         }
-        outAFatorLogicoFatorLogico(node);
+        outAExpressaoRelacionalExpressaoRelac(node);
     }
 
-    public void inATermoRelacionalFatorLogico(ATermoRelacionalFatorLogico node)
+    public void inATermoRelacExpressaoRelac(ATermoRelacExpressaoRelac node)
     {
         defaultIn(node);
     }
 
-    public void outATermoRelacionalFatorLogico(ATermoRelacionalFatorLogico node)
+    public void outATermoRelacExpressaoRelac(ATermoRelacExpressaoRelac node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseATermoRelacionalFatorLogico(ATermoRelacionalFatorLogico node)
+    public void caseATermoRelacExpressaoRelac(ATermoRelacExpressaoRelac node)
     {
-        inATermoRelacionalFatorLogico(node);
-        if(node.getTermoRelacional() != null)
+        inATermoRelacExpressaoRelac(node);
+        if(node.getTermoRelac() != null)
         {
-            node.getTermoRelacional().apply(this);
+            node.getTermoRelac().apply(this);
         }
-        outATermoRelacionalFatorLogico(node);
+        outATermoRelacExpressaoRelac(node);
     }
 
-    public void inATermoRelacionalTermoRelacional(ATermoRelacionalTermoRelacional node)
+    public void inATermoRelacionalTermoRelac(ATermoRelacionalTermoRelac node)
     {
         defaultIn(node);
     }
 
-    public void outATermoRelacionalTermoRelacional(ATermoRelacionalTermoRelacional node)
+    public void outATermoRelacionalTermoRelac(ATermoRelacionalTermoRelac node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseATermoRelacionalTermoRelacional(ATermoRelacionalTermoRelacional node)
+    public void caseATermoRelacionalTermoRelac(ATermoRelacionalTermoRelac node)
     {
-        inATermoRelacionalTermoRelacional(node);
-        if(node.getFatorRelacional() != null)
+        inATermoRelacionalTermoRelac(node);
+        if(node.getNegacao() != null)
         {
-            node.getFatorRelacional().apply(this);
-        }
-        if(node.getSinalIgualgade() != null)
-        {
-            node.getSinalIgualgade().apply(this);
-        }
-        if(node.getTermoRelacional() != null)
-        {
-            node.getTermoRelacional().apply(this);
-        }
-        outATermoRelacionalTermoRelacional(node);
-    }
-
-    public void inAFatorRelacionalTermoRelacional(AFatorRelacionalTermoRelacional node)
-    {
-        defaultIn(node);
-    }
-
-    public void outAFatorRelacionalTermoRelacional(AFatorRelacionalTermoRelacional node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseAFatorRelacionalTermoRelacional(AFatorRelacionalTermoRelacional node)
-    {
-        inAFatorRelacionalTermoRelacional(node);
-        if(node.getFatorRelacional() != null)
-        {
-            node.getFatorRelacional().apply(this);
-        }
-        outAFatorRelacionalTermoRelacional(node);
-    }
-
-    public void inAFatorRelacionalFatorRelacional(AFatorRelacionalFatorRelacional node)
-    {
-        defaultIn(node);
-    }
-
-    public void outAFatorRelacionalFatorRelacional(AFatorRelacionalFatorRelacional node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseAFatorRelacionalFatorRelacional(AFatorRelacionalFatorRelacional node)
-    {
-        inAFatorRelacionalFatorRelacional(node);
-        if(node.getTermoAritmetico() != null)
-        {
-            node.getTermoAritmetico().apply(this);
+            node.getNegacao().apply(this);
         }
         if(node.getSinalRelacional() != null)
         {
             node.getSinalRelacional().apply(this);
         }
-        if(node.getFatorRelacional() != null)
-        {
-            node.getFatorRelacional().apply(this);
-        }
-        outAFatorRelacionalFatorRelacional(node);
-    }
-
-    public void inATermoAritmeticoFatorRelacional(ATermoAritmeticoFatorRelacional node)
-    {
-        defaultIn(node);
-    }
-
-    public void outATermoAritmeticoFatorRelacional(ATermoAritmeticoFatorRelacional node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseATermoAritmeticoFatorRelacional(ATermoAritmeticoFatorRelacional node)
-    {
-        inATermoAritmeticoFatorRelacional(node);
-        if(node.getTermoAritmetico() != null)
-        {
-            node.getTermoAritmetico().apply(this);
-        }
-        outATermoAritmeticoFatorRelacional(node);
-    }
-
-    public void inATermoAritmeticoTermoAritmetico(ATermoAritmeticoTermoAritmetico node)
-    {
-        defaultIn(node);
-    }
-
-    public void outATermoAritmeticoTermoAritmetico(ATermoAritmeticoTermoAritmetico node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseATermoAritmeticoTermoAritmetico(ATermoAritmeticoTermoAritmetico node)
-    {
-        inATermoAritmeticoTermoAritmetico(node);
-        if(node.getFatorAritmetico() != null)
-        {
-            node.getFatorAritmetico().apply(this);
-        }
-        if(node.getSoma() != null)
-        {
-            node.getSoma().apply(this);
-        }
-        if(node.getTermoAritmetico() != null)
-        {
-            node.getTermoAritmetico().apply(this);
-        }
-        outATermoAritmeticoTermoAritmetico(node);
-    }
-
-    public void inAFatorAritmeticoTermoAritmetico(AFatorAritmeticoTermoAritmetico node)
-    {
-        defaultIn(node);
-    }
-
-    public void outAFatorAritmeticoTermoAritmetico(AFatorAritmeticoTermoAritmetico node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseAFatorAritmeticoTermoAritmetico(AFatorAritmeticoTermoAritmetico node)
-    {
-        inAFatorAritmeticoTermoAritmetico(node);
-        if(node.getFatorAritmetico() != null)
-        {
-            node.getFatorAritmetico().apply(this);
-        }
-        outAFatorAritmeticoTermoAritmetico(node);
-    }
-
-    public void inAFatorAritmeticoFatorAritmetico(AFatorAritmeticoFatorAritmetico node)
-    {
-        defaultIn(node);
-    }
-
-    public void outAFatorAritmeticoFatorAritmetico(AFatorAritmeticoFatorAritmetico node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseAFatorAritmeticoFatorAritmetico(AFatorAritmeticoFatorAritmetico node)
-    {
-        inAFatorAritmeticoFatorAritmetico(node);
         if(node.getParenteses() != null)
         {
             node.getParenteses().apply(this);
         }
-        if(node.getMultiplicacao() != null)
-        {
-            node.getMultiplicacao().apply(this);
-        }
-        if(node.getFatorAritmetico() != null)
-        {
-            node.getFatorAritmetico().apply(this);
-        }
-        outAFatorAritmeticoFatorAritmetico(node);
+        outATermoRelacionalTermoRelac(node);
     }
 
-    public void inATermoAritmeticoFatorAritmetico(ATermoAritmeticoFatorAritmetico node)
+    public void inANegacaoTermoRelac(ANegacaoTermoRelac node)
     {
         defaultIn(node);
     }
 
-    public void outATermoAritmeticoFatorAritmetico(ATermoAritmeticoFatorAritmetico node)
+    public void outANegacaoTermoRelac(ANegacaoTermoRelac node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseATermoAritmeticoFatorAritmetico(ATermoAritmeticoFatorAritmetico node)
+    public void caseANegacaoTermoRelac(ANegacaoTermoRelac node)
     {
-        inATermoAritmeticoFatorAritmetico(node);
+        inANegacaoTermoRelac(node);
+        if(node.getNegacao() != null)
+        {
+            node.getNegacao().apply(this);
+        }
+        outANegacaoTermoRelac(node);
+    }
+
+    public void inANegacaoNegacao(ANegacaoNegacao node)
+    {
+        defaultIn(node);
+    }
+
+    public void outANegacaoNegacao(ANegacaoNegacao node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseANegacaoNegacao(ANegacaoNegacao node)
+    {
+        inANegacaoNegacao(node);
         if(node.getParenteses() != null)
         {
             node.getParenteses().apply(this);
         }
-        outATermoAritmeticoFatorAritmetico(node);
+        if(node.getSinalLogicoNao() != null)
+        {
+            node.getSinalLogicoNao().apply(this);
+        }
+        outANegacaoNegacao(node);
+    }
+
+    public void inANegacao(ANegacao node)
+    {
+        defaultIn(node);
+    }
+
+    public void outANegacao(ANegacao node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseANegacao(ANegacao node)
+    {
+        inANegacao(node);
+        if(node.getParenteses() != null)
+        {
+            node.getParenteses().apply(this);
+        }
+        outANegacao(node);
     }
 
     public void inAParentesesParenteses(AParentesesParenteses node)
@@ -2359,9 +2255,9 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         {
             node.getFParenteses().apply(this);
         }
-        if(node.getExpressaoLogica() != null)
+        if(node.getParentesesTermo() != null)
         {
-            node.getExpressaoLogica().apply(this);
+            node.getParentesesTermo().apply(this);
         }
         if(node.getAParenteses() != null)
         {
@@ -2370,45 +2266,24 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         outAParentesesParenteses(node);
     }
 
-    public void inAValorParenteses(AValorParenteses node)
+    public void inAExpressaoLogicaParentesesTermo(AExpressaoLogicaParentesesTermo node)
     {
         defaultIn(node);
     }
 
-    public void outAValorParenteses(AValorParenteses node)
+    public void outAExpressaoLogicaParentesesTermo(AExpressaoLogicaParentesesTermo node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAValorParenteses(AValorParenteses node)
+    public void caseAExpressaoLogicaParentesesTermo(AExpressaoLogicaParentesesTermo node)
     {
-        inAValorParenteses(node);
-        if(node.getValor() != null)
+        inAExpressaoLogicaParentesesTermo(node);
+        if(node.getExpressaoLogica() != null)
         {
-            node.getValor().apply(this);
+            node.getExpressaoLogica().apply(this);
         }
-        outAValorParenteses(node);
-    }
-
-    public void inAVarParenteses(AVarParenteses node)
-    {
-        defaultIn(node);
-    }
-
-    public void outAVarParenteses(AVarParenteses node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseAVarParenteses(AVarParenteses node)
-    {
-        inAVarParenteses(node);
-        if(node.getVariavel() != null)
-        {
-            node.getVariavel().apply(this);
-        }
-        outAVarParenteses(node);
+        outAExpressaoLogicaParentesesTermo(node);
     }
 }

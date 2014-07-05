@@ -5,26 +5,22 @@ package expression.node;
 import expression.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AParentesesParenteses extends PParenteses
+public final class AApl extends PApl
 {
-    private TAParenteses _aParenteses_;
-    private PParentesesTermo _parentesesTermo_;
+    private PExpressaoLogica _expressaoLogica_;
     private TFParenteses _fParenteses_;
 
-    public AParentesesParenteses()
+    public AApl()
     {
         // Constructor
     }
 
-    public AParentesesParenteses(
-        @SuppressWarnings("hiding") TAParenteses _aParenteses_,
-        @SuppressWarnings("hiding") PParentesesTermo _parentesesTermo_,
+    public AApl(
+        @SuppressWarnings("hiding") PExpressaoLogica _expressaoLogica_,
         @SuppressWarnings("hiding") TFParenteses _fParenteses_)
     {
         // Constructor
-        setAParenteses(_aParenteses_);
-
-        setParentesesTermo(_parentesesTermo_);
+        setExpressaoLogica(_expressaoLogica_);
 
         setFParenteses(_fParenteses_);
 
@@ -33,28 +29,27 @@ public final class AParentesesParenteses extends PParenteses
     @Override
     public Object clone()
     {
-        return new AParentesesParenteses(
-            cloneNode(this._aParenteses_),
-            cloneNode(this._parentesesTermo_),
+        return new AApl(
+            cloneNode(this._expressaoLogica_),
             cloneNode(this._fParenteses_));
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAParentesesParenteses(this);
+        ((Analysis) sw).caseAApl(this);
     }
 
-    public TAParenteses getAParenteses()
+    public PExpressaoLogica getExpressaoLogica()
     {
-        return this._aParenteses_;
+        return this._expressaoLogica_;
     }
 
-    public void setAParenteses(TAParenteses node)
+    public void setExpressaoLogica(PExpressaoLogica node)
     {
-        if(this._aParenteses_ != null)
+        if(this._expressaoLogica_ != null)
         {
-            this._aParenteses_.parent(null);
+            this._expressaoLogica_.parent(null);
         }
 
         if(node != null)
@@ -67,32 +62,7 @@ public final class AParentesesParenteses extends PParenteses
             node.parent(this);
         }
 
-        this._aParenteses_ = node;
-    }
-
-    public PParentesesTermo getParentesesTermo()
-    {
-        return this._parentesesTermo_;
-    }
-
-    public void setParentesesTermo(PParentesesTermo node)
-    {
-        if(this._parentesesTermo_ != null)
-        {
-            this._parentesesTermo_.parent(null);
-        }
-
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
-                node.parent().removeChild(node);
-            }
-
-            node.parent(this);
-        }
-
-        this._parentesesTermo_ = node;
+        this._expressaoLogica_ = node;
     }
 
     public TFParenteses getFParenteses()
@@ -124,8 +94,7 @@ public final class AParentesesParenteses extends PParenteses
     public String toString()
     {
         return ""
-            + toString(this._aParenteses_)
-            + toString(this._parentesesTermo_)
+            + toString(this._expressaoLogica_)
             + toString(this._fParenteses_);
     }
 
@@ -133,15 +102,9 @@ public final class AParentesesParenteses extends PParenteses
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._aParenteses_ == child)
+        if(this._expressaoLogica_ == child)
         {
-            this._aParenteses_ = null;
-            return;
-        }
-
-        if(this._parentesesTermo_ == child)
-        {
-            this._parentesesTermo_ = null;
+            this._expressaoLogica_ = null;
             return;
         }
 
@@ -158,15 +121,9 @@ public final class AParentesesParenteses extends PParenteses
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._aParenteses_ == oldChild)
+        if(this._expressaoLogica_ == oldChild)
         {
-            setAParenteses((TAParenteses) newChild);
-            return;
-        }
-
-        if(this._parentesesTermo_ == oldChild)
-        {
-            setParentesesTermo((PParentesesTermo) newChild);
+            setExpressaoLogica((PExpressaoLogica) newChild);
             return;
         }
 

@@ -22,7 +22,6 @@ public class Main {
     static final boolean TEST = false;
 
     public static void main(String arguments[]) {
-
         //Entrada por argumentos
         String fileDir = "";
         if (TEST) {
