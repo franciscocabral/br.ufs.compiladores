@@ -20,6 +20,7 @@ Helpers
     barra               = '/';
     aspas               = ''';
     sublinhado          = '_';
+    virgula_real        = ',';
 
     nao_estrela         = [unicode - estrela];
     nao_barra           = [unicode - barra];
@@ -37,9 +38,9 @@ Helpers
 
     sinal               = ('+'|'-')?;
 
-    digitos             = unicode_numeros+;
+    digitos             = unicode_numeros+  ;
     inteiro             = sinal digitos;
-    real                = inteiro; //inteiro ponto digitos;
+    real                = inteiro | inteiro virgula_real digitos;  //inteiro ponto digitos;
     caractere           = [nao_aspas - [lf + cr]];
 
 
@@ -193,17 +194,17 @@ Productions
     
     passo_estruturas    = {passo}               passo inteiro;   
     
-    ate_estrutura       = {ate}                 ate variavel;
+    ate_estrutura       = {ate}                 ate inteiro;
 
     se_estruturas       = {se}                  se a_parenteses expressao_logica f_parenteses entao bloco_comando fim_se pontovirgula;
     se_estruturas_nao   = {se_nao}              se sinal_logico_nao a_parenteses expressao_logica f_parenteses entao bloco_comando fim_se pontovirgula;   
     se_senao_estruturas = {se_senao}            se a_parenteses expressao_logica f_parenteses entao bloco_comando senao_estruturas fim_se pontovirgula;
     se_senao_estruturas_nao = {se_nao_senao}    se sinal_logico_nao a_parenteses expressao_logica f_parenteses entao bloco_comando senao_estruturas fim_se pontovirgula;
-    avalie_estruturas   = {avalie}              avalie a_parenteses expressao f_parenteses bloco_caso senao_estruturas fim_avalie pontovirgula;
+    avalie_estruturas   = {avalie}              avalie a_parenteses expressao f_parenteses bloco_caso senao doispontos bloco_comando fim_avalie pontovirgula;
     enquanto_estruturas = {enquanto}            enquanto a_parenteses expressao_logica f_parenteses faca bloco_comando fim_enquanto pontovirgula;
     repita_estruturas   = {repita}              repita bloco_comando ate a_parenteses expressao_logica f_parenteses pontovirgula;
     para_estruturas     = {para}                para variavel de inteiro ate_estrutura faca bloco_comando fim_para pontovirgula;
-    para_passo_estruturas={para_passo}          para variavel de inteiro ate_estrutura passo_estruturas faca bloco_comando fim_para pontovirgula;
+    para_passo_estruturas={para_passo}          para variavel de inteiro passo_estruturas ate_estrutura faca bloco_comando fim_para pontovirgula;
              
 //Lista de prioridades: http://pt.wikipedia.org/wiki/Operadores_em_C_e_C%2B%2B
 //Parenteses
@@ -244,7 +245,9 @@ Productions
                         | {fator} fator;
     fator = {parenteses} a_parenteses expressao f_parenteses
                         | {valor} valor
-                        | {var} variavel;
+                        | {var} variavel
+                        | menos expressao
+                        | expressao_logica;
 
 //Expressao Logico-Relacional
 	expressao_logica =	{expressao_logica} parenteses sinal_logico_ou termo_logico
@@ -257,7 +260,4 @@ Productions
 						| {negacao}  negacao;
     negacao			 =  {negacao} sinal_logico_nao parenteses
     					| parenteses;
-    parenteses		 =	{parenteses} a_parenteses parenteses_termo f_parenteses;
-    parenteses_termo =  {expressao_logica} expressao_logica ;
-//    					| {expressao} expressao ;
-	                 
+    parenteses		 =	{parenteses} a_parenteses expressao_logica f_parenteses;
