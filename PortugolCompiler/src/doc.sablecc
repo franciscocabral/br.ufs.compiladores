@@ -237,7 +237,7 @@ Productions
 //Sinais Logicos - Ou
     sinal_logico_ou  = {ou} ou
                         | {xor} xor;
-    
+   
 //Expressao Aritmetica Pura
     expressao    =  {somas} expressao soma termo
                     | {termo} termo;
