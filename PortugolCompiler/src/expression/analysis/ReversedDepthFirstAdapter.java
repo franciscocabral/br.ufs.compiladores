@@ -1029,9 +1029,9 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
     public void caseAAteAteEstrutura(AAteAteEstrutura node)
     {
         inAAteAteEstrutura(node);
-        if(node.getVariavel() != null)
+        if(node.getInteiro() != null)
         {
-            node.getVariavel().apply(this);
+            node.getInteiro().apply(this);
         }
         if(node.getAte() != null)
         {
@@ -1274,9 +1274,17 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         {
             node.getFimAvalie().apply(this);
         }
-        if(node.getSenaoEstruturas() != null)
+        if(node.getBlocoComando() != null)
         {
-            node.getSenaoEstruturas().apply(this);
+            node.getBlocoComando().apply(this);
+        }
+        if(node.getDoispontos() != null)
+        {
+            node.getDoispontos().apply(this);
+        }
+        if(node.getSenao() != null)
+        {
+            node.getSenao().apply(this);
         }
         if(node.getBlocoCaso() != null)
         {
@@ -1478,13 +1486,13 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         {
             node.getFaca().apply(this);
         }
-        if(node.getPassoEstruturas() != null)
-        {
-            node.getPassoEstruturas().apply(this);
-        }
         if(node.getAteEstrutura() != null)
         {
             node.getAteEstrutura().apply(this);
+        }
+        if(node.getPassoEstruturas() != null)
+        {
+            node.getPassoEstruturas().apply(this);
         }
         if(node.getInteiro() != null)
         {
@@ -2255,35 +2263,14 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         {
             node.getFParenteses().apply(this);
         }
-        if(node.getParentesesTermo() != null)
+        if(node.getExpressaoLogica() != null)
         {
-            node.getParentesesTermo().apply(this);
+            node.getExpressaoLogica().apply(this);
         }
         if(node.getAParenteses() != null)
         {
             node.getAParenteses().apply(this);
         }
         outAParentesesParenteses(node);
-    }
-
-    public void inAExpressaoLogicaParentesesTermo(AExpressaoLogicaParentesesTermo node)
-    {
-        defaultIn(node);
-    }
-
-    public void outAExpressaoLogicaParentesesTermo(AExpressaoLogicaParentesesTermo node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseAExpressaoLogicaParentesesTermo(AExpressaoLogicaParentesesTermo node)
-    {
-        inAExpressaoLogicaParentesesTermo(node);
-        if(node.getExpressaoLogica() != null)
-        {
-            node.getExpressaoLogica().apply(this);
-        }
-        outAExpressaoLogicaParentesesTermo(node);
     }
 }

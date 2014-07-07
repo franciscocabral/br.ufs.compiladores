@@ -94,7 +94,6 @@ public interface Analysis extends Switch
     void caseANegacaoNegacao(ANegacaoNegacao node);
     void caseANegacao(ANegacao node);
     void caseAParentesesParenteses(AParentesesParenteses node);
-    void caseAExpressaoLogicaParentesesTermo(AExpressaoLogicaParentesesTermo node);
 
     void caseTBranco(TBranco node);
     void caseTComentarioLinha(TComentarioLinha node);

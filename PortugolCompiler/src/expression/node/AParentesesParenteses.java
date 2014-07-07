@@ -8,7 +8,7 @@ import expression.analysis.*;
 public final class AParentesesParenteses extends PParenteses
 {
     private TAParenteses _aParenteses_;
-    private PParentesesTermo _parentesesTermo_;
+    private PExpressaoLogica _expressaoLogica_;
     private TFParenteses _fParenteses_;
 
     public AParentesesParenteses()
@@ -18,13 +18,13 @@ public final class AParentesesParenteses extends PParenteses
 
     public AParentesesParenteses(
         @SuppressWarnings("hiding") TAParenteses _aParenteses_,
-        @SuppressWarnings("hiding") PParentesesTermo _parentesesTermo_,
+        @SuppressWarnings("hiding") PExpressaoLogica _expressaoLogica_,
         @SuppressWarnings("hiding") TFParenteses _fParenteses_)
     {
         // Constructor
         setAParenteses(_aParenteses_);
 
-        setParentesesTermo(_parentesesTermo_);
+        setExpressaoLogica(_expressaoLogica_);
 
         setFParenteses(_fParenteses_);
 
@@ -35,7 +35,7 @@ public final class AParentesesParenteses extends PParenteses
     {
         return new AParentesesParenteses(
             cloneNode(this._aParenteses_),
-            cloneNode(this._parentesesTermo_),
+            cloneNode(this._expressaoLogica_),
             cloneNode(this._fParenteses_));
     }
 
@@ -70,16 +70,16 @@ public final class AParentesesParenteses extends PParenteses
         this._aParenteses_ = node;
     }
 
-    public PParentesesTermo getParentesesTermo()
+    public PExpressaoLogica getExpressaoLogica()
     {
-        return this._parentesesTermo_;
+        return this._expressaoLogica_;
     }
 
-    public void setParentesesTermo(PParentesesTermo node)
+    public void setExpressaoLogica(PExpressaoLogica node)
     {
-        if(this._parentesesTermo_ != null)
+        if(this._expressaoLogica_ != null)
         {
-            this._parentesesTermo_.parent(null);
+            this._expressaoLogica_.parent(null);
         }
 
         if(node != null)
@@ -92,7 +92,7 @@ public final class AParentesesParenteses extends PParenteses
             node.parent(this);
         }
 
-        this._parentesesTermo_ = node;
+        this._expressaoLogica_ = node;
     }
 
     public TFParenteses getFParenteses()
@@ -125,7 +125,7 @@ public final class AParentesesParenteses extends PParenteses
     {
         return ""
             + toString(this._aParenteses_)
-            + toString(this._parentesesTermo_)
+            + toString(this._expressaoLogica_)
             + toString(this._fParenteses_);
     }
 
@@ -139,9 +139,9 @@ public final class AParentesesParenteses extends PParenteses
             return;
         }
 
-        if(this._parentesesTermo_ == child)
+        if(this._expressaoLogica_ == child)
         {
-            this._parentesesTermo_ = null;
+            this._expressaoLogica_ = null;
             return;
         }
 
@@ -164,9 +164,9 @@ public final class AParentesesParenteses extends PParenteses
             return;
         }
 
-        if(this._parentesesTermo_ == oldChild)
+        if(this._expressaoLogica_ == oldChild)
         {
-            setParentesesTermo((PParentesesTermo) newChild);
+            setExpressaoLogica((PExpressaoLogica) newChild);
             return;
         }
 

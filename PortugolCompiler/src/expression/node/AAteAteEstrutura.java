@@ -8,7 +8,7 @@ import expression.analysis.*;
 public final class AAteAteEstrutura extends PAteEstrutura
 {
     private TAte _ate_;
-    private PVariavel _variavel_;
+    private TInteiro _inteiro_;
 
     public AAteAteEstrutura()
     {
@@ -17,12 +17,12 @@ public final class AAteAteEstrutura extends PAteEstrutura
 
     public AAteAteEstrutura(
         @SuppressWarnings("hiding") TAte _ate_,
-        @SuppressWarnings("hiding") PVariavel _variavel_)
+        @SuppressWarnings("hiding") TInteiro _inteiro_)
     {
         // Constructor
         setAte(_ate_);
 
-        setVariavel(_variavel_);
+        setInteiro(_inteiro_);
 
     }
 
@@ -31,7 +31,7 @@ public final class AAteAteEstrutura extends PAteEstrutura
     {
         return new AAteAteEstrutura(
             cloneNode(this._ate_),
-            cloneNode(this._variavel_));
+            cloneNode(this._inteiro_));
     }
 
     @Override
@@ -65,16 +65,16 @@ public final class AAteAteEstrutura extends PAteEstrutura
         this._ate_ = node;
     }
 
-    public PVariavel getVariavel()
+    public TInteiro getInteiro()
     {
-        return this._variavel_;
+        return this._inteiro_;
     }
 
-    public void setVariavel(PVariavel node)
+    public void setInteiro(TInteiro node)
     {
-        if(this._variavel_ != null)
+        if(this._inteiro_ != null)
         {
-            this._variavel_.parent(null);
+            this._inteiro_.parent(null);
         }
 
         if(node != null)
@@ -87,7 +87,7 @@ public final class AAteAteEstrutura extends PAteEstrutura
             node.parent(this);
         }
 
-        this._variavel_ = node;
+        this._inteiro_ = node;
     }
 
     @Override
@@ -95,7 +95,7 @@ public final class AAteAteEstrutura extends PAteEstrutura
     {
         return ""
             + toString(this._ate_)
-            + toString(this._variavel_);
+            + toString(this._inteiro_);
     }
 
     @Override
@@ -108,9 +108,9 @@ public final class AAteAteEstrutura extends PAteEstrutura
             return;
         }
 
-        if(this._variavel_ == child)
+        if(this._inteiro_ == child)
         {
-            this._variavel_ = null;
+            this._inteiro_ = null;
             return;
         }
 
@@ -127,9 +127,9 @@ public final class AAteAteEstrutura extends PAteEstrutura
             return;
         }
 
-        if(this._variavel_ == oldChild)
+        if(this._inteiro_ == oldChild)
         {
-            setVariavel((PVariavel) newChild);
+            setInteiro((TInteiro) newChild);
             return;
         }
 

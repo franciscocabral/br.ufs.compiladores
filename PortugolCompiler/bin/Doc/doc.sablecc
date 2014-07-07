@@ -245,9 +245,9 @@ Productions
                         | {fator} fator;
     fator = {parenteses} a_parenteses expressao f_parenteses
                         | {valor} valor
-                        | {var} variavel
-                        | menos expressao
-                        | expressao_logica;
+                        | {var} variavel;
+                       // | menos expressao;
+                       // | expressao_logica;
 
 //Expressao Logico-Relacional
 	expressao_logica =	{expressao_logica} parenteses sinal_logico_ou termo_logico

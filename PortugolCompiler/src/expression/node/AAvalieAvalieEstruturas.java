@@ -12,7 +12,9 @@ public final class AAvalieAvalieEstruturas extends PAvalieEstruturas
     private PExpressao _expressao_;
     private TFParenteses _fParenteses_;
     private PBlocoCaso _blocoCaso_;
-    private PSenaoEstruturas _senaoEstruturas_;
+    private TSenao _senao_;
+    private TDoispontos _doispontos_;
+    private PBlocoComando _blocoComando_;
     private TFimAvalie _fimAvalie_;
     private TPontovirgula _pontovirgula_;
 
@@ -27,7 +29,9 @@ public final class AAvalieAvalieEstruturas extends PAvalieEstruturas
         @SuppressWarnings("hiding") PExpressao _expressao_,
         @SuppressWarnings("hiding") TFParenteses _fParenteses_,
         @SuppressWarnings("hiding") PBlocoCaso _blocoCaso_,
-        @SuppressWarnings("hiding") PSenaoEstruturas _senaoEstruturas_,
+        @SuppressWarnings("hiding") TSenao _senao_,
+        @SuppressWarnings("hiding") TDoispontos _doispontos_,
+        @SuppressWarnings("hiding") PBlocoComando _blocoComando_,
         @SuppressWarnings("hiding") TFimAvalie _fimAvalie_,
         @SuppressWarnings("hiding") TPontovirgula _pontovirgula_)
     {
@@ -42,7 +46,11 @@ public final class AAvalieAvalieEstruturas extends PAvalieEstruturas
 
         setBlocoCaso(_blocoCaso_);
 
-        setSenaoEstruturas(_senaoEstruturas_);
+        setSenao(_senao_);
+
+        setDoispontos(_doispontos_);
+
+        setBlocoComando(_blocoComando_);
 
         setFimAvalie(_fimAvalie_);
 
@@ -59,7 +67,9 @@ public final class AAvalieAvalieEstruturas extends PAvalieEstruturas
             cloneNode(this._expressao_),
             cloneNode(this._fParenteses_),
             cloneNode(this._blocoCaso_),
-            cloneNode(this._senaoEstruturas_),
+            cloneNode(this._senao_),
+            cloneNode(this._doispontos_),
+            cloneNode(this._blocoComando_),
             cloneNode(this._fimAvalie_),
             cloneNode(this._pontovirgula_));
     }
@@ -195,16 +205,16 @@ public final class AAvalieAvalieEstruturas extends PAvalieEstruturas
         this._blocoCaso_ = node;
     }
 
-    public PSenaoEstruturas getSenaoEstruturas()
+    public TSenao getSenao()
     {
-        return this._senaoEstruturas_;
+        return this._senao_;
     }
 
-    public void setSenaoEstruturas(PSenaoEstruturas node)
+    public void setSenao(TSenao node)
     {
-        if(this._senaoEstruturas_ != null)
+        if(this._senao_ != null)
         {
-            this._senaoEstruturas_.parent(null);
+            this._senao_.parent(null);
         }
 
         if(node != null)
@@ -217,7 +227,57 @@ public final class AAvalieAvalieEstruturas extends PAvalieEstruturas
             node.parent(this);
         }
 
-        this._senaoEstruturas_ = node;
+        this._senao_ = node;
+    }
+
+    public TDoispontos getDoispontos()
+    {
+        return this._doispontos_;
+    }
+
+    public void setDoispontos(TDoispontos node)
+    {
+        if(this._doispontos_ != null)
+        {
+            this._doispontos_.parent(null);
+        }
+
+        if(node != null)
+        {
+            if(node.parent() != null)
+            {
+                node.parent().removeChild(node);
+            }
+
+            node.parent(this);
+        }
+
+        this._doispontos_ = node;
+    }
+
+    public PBlocoComando getBlocoComando()
+    {
+        return this._blocoComando_;
+    }
+
+    public void setBlocoComando(PBlocoComando node)
+    {
+        if(this._blocoComando_ != null)
+        {
+            this._blocoComando_.parent(null);
+        }
+
+        if(node != null)
+        {
+            if(node.parent() != null)
+            {
+                node.parent().removeChild(node);
+            }
+
+            node.parent(this);
+        }
+
+        this._blocoComando_ = node;
     }
 
     public TFimAvalie getFimAvalie()
@@ -279,7 +339,9 @@ public final class AAvalieAvalieEstruturas extends PAvalieEstruturas
             + toString(this._expressao_)
             + toString(this._fParenteses_)
             + toString(this._blocoCaso_)
-            + toString(this._senaoEstruturas_)
+            + toString(this._senao_)
+            + toString(this._doispontos_)
+            + toString(this._blocoComando_)
             + toString(this._fimAvalie_)
             + toString(this._pontovirgula_);
     }
@@ -318,9 +380,21 @@ public final class AAvalieAvalieEstruturas extends PAvalieEstruturas
             return;
         }
 
-        if(this._senaoEstruturas_ == child)
+        if(this._senao_ == child)
         {
-            this._senaoEstruturas_ = null;
+            this._senao_ = null;
+            return;
+        }
+
+        if(this._doispontos_ == child)
+        {
+            this._doispontos_ = null;
+            return;
+        }
+
+        if(this._blocoComando_ == child)
+        {
+            this._blocoComando_ = null;
             return;
         }
 
@@ -373,9 +447,21 @@ public final class AAvalieAvalieEstruturas extends PAvalieEstruturas
             return;
         }
 
-        if(this._senaoEstruturas_ == oldChild)
+        if(this._senao_ == oldChild)
         {
-            setSenaoEstruturas((PSenaoEstruturas) newChild);
+            setSenao((TSenao) newChild);
+            return;
+        }
+
+        if(this._doispontos_ == oldChild)
+        {
+            setDoispontos((TDoispontos) newChild);
+            return;
+        }
+
+        if(this._blocoComando_ == oldChild)
+        {
+            setBlocoComando((PBlocoComando) newChild);
             return;
         }
 

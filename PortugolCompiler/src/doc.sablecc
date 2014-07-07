@@ -239,15 +239,14 @@ Productions
                         | {xor} xor;
     
 //Expressao Aritmetica Pura
-    expressao = {somas} expressao soma termo
-                        | {termo} termo;
-    termo = {multiplicacoes} termo multiplicacao fator
-                        | {fator} fator;
-    fator = {parenteses} a_parenteses expressao f_parenteses
-                        | {valor} valor
-                        | {var} variavel
-                        | menos expressao
-                        | expressao_logica;
+    expressao    =  {somas} expressao soma termo
+                    | {termo} termo;
+    termo        =  {multiplicacoes} termo multiplicacao fator
+                    | {fator} fator;                                  
+    fator        =  {parenteses}  a_parenteses expressao f_parenteses
+                    | {valor} valor
+                    | {var} variavel;
+                  //  | {espressao_log} expressao_logica;
 
 //Expressao Logico-Relacional
 	expressao_logica =	{expressao_logica} parenteses sinal_logico_ou termo_logico
