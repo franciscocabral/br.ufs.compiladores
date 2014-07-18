@@ -19,6 +19,7 @@ public class myLexer extends Lexer {
 
     private int contador;
     private TComentario comentario;
+    private TComentarioLinha comentarioL;
     private StringBuffer text;
 
     public myLexer(PushbackReader in) {

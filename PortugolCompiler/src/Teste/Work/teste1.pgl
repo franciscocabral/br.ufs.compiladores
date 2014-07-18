@@ -1,15 +1,24 @@
 programa teste1
 inicio
-    /*
-        Comentário
-        /*Comentário anninhado*/
-        /*Mais comentário aninhado*/
-        resto do comentário
-        /**/
+	// *um/ coment line /*
+	um comentario
+	*/
+	/* ************
+		Comentario de bloco
+		// Comentario de linha /*
+        */
+        // Comentario de linha /* com comentario de bloco */
+        Comentario
+        /*Comentario anninhado*/
+        /*Mais comentario aninhado*/
+        resto do comentario
+        /**//*
+        */
     */
+    
     inteiro: x, y;
     inteiro: z;
-
+    
     leia(x,y);
     se (x > y) entao
         escreva(x-y);
@@ -18,7 +27,7 @@ inicio
     fim se;
 
     /*
-        // /*
+        // a/*
         */
     */
 fim.

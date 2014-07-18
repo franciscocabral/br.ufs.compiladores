@@ -4,7 +4,7 @@ inicio
      *mais de uma
      *linha!
      */
-    //E esse nao precisa fechar
+    //Esse nao precisa fechar
 
     caractere: leianome[10], sobrenome[10];
 
