@@ -25,36 +25,46 @@ Helpers
     nao_estrela         = [unicode - estrela];
     nao_barra           = [unicode - barra];
     nao_estrela_ou_barra= [unicode - [estrela + barra]];
+    
     nao_aspas           = [unicode - aspas];
+    
     nao_fim_de_linha    = [unicode - [lf + cr]];
-
+	nao_fl_e_b			= [nao_fim_de_linha - [estrela + barra]];
+	nao_fl_e			= [nao_fim_de_linha - estrela];
+	nao_fl_b			= [nao_fim_de_linha - barra];
+	
     letras              = unicode_letras | sublinhado;
     letras_ou_numeros   = unicode_letras | unicode_numeros | sublinhado;
     
-    comentario_linha    = '//' nao_fim_de_linha* fim_de_linha?; 
     comentario_inicio   = '/*';
     comentario_corpo    = nao_estrela_ou_barra* | (estrela nao_barra)* | (nao_estrela barra)*;
     comentario_final    = '*/';
+    
+    comentario_linha_inicio = '//';
+    comentario_linha_corpo  = (estrela nao_fl_b)* | (barra nao_fl_e)* | nao_fl_e_b*;
+    comentario_linha_final  = fim_de_linha; 
 
     sinal               = ('+'|'-')?;
 
     digitos             = unicode_numeros+  ;
     inteiro             = sinal digitos;
-    real                = inteiro | inteiro virgula_real digitos;  //inteiro ponto digitos;
+    real                = inteiro | inteiro virgula_real digitos;
     caractere           = [nao_aspas - [lf + cr]];
 
 
 States
   normal,
-  comentario;
+  comentario,
+  c_l;
 
 Tokens
 
     {normal} branco              = branco;
-    {normal} 
-    comentario_linha             = comentario_linha;
+    {normal->c_l} comentario_linha= comentario_linha_inicio;
+    {c_l->normal} comentario_linha_final =  comentario_linha_corpo* comentario_linha_final?;
+    
 
-    {normal->comentario, comentario} 
+    {normal->comentario, comentario, c_l->comentario} 
     comentario                   = comentario_inicio;
     {comentario} comentario_final= comentario_final;
     {comentario} comentario_corpo= comentario_corpo;
@@ -135,7 +145,7 @@ Tokens
     {normal} id                  = letras | letras letras_ou_numeros*;
 
 Ignored Tokens
-   comentario, comentario_linha, branco;
+   comentario, comentario_linha, branco, comentario_linha_final;
 
 Productions
     start               = {start}               instancia_programa;
@@ -176,9 +186,9 @@ Productions
     comando             = {atribuicao}          atribuicoes
                         | {funcoes}             funcoes
                         | {se}                  se_estruturas
-                        | {se_nao}              se_estruturas_nao 
+                     // | {se_nao}              se_estruturas_nao 
                         | {se_entao}            se_senao_estruturas
-                        | {se_nao_entao}        se_senao_estruturas_nao
+                     // | {se_nao_entao}        se_senao_estruturas_nao
                         | {avalie}              avalie_estruturas
                         | {enquanto}            enquanto_estruturas
                         | {repita}              repita_estruturas
@@ -197,9 +207,9 @@ Productions
     ate_estrutura       = {ate}                 ate inteiro;
 
     se_estruturas       = {se}                  se a_parenteses expressao_logica f_parenteses entao bloco_comando fim_se pontovirgula;
-    se_estruturas_nao   = {se_nao}              se sinal_logico_nao a_parenteses expressao_logica f_parenteses entao bloco_comando fim_se pontovirgula;   
+ // se_estruturas_nao   = {se_nao}              se sinal_logico_nao a_parenteses expressao_logica f_parenteses entao bloco_comando fim_se pontovirgula;   
     se_senao_estruturas = {se_senao}            se a_parenteses expressao_logica f_parenteses entao bloco_comando senao_estruturas fim_se pontovirgula;
-    se_senao_estruturas_nao = {se_nao_senao}    se sinal_logico_nao a_parenteses expressao_logica f_parenteses entao bloco_comando senao_estruturas fim_se pontovirgula;
+ // se_senao_estruturas_nao = {se_nao_senao}    se sinal_logico_nao a_parenteses expressao_logica f_parenteses entao bloco_comando senao_estruturas fim_se pontovirgula;
     avalie_estruturas   = {avalie}              avalie a_parenteses expressao f_parenteses bloco_caso senao doispontos bloco_comando fim_avalie pontovirgula;
     enquanto_estruturas = {enquanto}            enquanto a_parenteses expressao_logica f_parenteses faca bloco_comando fim_enquanto pontovirgula;
     repita_estruturas   = {repita}              repita bloco_comando ate a_parenteses expressao_logica f_parenteses pontovirgula;
@@ -237,27 +247,30 @@ Productions
 //Sinais Logicos - Ou
     sinal_logico_ou  = {ou} ou
                         | {xor} xor;
-    
+   
 //Expressao Aritmetica Pura
-    expressao = {somas} expressao soma termo
-                        | {termo} termo;
-    termo = {multiplicacoes} termo multiplicacao fator
-                        | {fator} fator;
-    fator = {parenteses} a_parenteses expressao f_parenteses
-                        | {valor} valor
-                        | {var} variavel;
-                       // | menos expressao;
-                       // | expressao_logica;
+    expressao    =  {somas} expressao soma termo
+                    | {termo} termo;
+    termo        =  {multiplicacoes} termo multiplicacao fator
+                    | {fator} fator;                                  
+    fator        =  {parenteses}  a_parenteses expressao f_parenteses
+                    | {valor} valor
+                    | {var} variavel;
+                   // | {espressao_log} expressao_logica;
 
 //Expressao Logico-Relacional
-	expressao_logica =	{expressao_logica} parenteses sinal_logico_ou termo_logico
+	expressao_logica =	{expressao_logica}  sinal_logico_ou termo_logico
 						| {termo_logico} termo_logico;
-	termo_logico	 =	{termo_logico} parenteses sinal_logico_e expressao_relac
+	termo_logico	 =	{termo_logico}  termo_logico sinal_logico_e expressao_relac
 						| {expressao_relacional} expressao_relac;
-	expressao_relac  =	{expressao_relacional} parenteses sinal_igualdade termo_relac
+	expressao_relac  =	{expressao_relacional} expressao_relac sinal_igualdade termo_relac
 						| {termo_relac} termo_relac;
-	termo_relac		 =	{termo_relacional} parenteses sinal_relacional negacao
+	termo_relac		 =	{termo_relacional} termo_relac  sinal_relacional negacao
 						| {negacao}  negacao;
-    negacao			 =  {negacao} sinal_logico_nao parenteses
+    negacao			 =  {negacao} negacao sinal_logico_nao parenteses
     					| parenteses;
-    parenteses		 =	{parenteses} a_parenteses expressao_logica f_parenteses;
+    parenteses       =  {parenteses} a_parenteses expressao_logica f_parenteses;
+
+ // Arvore Abstrata
+ 
+ 

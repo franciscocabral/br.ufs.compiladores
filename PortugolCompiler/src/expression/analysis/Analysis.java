@@ -38,9 +38,7 @@ public interface Analysis extends Switch
     void caseAAtribuicaoComando(AAtribuicaoComando node);
     void caseAFuncoesComando(AFuncoesComando node);
     void caseASeComando(ASeComando node);
-    void caseASeNaoComando(ASeNaoComando node);
     void caseASeEntaoComando(ASeEntaoComando node);
-    void caseASeNaoEntaoComando(ASeNaoEntaoComando node);
     void caseAAvalieComando(AAvalieComando node);
     void caseAEnquantoComando(AEnquantoComando node);
     void caseARepitaComando(ARepitaComando node);
@@ -53,9 +51,7 @@ public interface Analysis extends Switch
     void caseAPassoPassoEstruturas(APassoPassoEstruturas node);
     void caseAAteAteEstrutura(AAteAteEstrutura node);
     void caseASeSeEstruturas(ASeSeEstruturas node);
-    void caseASeNaoSeEstruturasNao(ASeNaoSeEstruturasNao node);
     void caseASeSenaoSeSenaoEstruturas(ASeSenaoSeSenaoEstruturas node);
-    void caseASeNaoSenaoSeSenaoEstruturasNao(ASeNaoSenaoSeSenaoEstruturasNao node);
     void caseAAvalieAvalieEstruturas(AAvalieAvalieEstruturas node);
     void caseAEnquantoEnquantoEstruturas(AEnquantoEnquantoEstruturas node);
     void caseARepitaRepitaEstruturas(ARepitaRepitaEstruturas node);

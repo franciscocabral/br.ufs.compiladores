@@ -690,27 +690,6 @@ public class DepthFirstAdapter extends AnalysisAdapter
         outASeComando(node);
     }
 
-    public void inASeNaoComando(ASeNaoComando node)
-    {
-        defaultIn(node);
-    }
-
-    public void outASeNaoComando(ASeNaoComando node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseASeNaoComando(ASeNaoComando node)
-    {
-        inASeNaoComando(node);
-        if(node.getSeEstruturasNao() != null)
-        {
-            node.getSeEstruturasNao().apply(this);
-        }
-        outASeNaoComando(node);
-    }
-
     public void inASeEntaoComando(ASeEntaoComando node)
     {
         defaultIn(node);
@@ -730,27 +709,6 @@ public class DepthFirstAdapter extends AnalysisAdapter
             node.getSeSenaoEstruturas().apply(this);
         }
         outASeEntaoComando(node);
-    }
-
-    public void inASeNaoEntaoComando(ASeNaoEntaoComando node)
-    {
-        defaultIn(node);
-    }
-
-    public void outASeNaoEntaoComando(ASeNaoEntaoComando node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseASeNaoEntaoComando(ASeNaoEntaoComando node)
-    {
-        inASeNaoEntaoComando(node);
-        if(node.getSeSenaoEstruturasNao() != null)
-        {
-            node.getSeSenaoEstruturasNao().apply(this);
-        }
-        outASeNaoEntaoComando(node);
     }
 
     public void inAAvalieComando(AAvalieComando node)
@@ -1089,59 +1047,6 @@ public class DepthFirstAdapter extends AnalysisAdapter
         outASeSeEstruturas(node);
     }
 
-    public void inASeNaoSeEstruturasNao(ASeNaoSeEstruturasNao node)
-    {
-        defaultIn(node);
-    }
-
-    public void outASeNaoSeEstruturasNao(ASeNaoSeEstruturasNao node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseASeNaoSeEstruturasNao(ASeNaoSeEstruturasNao node)
-    {
-        inASeNaoSeEstruturasNao(node);
-        if(node.getSe() != null)
-        {
-            node.getSe().apply(this);
-        }
-        if(node.getSinalLogicoNao() != null)
-        {
-            node.getSinalLogicoNao().apply(this);
-        }
-        if(node.getAParenteses() != null)
-        {
-            node.getAParenteses().apply(this);
-        }
-        if(node.getExpressaoLogica() != null)
-        {
-            node.getExpressaoLogica().apply(this);
-        }
-        if(node.getFParenteses() != null)
-        {
-            node.getFParenteses().apply(this);
-        }
-        if(node.getEntao() != null)
-        {
-            node.getEntao().apply(this);
-        }
-        if(node.getBlocoComando() != null)
-        {
-            node.getBlocoComando().apply(this);
-        }
-        if(node.getFimSe() != null)
-        {
-            node.getFimSe().apply(this);
-        }
-        if(node.getPontovirgula() != null)
-        {
-            node.getPontovirgula().apply(this);
-        }
-        outASeNaoSeEstruturasNao(node);
-    }
-
     public void inASeSenaoSeSenaoEstruturas(ASeSenaoSeSenaoEstruturas node)
     {
         defaultIn(node);
@@ -1193,63 +1098,6 @@ public class DepthFirstAdapter extends AnalysisAdapter
             node.getPontovirgula().apply(this);
         }
         outASeSenaoSeSenaoEstruturas(node);
-    }
-
-    public void inASeNaoSenaoSeSenaoEstruturasNao(ASeNaoSenaoSeSenaoEstruturasNao node)
-    {
-        defaultIn(node);
-    }
-
-    public void outASeNaoSenaoSeSenaoEstruturasNao(ASeNaoSenaoSeSenaoEstruturasNao node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseASeNaoSenaoSeSenaoEstruturasNao(ASeNaoSenaoSeSenaoEstruturasNao node)
-    {
-        inASeNaoSenaoSeSenaoEstruturasNao(node);
-        if(node.getSe() != null)
-        {
-            node.getSe().apply(this);
-        }
-        if(node.getSinalLogicoNao() != null)
-        {
-            node.getSinalLogicoNao().apply(this);
-        }
-        if(node.getAParenteses() != null)
-        {
-            node.getAParenteses().apply(this);
-        }
-        if(node.getExpressaoLogica() != null)
-        {
-            node.getExpressaoLogica().apply(this);
-        }
-        if(node.getFParenteses() != null)
-        {
-            node.getFParenteses().apply(this);
-        }
-        if(node.getEntao() != null)
-        {
-            node.getEntao().apply(this);
-        }
-        if(node.getBlocoComando() != null)
-        {
-            node.getBlocoComando().apply(this);
-        }
-        if(node.getSenaoEstruturas() != null)
-        {
-            node.getSenaoEstruturas().apply(this);
-        }
-        if(node.getFimSe() != null)
-        {
-            node.getFimSe().apply(this);
-        }
-        if(node.getPontovirgula() != null)
-        {
-            node.getPontovirgula().apply(this);
-        }
-        outASeNaoSenaoSeSenaoEstruturasNao(node);
     }
 
     public void inAAvalieAvalieEstruturas(AAvalieAvalieEstruturas node)
@@ -2013,10 +1861,6 @@ public class DepthFirstAdapter extends AnalysisAdapter
     public void caseAExpressaoLogicaExpressaoLogica(AExpressaoLogicaExpressaoLogica node)
     {
         inAExpressaoLogicaExpressaoLogica(node);
-        if(node.getParenteses() != null)
-        {
-            node.getParenteses().apply(this);
-        }
         if(node.getSinalLogicoOu() != null)
         {
             node.getSinalLogicoOu().apply(this);
@@ -2063,9 +1907,9 @@ public class DepthFirstAdapter extends AnalysisAdapter
     public void caseATermoLogicoTermoLogico(ATermoLogicoTermoLogico node)
     {
         inATermoLogicoTermoLogico(node);
-        if(node.getParenteses() != null)
+        if(node.getTermoLogico() != null)
         {
-            node.getParenteses().apply(this);
+            node.getTermoLogico().apply(this);
         }
         if(node.getSinalLogicoE() != null)
         {
@@ -2113,9 +1957,9 @@ public class DepthFirstAdapter extends AnalysisAdapter
     public void caseAExpressaoRelacionalExpressaoRelac(AExpressaoRelacionalExpressaoRelac node)
     {
         inAExpressaoRelacionalExpressaoRelac(node);
-        if(node.getParenteses() != null)
+        if(node.getExpressaoRelac() != null)
         {
-            node.getParenteses().apply(this);
+            node.getExpressaoRelac().apply(this);
         }
         if(node.getSinalIgualdade() != null)
         {
@@ -2163,9 +2007,9 @@ public class DepthFirstAdapter extends AnalysisAdapter
     public void caseATermoRelacionalTermoRelac(ATermoRelacionalTermoRelac node)
     {
         inATermoRelacionalTermoRelac(node);
-        if(node.getParenteses() != null)
+        if(node.getTermoRelac() != null)
         {
-            node.getParenteses().apply(this);
+            node.getTermoRelac().apply(this);
         }
         if(node.getSinalRelacional() != null)
         {
@@ -2213,6 +2057,10 @@ public class DepthFirstAdapter extends AnalysisAdapter
     public void caseANegacaoNegacao(ANegacaoNegacao node)
     {
         inANegacaoNegacao(node);
+        if(node.getNegacao() != null)
+        {
+            node.getNegacao().apply(this);
+        }
         if(node.getSinalLogicoNao() != null)
         {
             node.getSinalLogicoNao().apply(this);

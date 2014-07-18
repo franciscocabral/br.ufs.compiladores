@@ -186,9 +186,9 @@ Productions
     comando             = {atribuicao}          atribuicoes
                         | {funcoes}             funcoes
                         | {se}                  se_estruturas
-                        | {se_nao}              se_estruturas_nao 
+                     // | {se_nao}              se_estruturas_nao 
                         | {se_entao}            se_senao_estruturas
-                        | {se_nao_entao}        se_senao_estruturas_nao
+                     // | {se_nao_entao}        se_senao_estruturas_nao
                         | {avalie}              avalie_estruturas
                         | {enquanto}            enquanto_estruturas
                         | {repita}              repita_estruturas
@@ -207,9 +207,9 @@ Productions
     ate_estrutura       = {ate}                 ate inteiro;
 
     se_estruturas       = {se}                  se a_parenteses expressao_logica f_parenteses entao bloco_comando fim_se pontovirgula;
-    se_estruturas_nao   = {se_nao}              se sinal_logico_nao a_parenteses expressao_logica f_parenteses entao bloco_comando fim_se pontovirgula;   
+ // se_estruturas_nao   = {se_nao}              se sinal_logico_nao a_parenteses expressao_logica f_parenteses entao bloco_comando fim_se pontovirgula;   
     se_senao_estruturas = {se_senao}            se a_parenteses expressao_logica f_parenteses entao bloco_comando senao_estruturas fim_se pontovirgula;
-    se_senao_estruturas_nao = {se_nao_senao}    se sinal_logico_nao a_parenteses expressao_logica f_parenteses entao bloco_comando senao_estruturas fim_se pontovirgula;
+ // se_senao_estruturas_nao = {se_nao_senao}    se sinal_logico_nao a_parenteses expressao_logica f_parenteses entao bloco_comando senao_estruturas fim_se pontovirgula;
     avalie_estruturas   = {avalie}              avalie a_parenteses expressao f_parenteses bloco_caso senao doispontos bloco_comando fim_avalie pontovirgula;
     enquanto_estruturas = {enquanto}            enquanto a_parenteses expressao_logica f_parenteses faca bloco_comando fim_enquanto pontovirgula;
     repita_estruturas   = {repita}              repita bloco_comando ate a_parenteses expressao_logica f_parenteses pontovirgula;
@@ -256,22 +256,21 @@ Productions
     fator        =  {parenteses}  a_parenteses expressao f_parenteses
                     | {valor} valor
                     | {var} variavel;
-                  //  | {espressao_log} expressao_logica;
+                   // | {espressao_log} expressao_logica;
 
 //Expressao Logico-Relacional
 	expressao_logica =	{expressao_logica}  sinal_logico_ou termo_logico
 						| {termo_logico} termo_logico;
-	termo_logico	 =	{termo_logico}  sinal_logico_e expressao_relac
+	termo_logico	 =	{termo_logico}  termo_logico sinal_logico_e expressao_relac
 						| {expressao_relacional} expressao_relac;
-	expressao_relac  =	{expressao_relacional}  sinal_igualdade termo_relac
+	expressao_relac  =	{expressao_relacional} expressao_relac sinal_igualdade termo_relac
 						| {termo_relac} termo_relac;
-	termo_relac		 =	{termo_relacional}  sinal_relacional negacao
+	termo_relac		 =	{termo_relacional} termo_relac  sinal_relacional negacao
 						| {negacao}  negacao;
-    negacao			 =  {negacao} sinal_logico_nao parenteses
+    negacao			 =  {negacao} negacao sinal_logico_nao parenteses
     					| parenteses;
-    parenteses		 =	{parenteses} a_parenteses expressao_logica f_parenteses;
-    
-    
+    parenteses       =  {parenteses} a_parenteses expressao_logica f_parenteses;
+
  // Arvore Abstrata
  
  

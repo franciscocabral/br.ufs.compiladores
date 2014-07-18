@@ -7,7 +7,7 @@ import expression.analysis.*;
 @SuppressWarnings("nls")
 public final class AExpressaoRelacionalExpressaoRelac extends PExpressaoRelac
 {
-    private PParenteses _parenteses_;
+    private PExpressaoRelac _expressaoRelac_;
     private PSinalIgualdade _sinalIgualdade_;
     private PTermoRelac _termoRelac_;
 
@@ -17,12 +17,12 @@ public final class AExpressaoRelacionalExpressaoRelac extends PExpressaoRelac
     }
 
     public AExpressaoRelacionalExpressaoRelac(
-        @SuppressWarnings("hiding") PParenteses _parenteses_,
+        @SuppressWarnings("hiding") PExpressaoRelac _expressaoRelac_,
         @SuppressWarnings("hiding") PSinalIgualdade _sinalIgualdade_,
         @SuppressWarnings("hiding") PTermoRelac _termoRelac_)
     {
         // Constructor
-        setParenteses(_parenteses_);
+        setExpressaoRelac(_expressaoRelac_);
 
         setSinalIgualdade(_sinalIgualdade_);
 
@@ -34,7 +34,7 @@ public final class AExpressaoRelacionalExpressaoRelac extends PExpressaoRelac
     public Object clone()
     {
         return new AExpressaoRelacionalExpressaoRelac(
-            cloneNode(this._parenteses_),
+            cloneNode(this._expressaoRelac_),
             cloneNode(this._sinalIgualdade_),
             cloneNode(this._termoRelac_));
     }
@@ -45,16 +45,16 @@ public final class AExpressaoRelacionalExpressaoRelac extends PExpressaoRelac
         ((Analysis) sw).caseAExpressaoRelacionalExpressaoRelac(this);
     }
 
-    public PParenteses getParenteses()
+    public PExpressaoRelac getExpressaoRelac()
     {
-        return this._parenteses_;
+        return this._expressaoRelac_;
     }
 
-    public void setParenteses(PParenteses node)
+    public void setExpressaoRelac(PExpressaoRelac node)
     {
-        if(this._parenteses_ != null)
+        if(this._expressaoRelac_ != null)
         {
-            this._parenteses_.parent(null);
+            this._expressaoRelac_.parent(null);
         }
 
         if(node != null)
@@ -67,7 +67,7 @@ public final class AExpressaoRelacionalExpressaoRelac extends PExpressaoRelac
             node.parent(this);
         }
 
-        this._parenteses_ = node;
+        this._expressaoRelac_ = node;
     }
 
     public PSinalIgualdade getSinalIgualdade()
@@ -124,7 +124,7 @@ public final class AExpressaoRelacionalExpressaoRelac extends PExpressaoRelac
     public String toString()
     {
         return ""
-            + toString(this._parenteses_)
+            + toString(this._expressaoRelac_)
             + toString(this._sinalIgualdade_)
             + toString(this._termoRelac_);
     }
@@ -133,9 +133,9 @@ public final class AExpressaoRelacionalExpressaoRelac extends PExpressaoRelac
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._parenteses_ == child)
+        if(this._expressaoRelac_ == child)
         {
-            this._parenteses_ = null;
+            this._expressaoRelac_ = null;
             return;
         }
 
@@ -158,9 +158,9 @@ public final class AExpressaoRelacionalExpressaoRelac extends PExpressaoRelac
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._parenteses_ == oldChild)
+        if(this._expressaoRelac_ == oldChild)
         {
-            setParenteses((PParenteses) newChild);
+            setExpressaoRelac((PExpressaoRelac) newChild);
             return;
         }
 

@@ -16,15 +16,15 @@ inicio
       escreva(x); 
     fim se;
     
-    se (nao(x < y)) entao // Equivalente a x >= y
+    se nao(x < y) entao // Equivalente a x >= y
        escreva(x); 
     fim se;
     
-    se (nao(x >= y)) entao // Equivalente a x < y
+    se nao(x >= y) entao // Equivalente a x < y
       escreva(x); 
     fim se;
     
-    se (nao(x <= y)) entao // Equivalente a x > y
+    se nao(x <= y) entao // Equivalente a x > y
       escreva(x); 
     fim se;
      
