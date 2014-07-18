@@ -249,14 +249,19 @@ Productions
                   //  | {espressao_log} expressao_logica;
 
 //Expressao Logico-Relacional
-	expressao_logica =	{expressao_logica} parenteses sinal_logico_ou termo_logico
+	expressao_logica =	{expressao_logica}  sinal_logico_ou termo_logico
 						| {termo_logico} termo_logico;
-	termo_logico	 =	{termo_logico} parenteses sinal_logico_e expressao_relac
+	termo_logico	 =	{termo_logico}  sinal_logico_e expressao_relac
 						| {expressao_relacional} expressao_relac;
-	expressao_relac  =	{expressao_relacional} parenteses sinal_igualdade termo_relac
+	expressao_relac  =	{expressao_relacional}  sinal_igualdade termo_relac
 						| {termo_relac} termo_relac;
-	termo_relac		 =	{termo_relacional} parenteses sinal_relacional negacao
+	termo_relac		 =	{termo_relacional}  sinal_relacional negacao
 						| {negacao}  negacao;
     negacao			 =  {negacao} sinal_logico_nao parenteses
     					| parenteses;
     parenteses		 =	{parenteses} a_parenteses expressao_logica f_parenteses;
+    
+    
+ // Arvore Abstrata
+ 
+ 

@@ -11,7 +11,7 @@ inicio
     inteiro: z;
 
     leia(x,y);
-    se(x > y) entao
+    se (x > y) entao
         escreva(x-y);
     senao
         escreva(x+y);
