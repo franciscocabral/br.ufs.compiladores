@@ -25,36 +25,46 @@ Helpers
     nao_estrela         = [unicode - estrela];
     nao_barra           = [unicode - barra];
     nao_estrela_ou_barra= [unicode - [estrela + barra]];
+    
     nao_aspas           = [unicode - aspas];
+    
     nao_fim_de_linha    = [unicode - [lf + cr]];
-
+	nao_fl_e_b			= [nao_fim_de_linha - [estrela + barra]];
+	nao_fl_e			= [nao_fim_de_linha - estrela];
+	nao_fl_b			= [nao_fim_de_linha - barra];
+	
     letras              = unicode_letras | sublinhado;
     letras_ou_numeros   = unicode_letras | unicode_numeros | sublinhado;
     
-    comentario_linha    = '//' nao_fim_de_linha* fim_de_linha?; 
     comentario_inicio   = '/*';
     comentario_corpo    = nao_estrela_ou_barra* | (estrela nao_barra)* | (nao_estrela barra)*;
     comentario_final    = '*/';
+    
+    comentario_linha_inicio = '//';
+    comentario_linha_corpo  = (estrela nao_fl_b)* | (barra nao_fl_e)* | nao_fl_e_b*;
+    comentario_linha_final  = fim_de_linha; 
 
     sinal               = ('+'|'-')?;
 
     digitos             = unicode_numeros+  ;
     inteiro             = sinal digitos;
-    real                = inteiro | inteiro virgula_real digitos;  //inteiro ponto digitos;
+    real                = inteiro | inteiro virgula_real digitos;
     caractere           = [nao_aspas - [lf + cr]];
 
 
 States
   normal,
-  comentario;
+  comentario,
+  c_l;
 
 Tokens
 
     {normal} branco              = branco;
-    {normal} 
-    comentario_linha             = comentario_linha;
+    {normal->c_l} comentario_linha= comentario_linha_inicio;
+    {c_l->normal} comentario_linha_final =  comentario_linha_corpo* comentario_linha_final?;
+    
 
-    {normal->comentario, comentario} 
+    {normal->comentario, comentario, c_l->comentario} 
     comentario                   = comentario_inicio;
     {comentario} comentario_final= comentario_final;
     {comentario} comentario_corpo= comentario_corpo;
@@ -135,7 +145,7 @@ Tokens
     {normal} id                  = letras | letras letras_ou_numeros*;
 
 Ignored Tokens
-   comentario, comentario_linha, branco;
+   comentario, comentario_linha, branco, comentario_linha_final;
 
 Productions
     start               = {start}               instancia_programa;

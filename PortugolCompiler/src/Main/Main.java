@@ -43,24 +43,22 @@ public class Main {
 
             Token now = null;
 
-            //do {
-            //        now = l.next();
-            //        if (now instanceof TBranco) {
-            //            System.out.print(now.getText());
-            //        } else if (now instanceof TComentarioLinha) {
-            //            System.out.println(now.getClass().getSimpleName());
-            //        } else {
-            //            System.out.print(now.getClass().getSimpleName() + " ");
-            //        }
+//            do {
+//                    now = l.next();
+//                    if (now instanceof TBranco) {
+//                        System.out.print(now.getText());
+//                    } else if (now instanceof TComentarioLinha) {
+//                        System.out.println(now.getClass().getSimpleName());
+//                    } else {
+//                        System.out.print(now.getClass().getSimpleName() + " ");
+//                    }
+//            } while (!(now instanceof EOF));
+            
             Parser p = new Parser(l);
             Start tree = p.parse();
-            // The next two lines are the only non-generic ones
             Emitter emitter = new Emitter();
             tree.apply(emitter);
-            // exemplo do: http://www.dcs.gla.ac.uk/scripts/global/wim/blosxom.cgi/Gannet/Language/gannetc-compiler-sablecc.html
             
-            //} while (!now.getClass().equals(EOF.class));
-
         } catch (LexerException le) {
             System.out.println("\n" + le.getMessage());
         } catch (ParserException pe){
