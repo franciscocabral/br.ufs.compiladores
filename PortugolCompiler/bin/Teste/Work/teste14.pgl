@@ -22,7 +22,7 @@ inicio
      caso 7 :
         escreva('Sabado');
    
-     senao
+     senao:
         escreva('Valor invalido');
     
     fim avalie;

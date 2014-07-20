@@ -27,7 +27,7 @@ public class Main {
         if (TEST) {
             fileDir = "C:\\Users\\ygormax\\git\\portugol-compiler\\PortugolCompiler\\src\\Teste\\Work\\teste1.pgl";
         } else {
-            if (arguments.length < 1) {
+            if (arguments.length < 1 ) {
                 System.out.println("File:");
                 Scanner input = new Scanner(System.in);
                 fileDir = input.nextLine();

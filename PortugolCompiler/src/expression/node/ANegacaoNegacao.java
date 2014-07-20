@@ -7,7 +7,6 @@ import expression.analysis.*;
 @SuppressWarnings("nls")
 public final class ANegacaoNegacao extends PNegacao
 {
-    private PNegacao _negacao_;
     private PSinalLogicoNao _sinalLogicoNao_;
     private PParenteses _parenteses_;
 
@@ -17,13 +16,10 @@ public final class ANegacaoNegacao extends PNegacao
     }
 
     public ANegacaoNegacao(
-        @SuppressWarnings("hiding") PNegacao _negacao_,
         @SuppressWarnings("hiding") PSinalLogicoNao _sinalLogicoNao_,
         @SuppressWarnings("hiding") PParenteses _parenteses_)
     {
         // Constructor
-        setNegacao(_negacao_);
-
         setSinalLogicoNao(_sinalLogicoNao_);
 
         setParenteses(_parenteses_);
@@ -34,7 +30,6 @@ public final class ANegacaoNegacao extends PNegacao
     public Object clone()
     {
         return new ANegacaoNegacao(
-            cloneNode(this._negacao_),
             cloneNode(this._sinalLogicoNao_),
             cloneNode(this._parenteses_));
     }
@@ -43,31 +38,6 @@ public final class ANegacaoNegacao extends PNegacao
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseANegacaoNegacao(this);
-    }
-
-    public PNegacao getNegacao()
-    {
-        return this._negacao_;
-    }
-
-    public void setNegacao(PNegacao node)
-    {
-        if(this._negacao_ != null)
-        {
-            this._negacao_.parent(null);
-        }
-
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
-                node.parent().removeChild(node);
-            }
-
-            node.parent(this);
-        }
-
-        this._negacao_ = node;
     }
 
     public PSinalLogicoNao getSinalLogicoNao()
@@ -124,7 +94,6 @@ public final class ANegacaoNegacao extends PNegacao
     public String toString()
     {
         return ""
-            + toString(this._negacao_)
             + toString(this._sinalLogicoNao_)
             + toString(this._parenteses_);
     }
@@ -133,12 +102,6 @@ public final class ANegacaoNegacao extends PNegacao
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._negacao_ == child)
-        {
-            this._negacao_ = null;
-            return;
-        }
-
         if(this._sinalLogicoNao_ == child)
         {
             this._sinalLogicoNao_ = null;
@@ -158,12 +121,6 @@ public final class ANegacaoNegacao extends PNegacao
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._negacao_ == oldChild)
-        {
-            setNegacao((PNegacao) newChild);
-            return;
-        }
-
         if(this._sinalLogicoNao_ == oldChild)
         {
             setSinalLogicoNao((PSinalLogicoNao) newChild);

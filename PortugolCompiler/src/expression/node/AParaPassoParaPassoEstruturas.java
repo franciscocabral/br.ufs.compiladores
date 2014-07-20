@@ -10,7 +10,7 @@ public final class AParaPassoParaPassoEstruturas extends PParaPassoEstruturas
     private TPara _para_;
     private PVariavel _variavel_;
     private TDe _de_;
-    private TInteiro _inteiro_;
+    private PIntOuVar _intOuVar_;
     private PPassoEstruturas _passoEstruturas_;
     private PAteEstrutura _ateEstrutura_;
     private TFaca _faca_;
@@ -27,7 +27,7 @@ public final class AParaPassoParaPassoEstruturas extends PParaPassoEstruturas
         @SuppressWarnings("hiding") TPara _para_,
         @SuppressWarnings("hiding") PVariavel _variavel_,
         @SuppressWarnings("hiding") TDe _de_,
-        @SuppressWarnings("hiding") TInteiro _inteiro_,
+        @SuppressWarnings("hiding") PIntOuVar _intOuVar_,
         @SuppressWarnings("hiding") PPassoEstruturas _passoEstruturas_,
         @SuppressWarnings("hiding") PAteEstrutura _ateEstrutura_,
         @SuppressWarnings("hiding") TFaca _faca_,
@@ -42,7 +42,7 @@ public final class AParaPassoParaPassoEstruturas extends PParaPassoEstruturas
 
         setDe(_de_);
 
-        setInteiro(_inteiro_);
+        setIntOuVar(_intOuVar_);
 
         setPassoEstruturas(_passoEstruturas_);
 
@@ -65,7 +65,7 @@ public final class AParaPassoParaPassoEstruturas extends PParaPassoEstruturas
             cloneNode(this._para_),
             cloneNode(this._variavel_),
             cloneNode(this._de_),
-            cloneNode(this._inteiro_),
+            cloneNode(this._intOuVar_),
             cloneNode(this._passoEstruturas_),
             cloneNode(this._ateEstrutura_),
             cloneNode(this._faca_),
@@ -155,16 +155,16 @@ public final class AParaPassoParaPassoEstruturas extends PParaPassoEstruturas
         this._de_ = node;
     }
 
-    public TInteiro getInteiro()
+    public PIntOuVar getIntOuVar()
     {
-        return this._inteiro_;
+        return this._intOuVar_;
     }
 
-    public void setInteiro(TInteiro node)
+    public void setIntOuVar(PIntOuVar node)
     {
-        if(this._inteiro_ != null)
+        if(this._intOuVar_ != null)
         {
-            this._inteiro_.parent(null);
+            this._intOuVar_.parent(null);
         }
 
         if(node != null)
@@ -177,7 +177,7 @@ public final class AParaPassoParaPassoEstruturas extends PParaPassoEstruturas
             node.parent(this);
         }
 
-        this._inteiro_ = node;
+        this._intOuVar_ = node;
     }
 
     public PPassoEstruturas getPassoEstruturas()
@@ -337,7 +337,7 @@ public final class AParaPassoParaPassoEstruturas extends PParaPassoEstruturas
             + toString(this._para_)
             + toString(this._variavel_)
             + toString(this._de_)
-            + toString(this._inteiro_)
+            + toString(this._intOuVar_)
             + toString(this._passoEstruturas_)
             + toString(this._ateEstrutura_)
             + toString(this._faca_)
@@ -368,9 +368,9 @@ public final class AParaPassoParaPassoEstruturas extends PParaPassoEstruturas
             return;
         }
 
-        if(this._inteiro_ == child)
+        if(this._intOuVar_ == child)
         {
-            this._inteiro_ = null;
+            this._intOuVar_ = null;
             return;
         }
 
@@ -435,9 +435,9 @@ public final class AParaPassoParaPassoEstruturas extends PParaPassoEstruturas
             return;
         }
 
-        if(this._inteiro_ == oldChild)
+        if(this._intOuVar_ == oldChild)
         {
-            setInteiro((TInteiro) newChild);
+            setIntOuVar((PIntOuVar) newChild);
             return;
         }
 

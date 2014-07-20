@@ -16,8 +16,8 @@ public interface Analysis extends Switch
     void caseAIdIdentficador(AIdIdentficador node);
     void caseAComandoSimplesBlocoComando(AComandoSimplesBlocoComando node);
     void caseABlocoComandosBlocoComando(ABlocoComandosBlocoComando node);
-    void caseAExpressaoLogicaSimplesBlocoExpressao(AExpressaoLogicaSimplesBlocoExpressao node);
-    void caseABlocoEspressoesLogicaBlocoExpressao(ABlocoEspressoesLogicaBlocoExpressao node);
+    void caseAExpressaoLogicaBlocoExpressao(AExpressaoLogicaBlocoExpressao node);
+    void caseABlocoEspressaoBlocoExpressao(ABlocoEspressaoBlocoExpressao node);
     void caseAVariavelSimplesBlocoVariavel(AVariavelSimplesBlocoVariavel node);
     void caseABlocoVariaveisBlocoVariavel(ABlocoVariaveisBlocoVariavel node);
     void caseACasoSimplesBlocoCaso(ACasoSimplesBlocoCaso node);
@@ -38,7 +38,7 @@ public interface Analysis extends Switch
     void caseAAtribuicaoComando(AAtribuicaoComando node);
     void caseAFuncoesComando(AFuncoesComando node);
     void caseASeComando(ASeComando node);
-    void caseASeEntaoComando(ASeEntaoComando node);
+    void caseASeSenaoComando(ASeSenaoComando node);
     void caseAAvalieComando(AAvalieComando node);
     void caseAEnquantoComando(AEnquantoComando node);
     void caseARepitaComando(ARepitaComando node);
@@ -48,6 +48,8 @@ public interface Analysis extends Switch
     void caseALeiaFuncoes(ALeiaFuncoes node);
     void caseAEscrevaFuncoes(AEscrevaFuncoes node);
     void caseASenaoSenaoEstruturas(ASenaoSenaoEstruturas node);
+    void caseAInteiroIntOuVar(AInteiroIntOuVar node);
+    void caseAVarIntOuVar(AVarIntOuVar node);
     void caseAPassoPassoEstruturas(APassoPassoEstruturas node);
     void caseAAteAteEstrutura(AAteAteEstrutura node);
     void caseASeSeEstruturas(ASeSeEstruturas node);
@@ -86,10 +88,20 @@ public interface Analysis extends Switch
     void caseAExpressaoRelacionalExpressaoRelac(AExpressaoRelacionalExpressaoRelac node);
     void caseATermoRelacExpressaoRelac(ATermoRelacExpressaoRelac node);
     void caseATermoRelacionalTermoRelac(ATermoRelacionalTermoRelac node);
+    void caseAExpressaoAritmTermoRelac(AExpressaoAritmTermoRelac node);
     void caseANegacaoTermoRelac(ANegacaoTermoRelac node);
+    void caseAExpressaoAritmExpressaoAritm(AExpressaoAritmExpressaoAritm node);
+    void caseATermoAritmExpressaoAritm(ATermoAritmExpressaoAritm node);
+    void caseAMultiplicacoesTermoAritm(AMultiplicacoesTermoAritm node);
+    void caseAFatorAritmTermoAritm(AFatorAritmTermoAritm node);
+    void caseAParentesesFatorAritm(AParentesesFatorAritm node);
+    void caseAValorFatorAritm(AValorFatorAritm node);
+    void caseAVarFatorAritm(AVarFatorAritm node);
     void caseANegacaoNegacao(ANegacaoNegacao node);
-    void caseANegacao(ANegacao node);
     void caseAParentesesParenteses(AParentesesParenteses node);
+    void caseAValorParenteses(AValorParenteses node);
+    void caseAVarParenteses(AVarParenteses node);
+    void caseAParentesesParenteses2(AParentesesParenteses2 node);
 
     void caseTBranco(TBranco node);
     void caseTComentarioLinha(TComentarioLinha node);

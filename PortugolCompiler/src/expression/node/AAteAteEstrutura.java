@@ -8,7 +8,7 @@ import expression.analysis.*;
 public final class AAteAteEstrutura extends PAteEstrutura
 {
     private TAte _ate_;
-    private TInteiro _inteiro_;
+    private PIntOuVar _intOuVar_;
 
     public AAteAteEstrutura()
     {
@@ -17,12 +17,12 @@ public final class AAteAteEstrutura extends PAteEstrutura
 
     public AAteAteEstrutura(
         @SuppressWarnings("hiding") TAte _ate_,
-        @SuppressWarnings("hiding") TInteiro _inteiro_)
+        @SuppressWarnings("hiding") PIntOuVar _intOuVar_)
     {
         // Constructor
         setAte(_ate_);
 
-        setInteiro(_inteiro_);
+        setIntOuVar(_intOuVar_);
 
     }
 
@@ -31,7 +31,7 @@ public final class AAteAteEstrutura extends PAteEstrutura
     {
         return new AAteAteEstrutura(
             cloneNode(this._ate_),
-            cloneNode(this._inteiro_));
+            cloneNode(this._intOuVar_));
     }
 
     @Override
@@ -65,16 +65,16 @@ public final class AAteAteEstrutura extends PAteEstrutura
         this._ate_ = node;
     }
 
-    public TInteiro getInteiro()
+    public PIntOuVar getIntOuVar()
     {
-        return this._inteiro_;
+        return this._intOuVar_;
     }
 
-    public void setInteiro(TInteiro node)
+    public void setIntOuVar(PIntOuVar node)
     {
-        if(this._inteiro_ != null)
+        if(this._intOuVar_ != null)
         {
-            this._inteiro_.parent(null);
+            this._intOuVar_.parent(null);
         }
 
         if(node != null)
@@ -87,7 +87,7 @@ public final class AAteAteEstrutura extends PAteEstrutura
             node.parent(this);
         }
 
-        this._inteiro_ = node;
+        this._intOuVar_ = node;
     }
 
     @Override
@@ -95,7 +95,7 @@ public final class AAteAteEstrutura extends PAteEstrutura
     {
         return ""
             + toString(this._ate_)
-            + toString(this._inteiro_);
+            + toString(this._intOuVar_);
     }
 
     @Override
@@ -108,9 +108,9 @@ public final class AAteAteEstrutura extends PAteEstrutura
             return;
         }
 
-        if(this._inteiro_ == child)
+        if(this._intOuVar_ == child)
         {
-            this._inteiro_ = null;
+            this._intOuVar_ = null;
             return;
         }
 
@@ -127,9 +127,9 @@ public final class AAteAteEstrutura extends PAteEstrutura
             return;
         }
 
-        if(this._inteiro_ == oldChild)
+        if(this._intOuVar_ == oldChild)
         {
-            setInteiro((TInteiro) newChild);
+            setIntOuVar((PIntOuVar) newChild);
             return;
         }
 

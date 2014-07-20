@@ -20,10 +20,10 @@ inicio
     inteiro: z;
     
     leia(x,y);
-    se (x > y) entao
-        escreva(x-y);
+    se ((x ou y) ou (x e z)) entao
+        escreva(x-y, x > y);
     senao
-        escreva(x+y);
+        escreva(x+y, x*y);
     fim se;
 
     /*

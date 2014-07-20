@@ -155,8 +155,8 @@ Productions
     bloco_comando       = {comando_simples}     comando
                         | {bloco_comandos}      bloco_comando comando;
                         
-    bloco_expressao     = {expressao_logica_simples}  expressao_logica
-                        | {bloco_espressoes_logica}    bloco_expressao virgula expressao_logica;
+    bloco_expressao     = {expressao_logica}  expressao_logica
+                        | {bloco_espressao}    bloco_expressao virgula expressao_logica;
                         
     bloco_variavel      = {variavel_simples}    variavel
                         | {bloco_variaveis}     bloco_variavel virgula variavel;
@@ -186,9 +186,7 @@ Productions
     comando             = {atribuicao}          atribuicoes
                         | {funcoes}             funcoes
                         | {se}                  se_estruturas
-                     // | {se_nao}              se_estruturas_nao 
-                        | {se_entao}            se_senao_estruturas
-                     // | {se_nao_entao}        se_senao_estruturas_nao
+                        | {se_senao}            se_senao_estruturas
                         | {avalie}              avalie_estruturas
                         | {enquanto}            enquanto_estruturas
                         | {repita}              repita_estruturas
@@ -202,19 +200,22 @@ Productions
    
     senao_estruturas    = {senao}               senao bloco_comando;
     
-    passo_estruturas    = {passo}               passo inteiro;   
+    int_ou_var			= {inteiro} inteiro
+    					| {var} variavel;
+    					
+    passo_estruturas    = {passo}               passo int_ou_var;   
     
-    ate_estrutura       = {ate}                 ate inteiro;
+    ate_estrutura       = {ate}                 ate int_ou_var;
 
     se_estruturas       = {se}                  se a_parenteses expressao_logica f_parenteses entao bloco_comando fim_se pontovirgula;
- // se_estruturas_nao   = {se_nao}              se sinal_logico_nao a_parenteses expressao_logica f_parenteses entao bloco_comando fim_se pontovirgula;   
     se_senao_estruturas = {se_senao}            se a_parenteses expressao_logica f_parenteses entao bloco_comando senao_estruturas fim_se pontovirgula;
- // se_senao_estruturas_nao = {se_nao_senao}    se sinal_logico_nao a_parenteses expressao_logica f_parenteses entao bloco_comando senao_estruturas fim_se pontovirgula;
     avalie_estruturas   = {avalie}              avalie a_parenteses expressao f_parenteses bloco_caso senao doispontos bloco_comando fim_avalie pontovirgula;
     enquanto_estruturas = {enquanto}            enquanto a_parenteses expressao_logica f_parenteses faca bloco_comando fim_enquanto pontovirgula;
     repita_estruturas   = {repita}              repita bloco_comando ate a_parenteses expressao_logica f_parenteses pontovirgula;
-    para_estruturas     = {para}                para variavel de inteiro ate_estrutura faca bloco_comando fim_para pontovirgula;
-    para_passo_estruturas={para_passo}          para variavel de inteiro passo_estruturas ate_estrutura faca bloco_comando fim_para pontovirgula;
+    para_estruturas     = {para}                para variavel de int_ou_var ate_estrutura faca bloco_comando fim_para pontovirgula;
+    para_passo_estruturas={para_passo}          para variavel de int_ou_var passo_estruturas ate_estrutura faca bloco_comando fim_para pontovirgula;
+             
+             
              
 //Lista de prioridades: http://pt.wikipedia.org/wiki/Operadores_em_C_e_C%2B%2B
 //Parenteses
@@ -246,7 +247,7 @@ Productions
 
 //Sinais Logicos - Ou
     sinal_logico_ou  = {ou} ou
-                        | {xor} xor;
+                        | {xor} xor;   
    
 //Expressao Aritmetica Pura
     expressao    =  {somas} expressao soma termo
@@ -256,21 +257,37 @@ Productions
     fator        =  {parenteses}  a_parenteses expressao f_parenteses
                     | {valor} valor
                     | {var} variavel;
-                   // | {espressao_log} expressao_logica;
 
 //Expressao Logico-Relacional
-	expressao_logica =	{expressao_logica}  sinal_logico_ou termo_logico
-						| {termo_logico} termo_logico;
-	termo_logico	 =	{termo_logico}  termo_logico sinal_logico_e expressao_relac
-						| {expressao_relacional} expressao_relac;
-	expressao_relac  =	{expressao_relacional} expressao_relac sinal_igualdade termo_relac
-						| {termo_relac} termo_relac;
-	termo_relac		 =	{termo_relacional} termo_relac  sinal_relacional negacao
-						| {negacao}  negacao;
-    negacao			 =  {negacao} negacao sinal_logico_nao parenteses
-    					| parenteses;
-    parenteses       =  {parenteses} a_parenteses expressao_logica f_parenteses;
+	expressao_logica =	{expressao_logica} 			parenteses 	sinal_logico_ou parenteses2
+						| {termo_logico} 			termo_logico;
+						
+	termo_logico	 =	{termo_logico}  			parenteses 	sinal_logico_e 	parenteses2
+						| {expressao_relacional} 	expressao_relac;
+						
+	expressao_relac  =	{expressao_relacional} 		parenteses	sinal_igualdade parenteses2
+						| {termo_relac} 			termo_relac;
+	
+	termo_relac		 =	{termo_relacional} 			parenteses  sinal_relacional parenteses2
+						| {expressao_aritm}  		expressao_aritm
+						| {negacao} 				negacao;
+						
+	expressao_aritm  =  {expressao_aritm} expressao_aritm soma termo_aritm
+						| {termo_aritm} termo_aritm;
+    termo_aritm      =  {multiplicacoes} termo_aritm multiplicacao fator_aritm
+                    	| {fator_aritm} fator_aritm; 
+                    	                                 
+    fator_aritm        =  {parenteses}  a_parenteses expressao_aritm f_parenteses
+                       | {valor} valor
+                       | {var} variavel;
+                    
+    negacao			 =  {negacao}	 				sinal_logico_nao 	parenteses;
+   	
+    parenteses       =  {parenteses} 	a_parenteses expressao_logica f_parenteses
+    					| {valor} valor
+                   		| {var} variavel;
+  	parenteses2 	 =  {parenteses} parenteses;
+  
 
  // Arvore Abstrata
- 
- 
+ //Abstract Syntax Tree

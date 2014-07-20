@@ -5,7 +5,7 @@ inicio
    
   leia(x);
   
-  para i de 1 ate x passo 2 faca
+  para i de 1 passo 2 ate x faca
   	 escreva(i);   
   fim para;
  

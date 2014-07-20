@@ -8,7 +8,7 @@ inicio
      escreva(x);
    fim se;
    
-   se  nao (x = 0 e y = 0) entao
+   se  (nao ((x = 0) e (y = 0))) entao
       escreva(x);
    fim se;
      
@@ -16,7 +16,7 @@ inicio
      escreva(y);  
    fim se;
      
-   se  nao (x = 0 ou y = 0) entao
+   se  (nao ((x = 0) ou (y = 0))) entao
       escreva(x);
    fim se;
    

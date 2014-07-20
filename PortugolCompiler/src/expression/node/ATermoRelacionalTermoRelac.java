@@ -7,9 +7,9 @@ import expression.analysis.*;
 @SuppressWarnings("nls")
 public final class ATermoRelacionalTermoRelac extends PTermoRelac
 {
-    private PTermoRelac _termoRelac_;
+    private PParenteses _parenteses_;
     private PSinalRelacional _sinalRelacional_;
-    private PNegacao _negacao_;
+    private PParenteses2 _parenteses2_;
 
     public ATermoRelacionalTermoRelac()
     {
@@ -17,16 +17,16 @@ public final class ATermoRelacionalTermoRelac extends PTermoRelac
     }
 
     public ATermoRelacionalTermoRelac(
-        @SuppressWarnings("hiding") PTermoRelac _termoRelac_,
+        @SuppressWarnings("hiding") PParenteses _parenteses_,
         @SuppressWarnings("hiding") PSinalRelacional _sinalRelacional_,
-        @SuppressWarnings("hiding") PNegacao _negacao_)
+        @SuppressWarnings("hiding") PParenteses2 _parenteses2_)
     {
         // Constructor
-        setTermoRelac(_termoRelac_);
+        setParenteses(_parenteses_);
 
         setSinalRelacional(_sinalRelacional_);
 
-        setNegacao(_negacao_);
+        setParenteses2(_parenteses2_);
 
     }
 
@@ -34,9 +34,9 @@ public final class ATermoRelacionalTermoRelac extends PTermoRelac
     public Object clone()
     {
         return new ATermoRelacionalTermoRelac(
-            cloneNode(this._termoRelac_),
+            cloneNode(this._parenteses_),
             cloneNode(this._sinalRelacional_),
-            cloneNode(this._negacao_));
+            cloneNode(this._parenteses2_));
     }
 
     @Override
@@ -45,16 +45,16 @@ public final class ATermoRelacionalTermoRelac extends PTermoRelac
         ((Analysis) sw).caseATermoRelacionalTermoRelac(this);
     }
 
-    public PTermoRelac getTermoRelac()
+    public PParenteses getParenteses()
     {
-        return this._termoRelac_;
+        return this._parenteses_;
     }
 
-    public void setTermoRelac(PTermoRelac node)
+    public void setParenteses(PParenteses node)
     {
-        if(this._termoRelac_ != null)
+        if(this._parenteses_ != null)
         {
-            this._termoRelac_.parent(null);
+            this._parenteses_.parent(null);
         }
 
         if(node != null)
@@ -67,7 +67,7 @@ public final class ATermoRelacionalTermoRelac extends PTermoRelac
             node.parent(this);
         }
 
-        this._termoRelac_ = node;
+        this._parenteses_ = node;
     }
 
     public PSinalRelacional getSinalRelacional()
@@ -95,16 +95,16 @@ public final class ATermoRelacionalTermoRelac extends PTermoRelac
         this._sinalRelacional_ = node;
     }
 
-    public PNegacao getNegacao()
+    public PParenteses2 getParenteses2()
     {
-        return this._negacao_;
+        return this._parenteses2_;
     }
 
-    public void setNegacao(PNegacao node)
+    public void setParenteses2(PParenteses2 node)
     {
-        if(this._negacao_ != null)
+        if(this._parenteses2_ != null)
         {
-            this._negacao_.parent(null);
+            this._parenteses2_.parent(null);
         }
 
         if(node != null)
@@ -117,25 +117,25 @@ public final class ATermoRelacionalTermoRelac extends PTermoRelac
             node.parent(this);
         }
 
-        this._negacao_ = node;
+        this._parenteses2_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._termoRelac_)
+            + toString(this._parenteses_)
             + toString(this._sinalRelacional_)
-            + toString(this._negacao_);
+            + toString(this._parenteses2_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._termoRelac_ == child)
+        if(this._parenteses_ == child)
         {
-            this._termoRelac_ = null;
+            this._parenteses_ = null;
             return;
         }
 
@@ -145,9 +145,9 @@ public final class ATermoRelacionalTermoRelac extends PTermoRelac
             return;
         }
 
-        if(this._negacao_ == child)
+        if(this._parenteses2_ == child)
         {
-            this._negacao_ = null;
+            this._parenteses2_ = null;
             return;
         }
 
@@ -158,9 +158,9 @@ public final class ATermoRelacionalTermoRelac extends PTermoRelac
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._termoRelac_ == oldChild)
+        if(this._parenteses_ == oldChild)
         {
-            setTermoRelac((PTermoRelac) newChild);
+            setParenteses((PParenteses) newChild);
             return;
         }
 
@@ -170,9 +170,9 @@ public final class ATermoRelacionalTermoRelac extends PTermoRelac
             return;
         }
 
-        if(this._negacao_ == oldChild)
+        if(this._parenteses2_ == oldChild)
         {
-            setNegacao((PNegacao) newChild);
+            setParenteses2((PParenteses2) newChild);
             return;
         }
 

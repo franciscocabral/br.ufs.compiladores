@@ -8,7 +8,7 @@ import expression.analysis.*;
 public final class APassoPassoEstruturas extends PPassoEstruturas
 {
     private TPasso _passo_;
-    private TInteiro _inteiro_;
+    private PIntOuVar _intOuVar_;
 
     public APassoPassoEstruturas()
     {
@@ -17,12 +17,12 @@ public final class APassoPassoEstruturas extends PPassoEstruturas
 
     public APassoPassoEstruturas(
         @SuppressWarnings("hiding") TPasso _passo_,
-        @SuppressWarnings("hiding") TInteiro _inteiro_)
+        @SuppressWarnings("hiding") PIntOuVar _intOuVar_)
     {
         // Constructor
         setPasso(_passo_);
 
-        setInteiro(_inteiro_);
+        setIntOuVar(_intOuVar_);
 
     }
 
@@ -31,7 +31,7 @@ public final class APassoPassoEstruturas extends PPassoEstruturas
     {
         return new APassoPassoEstruturas(
             cloneNode(this._passo_),
-            cloneNode(this._inteiro_));
+            cloneNode(this._intOuVar_));
     }
 
     @Override
@@ -65,16 +65,16 @@ public final class APassoPassoEstruturas extends PPassoEstruturas
         this._passo_ = node;
     }
 
-    public TInteiro getInteiro()
+    public PIntOuVar getIntOuVar()
     {
-        return this._inteiro_;
+        return this._intOuVar_;
     }
 
-    public void setInteiro(TInteiro node)
+    public void setIntOuVar(PIntOuVar node)
     {
-        if(this._inteiro_ != null)
+        if(this._intOuVar_ != null)
         {
-            this._inteiro_.parent(null);
+            this._intOuVar_.parent(null);
         }
 
         if(node != null)
@@ -87,7 +87,7 @@ public final class APassoPassoEstruturas extends PPassoEstruturas
             node.parent(this);
         }
 
-        this._inteiro_ = node;
+        this._intOuVar_ = node;
     }
 
     @Override
@@ -95,7 +95,7 @@ public final class APassoPassoEstruturas extends PPassoEstruturas
     {
         return ""
             + toString(this._passo_)
-            + toString(this._inteiro_);
+            + toString(this._intOuVar_);
     }
 
     @Override
@@ -108,9 +108,9 @@ public final class APassoPassoEstruturas extends PPassoEstruturas
             return;
         }
 
-        if(this._inteiro_ == child)
+        if(this._intOuVar_ == child)
         {
-            this._inteiro_ = null;
+            this._intOuVar_ = null;
             return;
         }
 
@@ -127,9 +127,9 @@ public final class APassoPassoEstruturas extends PPassoEstruturas
             return;
         }
 
-        if(this._inteiro_ == oldChild)
+        if(this._intOuVar_ == oldChild)
         {
-            setInteiro((TInteiro) newChild);
+            setIntOuVar((PIntOuVar) newChild);
             return;
         }
 
