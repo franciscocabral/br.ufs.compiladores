@@ -155,8 +155,8 @@ Productions
     bloco_comando       = {comando_simples}     comando
                         | {bloco_comandos}      bloco_comando comando;
                         
-    bloco_expressao     = {expressao_logica}  expressao_logica
-                        | {bloco_espressao}    bloco_expressao virgula expressao_logica;
+    bloco_expressao     = {expressao_logica}    expressao_logica
+                        | {bloco_espressao}     bloco_expressao virgula expressao_logica;
                         
     bloco_variavel      = {variavel_simples}    variavel
                         | {bloco_variaveis}     bloco_variavel virgula variavel;
@@ -229,24 +229,24 @@ Productions
                         | {resto} resto;
 
 //Sinais Aritmeticos - Soma
-    soma = {mais} mais
+    soma =                {mais} mais
                         | {menos} menos;
                         
 //Sinais Relacionais - Menor que
-    sinal_relacional = {maior_igual} maiorigual
+    sinal_relacional =    {maior_igual} maiorigual
                         | {menor_igual} menorigual
                         | {maior} maior
                         | {menor} menor;
 
 //Sinais Relacionais - Igualdade
-    sinal_igualdade = {igualdade} igual
+    sinal_igualdade =     {igualdade} igual
                         | {diferenca} diferente;
 
 //Sinais Logicos - E
     sinal_logico_e   = {e} e;
 
 //Sinais Logicos - Ou
-    sinal_logico_ou  = {ou} ou
+    sinal_logico_ou  =    {ou} ou
                         | {xor} xor;   
    
 //Expressao Aritmetica Pura
@@ -259,7 +259,7 @@ Productions
                     | {var} variavel;
 
 //Expressao Logico-Relacional
-	expressao_logica =	{expressao_logica} 			parenteses 	sinal_logico_ou parenteses2
+	expressao_logica =	{expressao_logica} 		    parenteses 	sinal_logico_ou parenteses2
 						| {termo_logico} 			termo_logico;
 						
 	termo_logico	 =	{termo_logico}  			parenteses 	sinal_logico_e 	parenteses2
@@ -272,22 +272,57 @@ Productions
 						| {expressao_aritm}  		expressao_aritm
 						| {negacao} 				negacao;
 						
-	expressao_aritm  =  {expressao_aritm} expressao_aritm soma termo_aritm
-						| {termo_aritm} termo_aritm;
-    termo_aritm      =  {multiplicacoes} termo_aritm multiplicacao fator_aritm
-                    	| {fator_aritm} fator_aritm; 
+	expressao_aritm  =  {expressao_aritm}           expressao_aritm soma termo_aritm
+						| {termo_aritm}             termo_aritm;
+    termo_aritm      =  {multiplicacoes}            termo_aritm multiplicacao fator_aritm
+                    	| {fator_aritm}             fator_aritm; 
                     	                                 
-    fator_aritm        =  {parenteses}  a_parenteses expressao_aritm f_parenteses
-                       | {valor} valor
-                       | {var} variavel;
+    fator_aritm        =  {parenteses}              a_parenteses expressao_aritm f_parenteses
+                       | {valor} 					valor
+                       | {var} 						variavel;
                     
     negacao			 =  {negacao}	 				sinal_logico_nao 	parenteses;
    	
     parenteses       =  {parenteses} 	a_parenteses expressao_logica f_parenteses
-    					| {valor} valor
-                   		| {var} variavel;
-  	parenteses2 	 =  {parenteses} parenteses;
+    					| {valor} 		valor
+                   		| {var} 		variavel;
+  	parenteses2 	 =  {parenteses} 	parenteses;
   
 
  // Arvore Abstrata
  //Abstract Syntax Tree
+
+    instancia_programa =  identficador*  bloco_declaracao* bloco_comando* ;
+   
+    variavel           =  {variavel}             identficador* 
+                        | {variavel_vetor}      identficador*  inteiro;
+                        
+    atribuicoes         = {atribuicao}          variavel* expressao;
+
+    funcoes             = {leia}                bloco_variavel*
+                        | {escreva}             bloco_expressao*;
+   
+    se_estruturas       = {se}                  expressao_logica  bloco_comando;
+    se_senao_estruturas = {se_senao}            expressao_logica  bloco_comando;
+    avalie_estruturas   = {avalie}              expressao bloco_caso bloco_comando;
+    enquanto_estruturas = {enquanto}            expressao_logica bloco_comando;
+    repita_estruturas   = {repita}              bloco_comando expressao_logica;
+    para_estruturas     = {para}                variavel int_ou_var bloco_comando;
+    para_passo_estruturas={para_passo}          variavel int_ou_var bloco_comando;
+     
+    //Expressao Aritmetica Pura
+    expressao    =    {mais}      expressao
+                    | {menos}     expressao
+                    | {vezes}     expressao
+                    | {dividido}  expressao
+                    | {resto}     expressao
+                    | {valor}     valor
+                    | {var}       variavel
+                    | {expressao} expressao; 
+   
+   //Expressao Logico-Relacional
+	expressao_logica =	 {maior_igual} maiorigual
+                        | {menor_igual} menorigual
+                        | {maior} maior
+                        | {menor} menor; 	
+     
