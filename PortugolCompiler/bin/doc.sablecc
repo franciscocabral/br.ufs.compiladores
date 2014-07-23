@@ -167,7 +167,7 @@ Productions
     bloco_declaracao    = {declaracao_simples}  declaracao
                         | {bloco_declaracao}    bloco_declaracao declaracao;
 
-    instancia_programa  = {programa}            programa identficador inicio bloco_declaracao bloco_comando fim_ponto;
+    instancia_programa  {-> instancia_programa} = {programa}    programa identficador inicio bloco_declaracao bloco_comando fim_ponto;
     
     declaracao          = {declaracao_variavel} tipo doispontos bloco_variavel pontovirgula
                         | {declaracao_const}    constante id valor pontovirgula;
@@ -176,14 +176,14 @@ Productions
                         | {inteiro}             n_inteiro 
                         | {caractere}           n_caractere;
 
-    variavel            = {variavel}            identficador 
+    variavel {-> variavel}   = {variavel}            identficador 
                         | {variavel_vetor}      identficador a_cochete inteiro f_cochete;
 
     valor               = {valor_real}          real 
                         | {valor_inteiro}       inteiro 
                         | {valor_caractere}     caractere;
 
-    comando             = {atribuicao}          atribuicoes
+    comando {-> id* }   = {atribuicao}          atribuicoes
                         | {funcoes}             funcoes
                         | {se}                  se_estruturas
                         | {se_senao}            se_senao_estruturas
@@ -207,13 +207,13 @@ Productions
     
     ate_estrutura       = {ate}                 ate int_ou_var;
 
-    se_estruturas       = {se}                  se a_parenteses expressao_logica f_parenteses entao bloco_comando fim_se pontovirgula;
-    se_senao_estruturas = {se_senao}            se a_parenteses expressao_logica f_parenteses entao bloco_comando senao_estruturas fim_se pontovirgula;
-    avalie_estruturas   = {avalie}              avalie a_parenteses expressao f_parenteses bloco_caso senao doispontos bloco_comando fim_avalie pontovirgula;
-    enquanto_estruturas = {enquanto}            enquanto a_parenteses expressao_logica f_parenteses faca bloco_comando fim_enquanto pontovirgula;
-    repita_estruturas   = {repita}              repita bloco_comando ate a_parenteses expressao_logica f_parenteses pontovirgula;
-    para_estruturas     = {para}                para variavel de int_ou_var ate_estrutura faca bloco_comando fim_para pontovirgula;
-    para_passo_estruturas={para_passo}          para variavel de int_ou_var passo_estruturas ate_estrutura faca bloco_comando fim_para pontovirgula;
+    se_estruturas         = {se}                  se a_parenteses expressao_logica f_parenteses entao bloco_comando fim_se pontovirgula;
+    se_senao_estruturas   = {se_senao}            se a_parenteses expressao_logica f_parenteses entao bloco_comando senao_estruturas fim_se pontovirgula;
+    avalie_estruturas     = {avalie}              avalie a_parenteses expressao f_parenteses bloco_caso senao doispontos bloco_comando fim_avalie pontovirgula;
+    enquanto_estruturas   = {enquanto}            enquanto a_parenteses expressao_logica f_parenteses faca bloco_comando fim_enquanto pontovirgula;
+    repita_estruturas     = {repita}              repita bloco_comando ate a_parenteses expressao_logica f_parenteses pontovirgula;
+    para_estruturas       = {para}                para variavel de int_ou_var ate_estrutura faca bloco_comando fim_para pontovirgula;
+    para_passo_estruturas = {para_passo}          para variavel de int_ou_var passo_estruturas ate_estrutura faca bloco_comando fim_para pontovirgula;
              
              
              
@@ -250,7 +250,7 @@ Productions
                         | {xor} xor;   
    
 //Expressao Aritmetica Pura
-    expressao    =  {somas} expressao soma termo
+    expressao {-> expressao}   =  {somas} expressao soma termo
                     | {termo} termo;
     termo        =  {multiplicacoes} termo multiplicacao fator
                     | {fator} fator;                                  
@@ -259,7 +259,8 @@ Productions
                     | {var} variavel;
 
 //Expressao Logico-Relacional
-	expressao_logica =	{expressao_logica} 		    parenteses 	sinal_logico_ou parenteses2
+	expressao_logica {-> expressao_logica} =
+	                	{expressao_logica} 		    parenteses 	sinal_logico_ou parenteses2
 						| {termo_logico} 			termo_logico;
 						
 	termo_logico	 =	{termo_logico}  			parenteses 	sinal_logico_e 	parenteses2
@@ -283,46 +284,44 @@ Productions
                     
     negacao			 =  {negacao}	 				sinal_logico_nao 	parenteses;
    	
-    parenteses       =  {parenteses} 	a_parenteses expressao_logica f_parenteses
-    					| {valor} 		valor
-                   		| {var} 		variavel;
-  	parenteses2 	 =  {parenteses} 	parenteses;
+    parenteses       =  {parenteses} 	            a_parenteses expressao_logica f_parenteses
+    					| {valor} 		            valor
+                   		| {var} 		            variavel;
+  	parenteses2 	 =  {parenteses} 	            parenteses;
   
 
- // Arvore Abstrata
- //Abstract Syntax Tree
+
+Abstract Syntax Tree
 
     instancia_programa =  identficador*  bloco_declaracao* bloco_comando* ;
    
-    variavel           =  {variavel}             identficador* 
+    variavel           =  {variavel}            identficador* 
                         | {variavel_vetor}      identficador*  inteiro;
-                        
-    atribuicoes         = {atribuicao}          variavel* expressao;
-
-    funcoes             = {leia}                bloco_variavel*
-                        | {escreva}             bloco_expressao*;
-   
-    se_estruturas       = {se}                  expressao_logica  bloco_comando;
-    se_senao_estruturas = {se_senao}            expressao_logica  bloco_comando;
-    avalie_estruturas   = {avalie}              expressao bloco_caso bloco_comando;
-    enquanto_estruturas = {enquanto}            expressao_logica bloco_comando;
-    repita_estruturas   = {repita}              bloco_comando expressao_logica;
-    para_estruturas     = {para}                variavel int_ou_var bloco_comando;
-    para_passo_estruturas={para_passo}          variavel int_ou_var bloco_comando;
+                         
+    comando = id*;
      
     //Expressao Aritmetica Pura
-    expressao    =    {mais}      expressao
-                    | {menos}     expressao
-                    | {vezes}     expressao
-                    | {dividido}  expressao
-                    | {resto}     expressao
+    expressao    =    {mais}      [exp1]: expressao [exp2]: expressao 
+                    | {menos}     [exp1]: expressao [exp2]: expressao 
+                    | {vezes}     [exp1]: expressao [exp2]: expressao 
+                    | {dividido}  [exp1]: expressao [exp2]: expressao 
+                    | {resto}     [exp1]: expressao [exp2]: expressao 
                     | {valor}     valor
                     | {var}       variavel
                     | {expressao} expressao; 
    
    //Expressao Logico-Relacional
-	expressao_logica =	 {maior_igual} maiorigual
-                        | {menor_igual} menorigual
-                        | {maior} maior
-                        | {menor} menor; 	
+	expressao_logica =	  {ou}          [explog1]: expressao_logica [explog2]: expressao_logica  
+	                    | {xor}         [explog1]: expressao_logica [explog2]: expressao_logica  
+	                    | {e}           [explog1]: expressao_logica [explog2]: expressao_logica  
+	                    | {igualdade}   [explog1]: expressao_logica [explog2]: expressao_logica  
+                        | {diferenca} 	[explog1]: expressao_logica [explog2]: expressao_logica  
+	                    | {maior_igual} [explog1]: expressao_logica [explog2]: expressao_logica  
+                        | {menor_igual} [explog1]: expressao_logica [explog2]: expressao_logica  
+                        | {maior}       [explog1]: expressao_logica [explog2]: expressao_logica  
+                        | {menor}       [explog1]: expressao_logica [explog2]: expressao_logica  
+                        | {nao}         [explog1]: expressao_logica [explog2]: expressao_logica  
+                        | {valor}       valor
+                        | {var}         variavel
+                        | {expressao_logica} expressao_logica; 
      
