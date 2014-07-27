@@ -148,7 +148,7 @@ Ignored Tokens
    comentario, comentario_linha, branco, comentario_linha_final;
 
 Productions
-    start               = {start}               instancia_programa;
+    start               = {start}               instancia_programa {-> New start(instancia_programa)};
 
     identficador        = {id}                  id;
     
@@ -250,49 +250,61 @@ Productions
                         | {xor} xor;   
    
 //Expressao Aritmetica Pura
-    expressao {-> expressao}   =  {somas} expressao soma termo
-                    | {termo} termo;
-    termo        =  {multiplicacoes} termo multiplicacao fator
-                    | {fator} fator;                                  
-    fator        =  {parenteses}  a_parenteses expressao f_parenteses
-                    | {valor} valor
-                    | {var} variavel;
+    expressao    =    {soma} expressao soma fator {-> New expressao.soma(expressao, fator.expressao)  }
+                    | {fator} fator               {-> fator.expressao};
+    fator {-> expressao} =   
+                      {multiplicacao} fator multiplicacao termo {-> New expressao.multiplicacao(fator.expressao, termo.expressao)  }
+                    | {termo} termo                            {-> termo.expressao};                    
+    termo {-> expressao} =  
+                      {expressao}  a_parenteses expressao f_parenteses {-> expressao}
+                    | {valor} valor                                    {-> New expressao.valor(valor)}
+                    | {variavel} variavel                              {-> New expressao.variavel(variavel)};
 
 //Expressao Logico-Relacional
-	expressao_logica {-> expressao_logica} =
-	                	{expressao_logica} 		    parenteses 	sinal_logico_ou parenteses2
-						| {termo_logico} 			termo_logico;
+	expressao_logica  =
+	                	{expressao_logica} 		    parenteses 	sinal_logico_ou parenteses2 {-> New expressao_logica.sinal_logico_ou(parenteses.expressao_logica, parenteses2.expressao_logica)  }
+						| {termo_logico} 			termo_logico                            {-> termo_logico.expressao_logica};  
 						
-	termo_logico	 =	{termo_logico}  			parenteses 	sinal_logico_e 	parenteses2
-						| {expressao_relacional} 	expressao_relac;
+	termo_logico    {-> expressao_logica}  = 
+	                      {termo_logico}            parenteses sinal_logico_e 	parenteses2 {-> New expressao_logica.sinal_logico_e(parenteses.expressao_logica, parenteses2.expressao_logica)  }
+						| {expressao_relacional} 	expressao_relac                         {-> expressao_relac.expressao_logica}; 
 						
-	expressao_relac  =	{expressao_relacional} 		parenteses	sinal_igualdade parenteses2
-						| {termo_relac} 			termo_relac;
+	expressao_relac {-> expressao_logica}  =	
+	                      {expressao_relacional}    parenteses	sinal_igualdade parenteses2 {-> New expressao_logica.sinal_igualdade(parenteses.expressao_logica, parenteses2.expressao_logica)  }
+						| {termo_relac} 			termo_relac                             {-> termo_relac.expressao_logica}; 
 	
-	termo_relac		 =	{termo_relacional} 			parenteses  sinal_relacional parenteses2
-						| {expressao_aritm}  		expressao_aritm
-						| {negacao} 				negacao;
+	termo_relac	    {-> expressao_logica}  =	
+	                      {termo_relacional} 		parenteses  sinal_relacional parenteses2 {-> New expressao_logica.sinal_relacional(parenteses.expressao_logica, parenteses2.expressao_logica)  }
+						| {expressao_aritm}  		expressao_aritm                          {-> expressao_aritm.expressao_logica} 
+						| {negacao} 				negacao                                  {-> negacao.expressao_logica}; 
 						
-	expressao_aritm  =  {expressao_aritm}           expressao_aritm soma termo_aritm
-						| {termo_aritm}             termo_aritm;
-    termo_aritm      =  {multiplicacoes}            termo_aritm multiplicacao fator_aritm
-                    	| {fator_aritm}             fator_aritm; 
+	expressao_aritm {-> expressao_logica}  = 
+	                      {soma}                    expressao_aritm soma termo_aritm      {-> New expressao_logica.soma(expressao_aritm.expressao_logica, termo_aritm.expressao_logica)  }
+						| {termo_aritm}             termo_aritm                           {-> termo_aritm.expressao_logica}; 
+    termo_aritm     {-> expressao_logica}  =   
+                          {multiplicacao}           termo_aritm multiplicacao fator_aritm {-> New expressao_logica.multiplicacao(termo_aritm.expressao_logica, fator_aritm.expressao_logica)  }
+                    	| {fator_aritm}             fator_aritm                           {-> fator_aritm.expressao_logica};
                     	                                 
-    fator_aritm        =  {parenteses}              a_parenteses expressao_aritm f_parenteses
-                       | {valor} 					valor
-                       | {var} 						variavel;
+    fator_aritm     {-> expressao_logica}  =     
+                         {parenteses}               a_parenteses expressao_aritm f_parenteses {-> New expressao_logica.expressao_aritm(expressao_aritm)}
+                       | {valor} 					valor                                     {-> New expressao_logica.valor(valor)}
+                       | {variavel} 				variavel                                  {-> New expressao_logica.variavel(variavel)};
                     
-    negacao			 =  {negacao}	 				sinal_logico_nao 	parenteses;
+    negacao	        {-> expressao_logica}  = 
+                         {negacao}	 				sinal_logico_nao parenteses {-> New expressao_logica.sinal_logico_nao(parenteses.expressao_logica)};
    	
-    parenteses       =  {parenteses} 	            a_parenteses expressao_logica f_parenteses
-    					| {valor} 		            valor
-                   		| {var} 		            variavel;
-  	parenteses2 	 =  {parenteses} 	            parenteses;
+    parenteses      {-> expressao_logica}  = 
+                          {parenteses} 	            a_parenteses expressao_logica f_parenteses {-> expressao_logica}
+    					| {valor} 		            valor                                      {-> New expressao_logica.valor(valor)}
+                   		| {variavel} 		        variavel                                   {-> New expressao_logica.variavel(variavel)};
+  	parenteses2     {-> expressao_logica}  =          
+  	                      {parenteses} 	            parenteses                                 {-> parenteses.expressao_logica};
   
-
 
 Abstract Syntax Tree
 
+    start = instancia_programa;
+    
     instancia_programa =  identficador*  bloco_declaracao* bloco_comando* ;
    
     variavel           =  {variavel}            identficador* 
@@ -301,27 +313,19 @@ Abstract Syntax Tree
     comando = id*;
      
     //Expressao Aritmetica Pura
-    expressao    =    {mais}      [exp1]: expressao [exp2]: expressao 
-                    | {menos}     [exp1]: expressao [exp2]: expressao 
-                    | {vezes}     [exp1]: expressao [exp2]: expressao 
-                    | {dividido}  [exp1]: expressao [exp2]: expressao 
-                    | {resto}     [exp1]: expressao [exp2]: expressao 
+    expressao    =    {soma}           [l]: expressao [r]: expressao 
+                    | {multiplicacao}  [l]: expressao [r]: expressao 
                     | {valor}     valor
-                    | {var}       variavel
-                    | {expressao} expressao; 
+                    | {variavel}  variavel;
    
    //Expressao Logico-Relacional
-	expressao_logica =	  {ou}          [explog1]: expressao_logica [explog2]: expressao_logica  
-	                    | {xor}         [explog1]: expressao_logica [explog2]: expressao_logica  
-	                    | {e}           [explog1]: expressao_logica [explog2]: expressao_logica  
-	                    | {igualdade}   [explog1]: expressao_logica [explog2]: expressao_logica  
-                        | {diferenca} 	[explog1]: expressao_logica [explog2]: expressao_logica  
-	                    | {maior_igual} [explog1]: expressao_logica [explog2]: expressao_logica  
-                        | {menor_igual} [explog1]: expressao_logica [explog2]: expressao_logica  
-                        | {maior}       [explog1]: expressao_logica [explog2]: expressao_logica  
-                        | {menor}       [explog1]: expressao_logica [explog2]: expressao_logica  
-                        | {nao}         [explog1]: expressao_logica [explog2]: expressao_logica  
-                        | {valor}       valor
-                        | {var}         variavel
-                        | {expressao_logica} expressao_logica; 
+	expressao_logica =	  {sinal_logico_ou}   [l]: expressao_logica [r]: expressao_logica  
+	                    | {sinal_logico_e}    [l]: expressao_logica [r]: expressao_logica  
+	                    | {sinal_igualdade}   [l]: expressao_logica [r]: expressao_logica   
+	                    | {sinal_relacional}  [l]: expressao_logica [r]: expressao_logica   
+                        | {soma}              [l]: expressao_logica [r]: expressao_logica  
+                        | {multiplicacao}     [l]: expressao_logica [r]: expressao_logica
+                        | {sinal_logico_nao}  [l]: expressao_logica [r]: expressao_logica  
+                        | {valor}             valor
+                        | {variavel}          variavel;
      
