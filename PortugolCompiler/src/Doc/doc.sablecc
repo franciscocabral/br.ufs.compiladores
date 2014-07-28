@@ -44,10 +44,8 @@ Helpers
     comentario_linha_corpo  = (estrela nao_fl_b)* | (barra nao_fl_e)* | nao_fl_e_b*;
     comentario_linha_final  = fim_de_linha; 
 
-    sinal               = ('+'|'-')?;
-
     digitos             = unicode_numeros+  ;
-    inteiro             = sinal digitos;
+    inteiro             = digitos;
     real                = inteiro | inteiro virgula_real digitos;
     caractere           = [nao_aspas - [lf + cr]];
 
@@ -148,57 +146,72 @@ Ignored Tokens
    comentario, comentario_linha, branco, comentario_linha_final;
 
 Productions
-    start               = {start}               instancia_programa {-> New start(instancia_programa)};
-
-    identficador        = {id}                  id;
+    start               = {start}               instancia_programa 									{-> New start(instancia_programa)};
     
-    bloco_comando       = {comando_simples}     comando
-                        | {bloco_comandos}      bloco_comando comando;
+    bloco_comando 		{-> comando*} = 
+    					  {comando_simples}     comando												{-> [comando.comando]}
+                        | {bloco_comandos}      bloco_comando comando								{-> [bloco_comando.comando, comando.comando]};
                         
-    bloco_expressao     = {expressao_logica}    expressao_logica
-                        | {bloco_espressao}     bloco_expressao virgula expressao_logica;
+	bloco_expressao 	{-> expressao_logica*} = 
+    					  {expressao_logica}    expressao_logica									{-> [expressao_logica.expressao_logica]}
+                        | {bloco_espressao}     bloco_expressao virgula expressao_logica			{-> [bloco_expressao.expressao_logica, expressao_logica.expressao_logica]};
                         
-    bloco_variavel      = {variavel_simples}    variavel
-                        | {bloco_variaveis}     bloco_variavel virgula variavel;
+    bloco_variavel		{-> variavel*} =
+                          {variavel_simples}    variavel											{-> [variavel.variavel]}
+                        | {bloco_variaveis}     bloco_variavel virgula variavel						{-> [bloco_variavel.variavel, variavel.variavel]};
+   
+    bloco_caso 			{-> case*} =
+                          {caso_simples}		caso_stant											{-> [caso_stant.case]}
+                        | {bloco_caso}          bloco_caso caso_stant								{-> [bloco_caso.case, caso_stant.case]};
                         
-    bloco_caso          = {caso_simples}        caso valor doispontos bloco_comando
-                        | {bloco_casos}         bloco_caso caso valor doispontos bloco_comando;
-                        
-    bloco_declaracao    = {declaracao_simples}  declaracao
-                        | {bloco_declaracao}    bloco_declaracao declaracao;
-
-    instancia_programa  {-> instancia_programa} = {programa}    programa identficador inicio bloco_declaracao bloco_comando fim_ponto;
+    caso_stant			{-> case} = caso valor doispontos bloco_comando								{-> New case(valor.valor, [bloco_comando.comando])};
     
-    declaracao          = {declaracao_variavel} tipo doispontos bloco_variavel pontovirgula
-                        | {declaracao_const}    constante id valor pontovirgula;
+                        
+    bloco_declaracao 	{-> declaracao*} = 
+                          {declaracao_simples}  declaracao											{-> [declaracao.declaracao]}
+                        | {bloco_declaracao}    bloco_declaracao declaracao							{-> [bloco_declaracao.declaracao, declaracao.declaracao]};
 
-    tipo                = {real}                n_real 
-                        | {inteiro}             n_inteiro 
+    declaracao 			{-> declaracao} = 
+    					  {variavel}			tipo doispontos bloco_variavel pontovirgula			{-> New declaracao.variavel(tipo,[bloco_variavel.variavel])}
+                        | {constante}			constante id valor pontovirgula						{-> New declaracao.constante(id, valor)};
+
+	bloco_programa		{-> bloco_programa} = 
+						  bloco_declaracao bloco_comando											{-> New bloco_programa([bloco_declaracao.declaracao], [bloco_comando.comando])};
+
+    instancia_programa  {-> instancia_programa} = 
+    					  programa 	id inicio bloco_programa fim_ponto  							{-> New instancia_programa(id, bloco_programa)};
+    
+    tipo                = 
+    					  {real}                n_real 												
+                        | {inteiro}             n_inteiro 											
                         | {caractere}           n_caractere;
 
-    variavel {-> variavel}   = {variavel}            identficador 
-                        | {variavel_vetor}      identficador a_cochete inteiro f_cochete;
+    variavel 			{-> variavel} = 
+    					  {variavel}       		id 													{-> New variavel.variavel(id)}
+                        | {vetor}      			id a_cochete inteiro f_cochete						{-> New variavel.vetor(id, inteiro)};
 
-    valor               = {valor_real}          real 
+    valor               = 
+    					  {valor_real}          real 												
                         | {valor_inteiro}       inteiro 
-                        | {valor_caractere}     caractere;
+                        | {valor_caractere}     caractere; 
 
-    comando {-> id* }   = {atribuicao}          atribuicoes
-                        | {funcoes}             funcoes
-                        | {se}                  se_estruturas
-                        | {se_senao}            se_senao_estruturas
-                        | {avalie}              avalie_estruturas
-                        | {enquanto}            enquanto_estruturas
-                        | {repita}              repita_estruturas
-                        | {para}                para_estruturas
-                        | {para_passo}          para_passo_estruturas;
+    comando {-> comando} = 
+    					  {atribuicao}          atribuicoes											{-> atribuicoes}
+                        | {funcoes}             funcoes												{-> funcoes}
+                        | {se}                  se_estruturas										{-> se_estruturas}
+                        | {se_senao}            se_senao_estruturas									{-> se_senao_estruturas}
+                        | {avalie}              avalie_estruturas									{-> avalie_estruturas}
+                        | {enquanto}            enquanto_estruturas									{-> enquanto_estruturas}
+                        | {repita}              repita_estruturas									{-> repita_estruturas}
+                        | {para}                para_estruturas										{-> para_estruturas}
+                        | {para_passo}          para_passo_estruturas								{-> para_passo_estruturas};
             
-    atribuicoes         = {atribuicao}          variavel recebe expressao pontovirgula;
+    atribuicoes         {-> atribuicoes } = 
+												variavel recebe expressao pontovirgula				{-> New atribuicoes(variavel, expressao)};	
 
-    funcoes             = {leia}                leia a_parenteses bloco_variavel f_parenteses pontovirgula
-                        | {escreva}             escreva a_parenteses bloco_expressao f_parenteses pontovirgula;
-   
-    senao_estruturas    = {senao}               senao bloco_comando;
+    funcoes             {-> funcoes } = 
+    					  {leia}                leia a_parenteses bloco_variavel f_parenteses pontovirgula		{-> New funcoes.leia([bloco_variavel.variavel])}
+                        | {escreva}             escreva a_parenteses bloco_expressao f_parenteses pontovirgula	{-> New funcoes.escreva([bloco_expressao.expressao_logica])};
     
     int_ou_var			= {inteiro} inteiro
     					| {var} variavel;
@@ -207,125 +220,158 @@ Productions
     
     ate_estrutura       = {ate}                 ate int_ou_var;
 
-    se_estruturas         = {se}                  se a_parenteses expressao_logica f_parenteses entao bloco_comando fim_se pontovirgula;
-    se_senao_estruturas   = {se_senao}            se a_parenteses expressao_logica f_parenteses entao bloco_comando senao_estruturas fim_se pontovirgula;
-    avalie_estruturas     = {avalie}              avalie a_parenteses expressao f_parenteses bloco_caso senao doispontos bloco_comando fim_avalie pontovirgula;
-    enquanto_estruturas   = {enquanto}            enquanto a_parenteses expressao_logica f_parenteses faca bloco_comando fim_enquanto pontovirgula;
-    repita_estruturas     = {repita}              repita bloco_comando ate a_parenteses expressao_logica f_parenteses pontovirgula;
-    para_estruturas       = {para}                para variavel de int_ou_var ate_estrutura faca bloco_comando fim_para pontovirgula;
-    para_passo_estruturas = {para_passo}          para variavel de int_ou_var passo_estruturas ate_estrutura faca bloco_comando fim_para pontovirgula;
+
+	
+	//se_stant  	        =   		            se a_parenteses expressao_logica f_parenteses entao bloco_comando; //{-> New se_stant(expressao_logica, [bloco_comando.comando])};
+    senao_estruturas  {-> senao_estruturas}       = senao bloco_comando	{-> New senao_estruturas( [bloco_comando.comando])};
+    
+    se_estruturas {-> se_estruturas}		      = {se} se a_parenteses expressao_logica f_parenteses entao bloco_comando fim_se pontovirgula
+                                                          {-> New se_estruturas(expressao_logica, [bloco_comando.comando])};
+                                                          
+    se_senao_estruturas	{-> se_senao_estruturas}  = {se_senao} se a_parenteses expressao_logica f_parenteses entao bloco_comando fim_se pontovirgula     
+                                                                {-> New se_senao_estruturas(expressao_logica, [bloco_comando.comando])};						
+										
+    					  																							  																			
+    					  																			
+    avalie_estruturas	{-> avalie_estruturas } = 
+    					  {avalie}              avalie a_parenteses expressao f_parenteses bloco_caso senao doispontos bloco_comando fim_avalie pontovirgula
+    					                        {-> New avalie_estruturas(expressao, [bloco_caso.case], [bloco_comando.comando])};	
+    
+    enquanto_estruturas	{-> enquanto_estruturas } = 
+    					  {enquanto}            enquanto a_parenteses expressao_logica f_parenteses faca bloco_comando fim_enquanto pontovirgula
+    					                         {-> New enquanto_estruturas(expressao_logica, [bloco_comando.comando])};	
+    					                         
+    repita_estruturas 	{-> repita_estruturas } = 
+    					  {repita}              repita bloco_comando ate a_parenteses expressao_logica f_parenteses pontovirgula
+    					                         {-> New repita_estruturas([bloco_comando.comando], expressao_logica)};	
+    para_estruturas		{-> para_estruturas } = 
+    					  {para}                para variavel de int_ou_var ate_estrutura faca bloco_comando fim_para pontovirgula
+    					                        {-> New para_estruturas(variavel, [bloco_comando.comando])};	
+    para_passo_estruturas	{-> para_passo_estruturas }	= 
+    					  {para_passo}          para variavel de int_ou_var passo_estruturas ate_estrutura faca bloco_comando fim_para pontovirgula
+    					                         {-> New para_passo_estruturas(variavel, [bloco_comando.comando])};	
              
              
              
 //Lista de prioridades: http://pt.wikipedia.org/wiki/Operadores_em_C_e_C%2B%2B
-//Parenteses
 
-//Sinais Logicos - Negação
-    sinal_logico_nao = {nao} nao;
-    
-//Sinais Aritmeticos - Multiplicação
-    multiplicacao =       {vezes} vezes
-                        | {dividido} dividido
-                        | {resto} resto;
-
-//Sinais Aritmeticos - Soma
-    soma =                {mais} mais
-                        | {menos} menos;
-                        
-//Sinais Relacionais - Menor que
-    sinal_relacional =    {maior_igual} maiorigual
-                        | {menor_igual} menorigual
-                        | {maior} maior
-                        | {menor} menor;
-
-//Sinais Relacionais - Igualdade
-    sinal_igualdade =     {igualdade} igual
-                        | {diferenca} diferente;
-
-//Sinais Logicos - E
-    sinal_logico_e   = {e} e;
-
-//Sinais Logicos - Ou
-    sinal_logico_ou  =    {ou} ou
-                        | {xor} xor;   
-   
 //Expressao Aritmetica Pura
-    expressao    =    {soma} expressao soma fator {-> New expressao.soma(expressao, fator.expressao)  }
-                    | {fator} fator               {-> fator.expressao};
+    expressao    	=  
+    				  {mais} expressao mais fator 								{-> New expressao.mais(expressao, fator.expressao)  }
+    				| {menos} expressao menos fator 							{-> New expressao.menos(expressao, fator.expressao)  }
+                    | {fator} fator               								{-> fator.expressao};
     fator {-> expressao} =   
-                      {multiplicacao} fator multiplicacao termo {-> New expressao.multiplicacao(fator.expressao, termo.expressao)  }
-                    | {termo} termo                            {-> termo.expressao};                    
+                      {vezes} fator vezes termo 								{-> New expressao.vezes(fator.expressao, termo.expressao)  }
+                    | {dividido} fator dividido termo 							{-> New expressao.dividido(fator.expressao, termo.expressao)  }
+                    | {resto} fator resto termo 								{-> New expressao.dividido(fator.expressao, termo.expressao)  }
+                    | {termo} termo                    							{-> termo.expressao};                    
     termo {-> expressao} =  
-                      {expressao}  a_parenteses expressao f_parenteses {-> expressao}
-                    | {valor} valor                                    {-> New expressao.valor(valor)}
-                    | {variavel} variavel                              {-> New expressao.variavel(variavel)};
+                      {expressao}  a_parenteses expressao f_parenteses 			{-> expressao}
+                    | {valor} valor                                    			{-> New expressao.valor(valor)}
+                    | {variavel} variavel                              			{-> New expressao.variavel(variavel)};
 
 //Expressao Logico-Relacional
-	expressao_logica  =
-	                	{expressao_logica} 		    parenteses 	sinal_logico_ou parenteses2 {-> New expressao_logica.sinal_logico_ou(parenteses.expressao_logica, parenteses2.expressao_logica)  }
-						| {termo_logico} 			termo_logico                            {-> termo_logico.expressao_logica};  
+	expressao_logica = 
+					  {ou} parenteses ou parenteses2 							{-> New expressao_logica.ou(parenteses.expressao_logica, parenteses2.expressao_logica)  }
+	                | {xor} parenteses 	xor parenteses2							{-> New expressao_logica.xor(parenteses.expressao_logica, parenteses2.expressao_logica)  }
+					| {termo_logico} termo_logico								{-> termo_logico.expressao_logica};  
 						
 	termo_logico    {-> expressao_logica}  = 
-	                      {termo_logico}            parenteses sinal_logico_e 	parenteses2 {-> New expressao_logica.sinal_logico_e(parenteses.expressao_logica, parenteses2.expressao_logica)  }
-						| {expressao_relacional} 	expressao_relac                         {-> expressao_relac.expressao_logica}; 
+	                {e} parenteses e 	parenteses2 							{-> New expressao_logica.e(parenteses.expressao_logica, parenteses2.expressao_logica)  }
+					| {relacional} expressao_relac 								{-> expressao_relac.expressao_logica}; 
 						
 	expressao_relac {-> expressao_logica}  =	
-	                      {expressao_relacional}    parenteses	sinal_igualdade parenteses2 {-> New expressao_logica.sinal_igualdade(parenteses.expressao_logica, parenteses2.expressao_logica)  }
-						| {termo_relac} 			termo_relac                             {-> termo_relac.expressao_logica}; 
+	                  {igual} parenteses	igual parenteses2 					{-> New expressao_logica.igual(parenteses.expressao_logica, parenteses2.expressao_logica)  }
+					| {diferente} parenteses diferente parenteses2 				{-> New expressao_logica.diferente(parenteses.expressao_logica, parenteses2.expressao_logica)  }
+					| {termo_relac} termo_relac 								{-> termo_relac.expressao_logica}; 
 	
 	termo_relac	    {-> expressao_logica}  =	
-	                      {termo_relacional} 		parenteses  sinal_relacional parenteses2 {-> New expressao_logica.sinal_relacional(parenteses.expressao_logica, parenteses2.expressao_logica)  }
-						| {expressao_aritm}  		expressao_aritm                          {-> expressao_aritm.expressao_logica} 
-						| {negacao} 				negacao                                  {-> negacao.expressao_logica}; 
-						
-	expressao_aritm {-> expressao_logica}  = 
-	                      {soma}                    expressao_aritm soma termo_aritm      {-> New expressao_logica.soma(expressao_aritm.expressao_logica, termo_aritm.expressao_logica)  }
-						| {termo_aritm}             termo_aritm                           {-> termo_aritm.expressao_logica}; 
-    termo_aritm     {-> expressao_logica}  =   
-                          {multiplicacao}           termo_aritm multiplicacao fator_aritm {-> New expressao_logica.multiplicacao(termo_aritm.expressao_logica, fator_aritm.expressao_logica)  }
-                    	| {fator_aritm}             fator_aritm                           {-> fator_aritm.expressao_logica};
-                    	                                 
-    fator_aritm     {-> expressao_logica}  =     
-                         {parenteses}               a_parenteses expressao_aritm f_parenteses {-> New expressao_logica.expressao_aritm(expressao_aritm)}
-                       | {valor} 					valor                                     {-> New expressao_logica.valor(valor)}
-                       | {variavel} 				variavel                                  {-> New expressao_logica.variavel(variavel)};
-                    
+                      {maiorigual} 	parenteses  maiorigual parenteses2 		    {-> New expressao_logica.maiorigual(parenteses.expressao_logica, parenteses2.expressao_logica)  }
+					| {menorigual} parenteses  menorigual parenteses2			{-> New expressao_logica.menorigual(parenteses.expressao_logica, parenteses2.expressao_logica)  }
+					| {maior} parenteses  maior parenteses2 					{-> New expressao_logica.maior(parenteses.expressao_logica, parenteses2.expressao_logica)  }
+					| {menor} parenteses  menor parenteses2 					{-> New expressao_logica.menor(parenteses.expressao_logica, parenteses2.expressao_logica)  }
+					| {expressao} expressao										{-> expressao.expressao} 
+					| {negacao} negacao											{-> negacao.expressao_logica}; 		
+             
     negacao	        {-> expressao_logica}  = 
-                         {negacao}	 				sinal_logico_nao parenteses {-> New expressao_logica.sinal_logico_nao(parenteses.expressao_logica)};
+                      {nao} nao parenteses 										{-> New expressao_logica.nao(parenteses.expressao_logica)};
    	
     parenteses      {-> expressao_logica}  = 
-                          {parenteses} 	            a_parenteses expressao_logica f_parenteses {-> expressao_logica}
-    					| {valor} 		            valor                                      {-> New expressao_logica.valor(valor)}
-                   		| {variavel} 		        variavel                                   {-> New expressao_logica.variavel(variavel)};
+                      {parenteses} a_parenteses expressao_logica f_parenteses 	{-> expressao_logica}
+					| {valor} valor                                      		{-> New expressao_logica.valor(valor)}
+               		| {variavel} variavel                                   	{-> New expressao_logica.variavel(variavel)};
+               		
   	parenteses2     {-> expressao_logica}  =          
-  	                      {parenteses} 	            parenteses                                 {-> parenteses.expressao_logica};
+                      {parenteses} parenteses									{-> parenteses.expressao_logica};
   
 
 Abstract Syntax Tree
 
     start = instancia_programa;
     
-    instancia_programa =  identficador*  bloco_declaracao* bloco_comando* ;
+    instancia_programa 	= [id]:id [bloco_programa]:bloco_programa;
+    
+    bloco_comando       = comando*;
+    
+    bloco_programa		= [bloco_declaracao]:declaracao* 	[bloco_comando]:comando* ;
+    
+    declaracao			= {variavel} 			[tipo]:	tipo  	[bloco_variavel]:	variavel*
+    					| {constante} 			[id]:	id		[valor]:			valor;
    
-    variavel           =  {variavel}            identficador* 
-                        | {variavel_vetor}      identficador*  inteiro;
+    variavel			= {variavel}            [id]: 	id 
+                     	| {vetor}      			[id]: 	id		[inteiro]:inteiro;
+                     	
+                     	
+    case				= [valor]: valor 	[bloco_comando]: comando*;                     	
+                     	
+    tipo                = 
+    					  {real}                n_real 												
+                        | {inteiro}             n_inteiro 											
+                        | {caractere}           n_caractere;
+    valor               = 
+    					  {valor_real}          real 												
+                        | {valor_inteiro}       inteiro 
+                        | {valor_caractere}     caractere;
                          
-    comando = id*;
+    comando 			= comando;
+     
+    atribuicoes         = [variavel]:variavel [expressao]:expressao;
+    
+    funcoes             = {leia} [bloco_variavel]:	variavel*
+                        | {escreva} [bloco_expressao]: expressao_logica*;
+                        
+   // se_stant            = [expressao_logica]:expressao_logica [bloco_comando]:comando*;
+    senao_estruturas    = [bloco_comando]:comando*;
+    se_estruturas       = [expressao_logica]:expressao_logica [bloco_comando]:comando*;
+    se_senao_estruturas = [expressao_logica]:expressao_logica [bloco_comando]:comando*;
+    avalie_estruturas   = [expressao]:expressao [bloco_caso]:case* [bloco_comando]:comando*;
+    enquanto_estruturas = [expressao_logica]:expressao_logica [bloco_comando]:comando*;
+    repita_estruturas   = [bloco_comando]:comando* [expressao_logica]:expressao_logica;
+    para_estruturas     = [variavel]:variavel [bloco_comando]:comando*;
+    para_passo_estruturas = [variavel]:variavel [bloco_comando]:comando*;
      
     //Expressao Aritmetica Pura
-    expressao    =    {soma}           [l]: expressao [r]: expressao 
-                    | {multiplicacao}  [l]: expressao [r]: expressao 
-                    | {valor}     valor
-                    | {variavel}  variavel;
+    expressao    		=    
+						  {mais} 		[l]: expressao [r]: expressao 
+			            | {menos}  		[l]: expressao [r]: expressao 
+			            | {vezes}  		[l]: expressao [r]: expressao
+			            | {dividido}  	[l]: expressao [r]: expressao
+			            | {resto}  		[l]: expressao [r]: expressao
+			            | {valor}     	valor
+			            | {variavel}  	variavel;
    
    //Expressao Logico-Relacional
-	expressao_logica =	  {sinal_logico_ou}   [l]: expressao_logica [r]: expressao_logica  
-	                    | {sinal_logico_e}    [l]: expressao_logica [r]: expressao_logica  
-	                    | {sinal_igualdade}   [l]: expressao_logica [r]: expressao_logica   
-	                    | {sinal_relacional}  [l]: expressao_logica [r]: expressao_logica   
-                        | {soma}              [l]: expressao_logica [r]: expressao_logica  
-                        | {multiplicacao}     [l]: expressao_logica [r]: expressao_logica
-                        | {sinal_logico_nao}  [l]: expressao_logica [r]: expressao_logica  
-                        | {valor}             valor
-                        | {variavel}          variavel;
-     
+	expressao_logica 	=	  
+						  {ou}			[l]: expressao_logica [r]: expressao_logica  
+						| {xor}			[l]: expressao_logica [r]: expressao_logica  
+		                | {e}			[l]: expressao_logica [r]: expressao_logica  
+		                | {igual}		[l]: expressao_logica [r]: expressao_logica  
+		                | {diferente}	[l]: expressao_logica [r]: expressao_logica 
+	                    | {maiorigual}	[l]: expressao_logica [r]: expressao_logica  
+	                    | {menorigual}	[l]: expressao_logica [r]: expressao_logica  
+	                    | {maior}		[l]: expressao_logica [r]: expressao_logica  
+	                    | {menor}		[l]: expressao_logica [r]: expressao_logica   
+	                    | {nao}			[l]: expressao_logica  
+	                    | {valor}		valor
+	                    | {variavel}	variavel;
+  
