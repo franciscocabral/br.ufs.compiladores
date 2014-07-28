@@ -7,7 +7,7 @@ import expression.analysis.*;
 @SuppressWarnings("nls")
 public final class AVariavelVariavel extends PVariavel
 {
-    private PIdentficador _identficador_;
+    private TId _id_;
 
     public AVariavelVariavel()
     {
@@ -15,10 +15,10 @@ public final class AVariavelVariavel extends PVariavel
     }
 
     public AVariavelVariavel(
-        @SuppressWarnings("hiding") PIdentficador _identficador_)
+        @SuppressWarnings("hiding") TId _id_)
     {
         // Constructor
-        setIdentficador(_identficador_);
+        setId(_id_);
 
     }
 
@@ -26,7 +26,7 @@ public final class AVariavelVariavel extends PVariavel
     public Object clone()
     {
         return new AVariavelVariavel(
-            cloneNode(this._identficador_));
+            cloneNode(this._id_));
     }
 
     @Override
@@ -35,16 +35,16 @@ public final class AVariavelVariavel extends PVariavel
         ((Analysis) sw).caseAVariavelVariavel(this);
     }
 
-    public PIdentficador getIdentficador()
+    public TId getId()
     {
-        return this._identficador_;
+        return this._id_;
     }
 
-    public void setIdentficador(PIdentficador node)
+    public void setId(TId node)
     {
-        if(this._identficador_ != null)
+        if(this._id_ != null)
         {
-            this._identficador_.parent(null);
+            this._id_.parent(null);
         }
 
         if(node != null)
@@ -57,23 +57,23 @@ public final class AVariavelVariavel extends PVariavel
             node.parent(this);
         }
 
-        this._identficador_ = node;
+        this._id_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._identficador_);
+            + toString(this._id_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._identficador_ == child)
+        if(this._id_ == child)
         {
-            this._identficador_ = null;
+            this._id_ = null;
             return;
         }
 
@@ -84,9 +84,9 @@ public final class AVariavelVariavel extends PVariavel
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._identficador_ == oldChild)
+        if(this._id_ == oldChild)
         {
-            setIdentficador((PIdentficador) newChild);
+            setId((TId) newChild);
             return;
         }
 

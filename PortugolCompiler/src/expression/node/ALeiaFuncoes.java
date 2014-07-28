@@ -2,16 +2,13 @@
 
 package expression.node;
 
+import java.util.*;
 import expression.analysis.*;
 
 @SuppressWarnings("nls")
 public final class ALeiaFuncoes extends PFuncoes
 {
-    private TLeia _leia_;
-    private TAParenteses _aParenteses_;
-    private PBlocoVariavel _blocoVariavel_;
-    private TFParenteses _fParenteses_;
-    private TPontovirgula _pontovirgula_;
+    private final LinkedList<PVariavel> _blocoVariavel_ = new LinkedList<PVariavel>();
 
     public ALeiaFuncoes()
     {
@@ -19,22 +16,10 @@ public final class ALeiaFuncoes extends PFuncoes
     }
 
     public ALeiaFuncoes(
-        @SuppressWarnings("hiding") TLeia _leia_,
-        @SuppressWarnings("hiding") TAParenteses _aParenteses_,
-        @SuppressWarnings("hiding") PBlocoVariavel _blocoVariavel_,
-        @SuppressWarnings("hiding") TFParenteses _fParenteses_,
-        @SuppressWarnings("hiding") TPontovirgula _pontovirgula_)
+        @SuppressWarnings("hiding") List<?> _blocoVariavel_)
     {
         // Constructor
-        setLeia(_leia_);
-
-        setAParenteses(_aParenteses_);
-
         setBlocoVariavel(_blocoVariavel_);
-
-        setFParenteses(_fParenteses_);
-
-        setPontovirgula(_pontovirgula_);
 
     }
 
@@ -42,11 +27,7 @@ public final class ALeiaFuncoes extends PFuncoes
     public Object clone()
     {
         return new ALeiaFuncoes(
-            cloneNode(this._leia_),
-            cloneNode(this._aParenteses_),
-            cloneNode(this._blocoVariavel_),
-            cloneNode(this._fParenteses_),
-            cloneNode(this._pontovirgula_));
+            cloneList(this._blocoVariavel_));
     }
 
     @Override
@@ -55,173 +36,45 @@ public final class ALeiaFuncoes extends PFuncoes
         ((Analysis) sw).caseALeiaFuncoes(this);
     }
 
-    public TLeia getLeia()
-    {
-        return this._leia_;
-    }
-
-    public void setLeia(TLeia node)
-    {
-        if(this._leia_ != null)
-        {
-            this._leia_.parent(null);
-        }
-
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
-                node.parent().removeChild(node);
-            }
-
-            node.parent(this);
-        }
-
-        this._leia_ = node;
-    }
-
-    public TAParenteses getAParenteses()
-    {
-        return this._aParenteses_;
-    }
-
-    public void setAParenteses(TAParenteses node)
-    {
-        if(this._aParenteses_ != null)
-        {
-            this._aParenteses_.parent(null);
-        }
-
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
-                node.parent().removeChild(node);
-            }
-
-            node.parent(this);
-        }
-
-        this._aParenteses_ = node;
-    }
-
-    public PBlocoVariavel getBlocoVariavel()
+    public LinkedList<PVariavel> getBlocoVariavel()
     {
         return this._blocoVariavel_;
     }
 
-    public void setBlocoVariavel(PBlocoVariavel node)
+    public void setBlocoVariavel(List<?> list)
     {
-        if(this._blocoVariavel_ != null)
+        for(PVariavel e : this._blocoVariavel_)
         {
-            this._blocoVariavel_.parent(null);
+            e.parent(null);
         }
+        this._blocoVariavel_.clear();
 
-        if(node != null)
+        for(Object obj_e : list)
         {
-            if(node.parent() != null)
+            PVariavel e = (PVariavel) obj_e;
+            if(e.parent() != null)
             {
-                node.parent().removeChild(node);
+                e.parent().removeChild(e);
             }
 
-            node.parent(this);
+            e.parent(this);
+            this._blocoVariavel_.add(e);
         }
-
-        this._blocoVariavel_ = node;
-    }
-
-    public TFParenteses getFParenteses()
-    {
-        return this._fParenteses_;
-    }
-
-    public void setFParenteses(TFParenteses node)
-    {
-        if(this._fParenteses_ != null)
-        {
-            this._fParenteses_.parent(null);
-        }
-
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
-                node.parent().removeChild(node);
-            }
-
-            node.parent(this);
-        }
-
-        this._fParenteses_ = node;
-    }
-
-    public TPontovirgula getPontovirgula()
-    {
-        return this._pontovirgula_;
-    }
-
-    public void setPontovirgula(TPontovirgula node)
-    {
-        if(this._pontovirgula_ != null)
-        {
-            this._pontovirgula_.parent(null);
-        }
-
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
-                node.parent().removeChild(node);
-            }
-
-            node.parent(this);
-        }
-
-        this._pontovirgula_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._leia_)
-            + toString(this._aParenteses_)
-            + toString(this._blocoVariavel_)
-            + toString(this._fParenteses_)
-            + toString(this._pontovirgula_);
+            + toString(this._blocoVariavel_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._leia_ == child)
+        if(this._blocoVariavel_.remove(child))
         {
-            this._leia_ = null;
-            return;
-        }
-
-        if(this._aParenteses_ == child)
-        {
-            this._aParenteses_ = null;
-            return;
-        }
-
-        if(this._blocoVariavel_ == child)
-        {
-            this._blocoVariavel_ = null;
-            return;
-        }
-
-        if(this._fParenteses_ == child)
-        {
-            this._fParenteses_ = null;
-            return;
-        }
-
-        if(this._pontovirgula_ == child)
-        {
-            this._pontovirgula_ = null;
             return;
         }
 
@@ -232,34 +85,22 @@ public final class ALeiaFuncoes extends PFuncoes
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._leia_ == oldChild)
+        for(ListIterator<PVariavel> i = this._blocoVariavel_.listIterator(); i.hasNext();)
         {
-            setLeia((TLeia) newChild);
-            return;
-        }
+            if(i.next() == oldChild)
+            {
+                if(newChild != null)
+                {
+                    i.set((PVariavel) newChild);
+                    newChild.parent(this);
+                    oldChild.parent(null);
+                    return;
+                }
 
-        if(this._aParenteses_ == oldChild)
-        {
-            setAParenteses((TAParenteses) newChild);
-            return;
-        }
-
-        if(this._blocoVariavel_ == oldChild)
-        {
-            setBlocoVariavel((PBlocoVariavel) newChild);
-            return;
-        }
-
-        if(this._fParenteses_ == oldChild)
-        {
-            setFParenteses((TFParenteses) newChild);
-            return;
-        }
-
-        if(this._pontovirgula_ == oldChild)
-        {
-            setPontovirgula((TPontovirgula) newChild);
-            return;
+                i.remove();
+                oldChild.parent(null);
+                return;
+            }
         }
 
         throw new RuntimeException("Not a child.");

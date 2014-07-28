@@ -2,16 +2,13 @@
 
 package expression.node;
 
+import java.util.*;
 import expression.analysis.*;
 
 @SuppressWarnings("nls")
 public final class AEscrevaFuncoes extends PFuncoes
 {
-    private TEscreva _escreva_;
-    private TAParenteses _aParenteses_;
-    private PBlocoExpressao _blocoExpressao_;
-    private TFParenteses _fParenteses_;
-    private TPontovirgula _pontovirgula_;
+    private final LinkedList<PExpressaoLogica> _blocoExpressao_ = new LinkedList<PExpressaoLogica>();
 
     public AEscrevaFuncoes()
     {
@@ -19,22 +16,10 @@ public final class AEscrevaFuncoes extends PFuncoes
     }
 
     public AEscrevaFuncoes(
-        @SuppressWarnings("hiding") TEscreva _escreva_,
-        @SuppressWarnings("hiding") TAParenteses _aParenteses_,
-        @SuppressWarnings("hiding") PBlocoExpressao _blocoExpressao_,
-        @SuppressWarnings("hiding") TFParenteses _fParenteses_,
-        @SuppressWarnings("hiding") TPontovirgula _pontovirgula_)
+        @SuppressWarnings("hiding") List<?> _blocoExpressao_)
     {
         // Constructor
-        setEscreva(_escreva_);
-
-        setAParenteses(_aParenteses_);
-
         setBlocoExpressao(_blocoExpressao_);
-
-        setFParenteses(_fParenteses_);
-
-        setPontovirgula(_pontovirgula_);
 
     }
 
@@ -42,11 +27,7 @@ public final class AEscrevaFuncoes extends PFuncoes
     public Object clone()
     {
         return new AEscrevaFuncoes(
-            cloneNode(this._escreva_),
-            cloneNode(this._aParenteses_),
-            cloneNode(this._blocoExpressao_),
-            cloneNode(this._fParenteses_),
-            cloneNode(this._pontovirgula_));
+            cloneList(this._blocoExpressao_));
     }
 
     @Override
@@ -55,173 +36,45 @@ public final class AEscrevaFuncoes extends PFuncoes
         ((Analysis) sw).caseAEscrevaFuncoes(this);
     }
 
-    public TEscreva getEscreva()
-    {
-        return this._escreva_;
-    }
-
-    public void setEscreva(TEscreva node)
-    {
-        if(this._escreva_ != null)
-        {
-            this._escreva_.parent(null);
-        }
-
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
-                node.parent().removeChild(node);
-            }
-
-            node.parent(this);
-        }
-
-        this._escreva_ = node;
-    }
-
-    public TAParenteses getAParenteses()
-    {
-        return this._aParenteses_;
-    }
-
-    public void setAParenteses(TAParenteses node)
-    {
-        if(this._aParenteses_ != null)
-        {
-            this._aParenteses_.parent(null);
-        }
-
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
-                node.parent().removeChild(node);
-            }
-
-            node.parent(this);
-        }
-
-        this._aParenteses_ = node;
-    }
-
-    public PBlocoExpressao getBlocoExpressao()
+    public LinkedList<PExpressaoLogica> getBlocoExpressao()
     {
         return this._blocoExpressao_;
     }
 
-    public void setBlocoExpressao(PBlocoExpressao node)
+    public void setBlocoExpressao(List<?> list)
     {
-        if(this._blocoExpressao_ != null)
+        for(PExpressaoLogica e : this._blocoExpressao_)
         {
-            this._blocoExpressao_.parent(null);
+            e.parent(null);
         }
+        this._blocoExpressao_.clear();
 
-        if(node != null)
+        for(Object obj_e : list)
         {
-            if(node.parent() != null)
+            PExpressaoLogica e = (PExpressaoLogica) obj_e;
+            if(e.parent() != null)
             {
-                node.parent().removeChild(node);
+                e.parent().removeChild(e);
             }
 
-            node.parent(this);
+            e.parent(this);
+            this._blocoExpressao_.add(e);
         }
-
-        this._blocoExpressao_ = node;
-    }
-
-    public TFParenteses getFParenteses()
-    {
-        return this._fParenteses_;
-    }
-
-    public void setFParenteses(TFParenteses node)
-    {
-        if(this._fParenteses_ != null)
-        {
-            this._fParenteses_.parent(null);
-        }
-
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
-                node.parent().removeChild(node);
-            }
-
-            node.parent(this);
-        }
-
-        this._fParenteses_ = node;
-    }
-
-    public TPontovirgula getPontovirgula()
-    {
-        return this._pontovirgula_;
-    }
-
-    public void setPontovirgula(TPontovirgula node)
-    {
-        if(this._pontovirgula_ != null)
-        {
-            this._pontovirgula_.parent(null);
-        }
-
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
-                node.parent().removeChild(node);
-            }
-
-            node.parent(this);
-        }
-
-        this._pontovirgula_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._escreva_)
-            + toString(this._aParenteses_)
-            + toString(this._blocoExpressao_)
-            + toString(this._fParenteses_)
-            + toString(this._pontovirgula_);
+            + toString(this._blocoExpressao_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._escreva_ == child)
+        if(this._blocoExpressao_.remove(child))
         {
-            this._escreva_ = null;
-            return;
-        }
-
-        if(this._aParenteses_ == child)
-        {
-            this._aParenteses_ = null;
-            return;
-        }
-
-        if(this._blocoExpressao_ == child)
-        {
-            this._blocoExpressao_ = null;
-            return;
-        }
-
-        if(this._fParenteses_ == child)
-        {
-            this._fParenteses_ = null;
-            return;
-        }
-
-        if(this._pontovirgula_ == child)
-        {
-            this._pontovirgula_ = null;
             return;
         }
 
@@ -232,34 +85,22 @@ public final class AEscrevaFuncoes extends PFuncoes
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._escreva_ == oldChild)
+        for(ListIterator<PExpressaoLogica> i = this._blocoExpressao_.listIterator(); i.hasNext();)
         {
-            setEscreva((TEscreva) newChild);
-            return;
-        }
+            if(i.next() == oldChild)
+            {
+                if(newChild != null)
+                {
+                    i.set((PExpressaoLogica) newChild);
+                    newChild.parent(this);
+                    oldChild.parent(null);
+                    return;
+                }
 
-        if(this._aParenteses_ == oldChild)
-        {
-            setAParenteses((TAParenteses) newChild);
-            return;
-        }
-
-        if(this._blocoExpressao_ == oldChild)
-        {
-            setBlocoExpressao((PBlocoExpressao) newChild);
-            return;
-        }
-
-        if(this._fParenteses_ == oldChild)
-        {
-            setFParenteses((TFParenteses) newChild);
-            return;
-        }
-
-        if(this._pontovirgula_ == oldChild)
-        {
-            setPontovirgula((TPontovirgula) newChild);
-            return;
+                i.remove();
+                oldChild.parent(null);
+                return;
+            }
         }
 
         throw new RuntimeException("Not a child.");
