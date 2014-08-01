@@ -56,8 +56,8 @@ public class Main {
             
             Parser p = new Parser(l);
             Start tree = p.parse();
-            Emitter emitter = new Emitter();
-            tree.apply(emitter);
+            mySemantic s = new mySemantic();
+            tree.apply(s);
             
         } catch (LexerException le) {
             System.out.println("\n" + le.getMessage());
