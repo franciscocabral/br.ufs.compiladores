@@ -1,4 +1,18 @@
+/////////////////////////////////////////////////////////////////
+//////////////////////    PACKAGE     ///////////////////////////
+/////////////////////////////////////////////////////////////////
+//   Basicamente informa os pacotes que serão utilizados no    //
+//   código JAVA gerado do compilador.                         //
+/////////////////////////////////////////////////////////////////
+
 Package expression;
+
+/////////////////////////////////////////////////////////////////
+///////////////////////    HELPERS    ///////////////////////////
+/////////////////////////////////////////////////////////////////
+//  Funcionam como constantes. Utilizados para auxiliar outras //
+//  declarações.                                               //
+/////////////////////////////////////////////////////////////////
 
 Helpers
 
@@ -49,11 +63,21 @@ Helpers
     real                = inteiro | inteiro virgula_real digitos;
     caractere           = [nao_aspas - [lf + cr]];
 
+/////////////////////////////////////////////////////////////////
+///////////////////////    STATES     ///////////////////////////
+/////////////////////////////////////////////////////////////////
 
 States
   normal,
   comentario,
   c_l;
+
+/////////////////////////////////////////////////////////////////
+////////////////////////    TOKENS    ///////////////////////////
+/////////////////////////////////////////////////////////////////
+//  Definições dos terminais e “Tokens” para serem utilizados  //
+//  nas produções.                                             //
+/////////////////////////////////////////////////////////////////
 
 Tokens
 
@@ -67,8 +91,10 @@ Tokens
     {comentario} comentario_final= comentario_final;
     {comentario} comentario_corpo= comentario_corpo;
     
-
+    //ATRIBUIÇAO
     {normal} recebe              = '<-';
+    
+    //OPERADORES ESPECIAIS
     {normal} pontovirgula        = ';';
     {normal} virgula             = ',';
     {normal} ponto               = '.';
@@ -80,19 +106,24 @@ Tokens
     {normal} a_chave             = '{';
     {normal} f_chave             = '}';
 
+    //OPERADORES ARITMETICOS
     {normal} menos               = '-';
     {normal} mais                = '+';
     {normal} vezes               = '*';
     {normal} dividido            = '/';
     {normal} resto               = 'resto';
-
+    
+    //OPERADORES LOGICOS
     {normal} e                   = 'e';
     {normal} ou                  = 'ou';
     {normal} xor                 = 'xor';
     {normal} nao                 = 'nao';
 
+    //OPERADORES DE IGUALDADE
     {normal} igual               = '=';
     {normal} diferente           = '<>';
+    
+    //OPERADORES RELACIONAIS
     {normal} menorigual          = '<=';
     {normal} maiorigual          = '>=';
     {normal} maior               = '>';
@@ -101,16 +132,19 @@ Tokens
     {normal} constante           = 'const';
     
     {normal} retorne             = 'retorne'; 
-
+    
+    //PALAVRAS RESERVADAS
     {normal} programa            = 'programa';
     {normal} inicio              = 'inicio';
     {normal} fim_ponto			 = 'fim.';
     {normal} proximo             = 'proximo';
     
+    //FUNCOES DE LEITURA E IMPRESSAO
     {normal} leia                = 'leia';
     {normal} escreva             = 'escreva';
     {normal} escrevaln           = 'escrevaln';
     
+    //PALAVRAS RESERVADAS
     {normal} se                  = 'se';
     {normal} entao               = 'entao';
     {normal} senao               = 'senao';
@@ -132,18 +166,32 @@ Tokens
     {normal} passo               = 'passo';
     {normal} fim_para            = 'fim para';
     
+    //PALAVRAS RESERVADAS DE TIPOS
     {normal} inteiro             = inteiro;
     {normal} caractere           = aspas caractere* aspas;
     {normal} real                = real;
-
+        
     {normal} n_real              = 'real';
     {normal} n_inteiro           = 'inteiro';
     {normal} n_caractere         = 'caractere';
 
+    // IDENTIFICADORES
     {normal} id                  = letras | letras letras_ou_numeros*;
+
+/////////////////////////////////////////////////////////////////
+///////////////////   IGNORED TOKENS    /////////////////////////
+/////////////////////////////////////////////////////////////////
+//      Definições dos “Tokens” que sao desconsiderados        //
+/////////////////////////////////////////////////////////////////
 
 Ignored Tokens
    comentario, comentario_linha, branco, comentario_linha_final;
+   
+/////////////////////////////////////////////////////////////////
+/////////////////////    PRODUCTIONS    /////////////////////////
+/////////////////////////////////////////////////////////////////
+//    Regras da gramática, producoes.                          //
+/////////////////////////////////////////////////////////////////
 
 Productions
     start               = {start}               instancia_programa 									{-> New start(instancia_programa)};
@@ -221,8 +269,6 @@ Productions
     passo_estruturas    = {passo}               passo int_ou_var;   
     
     ate_estrutura       = {ate}                 ate int_ou_var;
-
-
 	
 	se_stant  	      		{-> se_stant} = 
 													se a_parenteses expressao_logica f_parenteses entao bloco_comando 											
@@ -251,9 +297,7 @@ Productions
     para_passo_estruturas	{-> para_passo_estruturas }	= 
     					 	  {para_passo}          para variavel de int_ou_var passo_estruturas ate_estrutura faca bloco_comando fim_para pontovirgula
     					                         													{-> New para_passo_estruturas(variavel, [bloco_comando.comando])};	
-             
-             
-             
+                          
 //Lista de prioridades: http://pt.wikipedia.org/wiki/Operadores_em_C_e_C%2B%2B
 
 //Expressao Aritmetica Pura
@@ -319,6 +363,11 @@ Productions
   	parenteses2     {-> expressao_logica}  =          
                       {parenteses} parenteses									{-> parenteses.expressao_logica};
   
+/////////////////////////////////////////////////////////////////
+/////////////////////    ABSTRACT SYNTAX TREE   /////////////////
+/////////////////////////////////////////////////////////////////
+//    Representa abstratamente a estrutura do programa         //
+/////////////////////////////////////////////////////////////////
 
 Abstract Syntax Tree
 
