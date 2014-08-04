@@ -19,23 +19,18 @@ import java.util.*;
 
 public class Main {
 
-    static final boolean TEST = false;
-
     public static void main(String arguments[]) {
         //Entrada por argumentos
         String fileDir = "";
-        if (TEST) {
-            fileDir = "C:\\Users\\ygormax\\git\\portugol-compiler\\PortugolCompiler\\src\\Teste\\Work\\teste1.pgl";
-        } else {
-            if (arguments.length < 1 ) {
-                System.out.println("File:");
-                Scanner input = new Scanner(System.in);
-                fileDir = input.nextLine();
-            } else {
-                fileDir = arguments[0];
-            }
 
+        if (arguments.length < 1 ) {
+            System.out.println("File:");
+            Scanner input = new Scanner(System.in);
+            fileDir = input.nextLine();
+        } else {
+            fileDir = arguments[0];
         }
+        
         try {
             FileReader infile = new FileReader(fileDir);
 

@@ -15,8 +15,6 @@ import expression.analysis.*;
 
 import java.util.*;
 
-import org.sablecc.sablecc.node.AIdBasic;
-
 public class mySemantic extends DepthFirstAdapter {
     // mySemantic methods for each node    
     // exemplo do: http://www.dcs.gla.ac.uk/scripts/global/wim/blosxom.cgi/Gannet/Language/gannetc-compiler-sablecc.html
@@ -309,9 +307,9 @@ public class mySemantic extends DepthFirstAdapter {
         		pos = ((AVetorVariavel) var).getId().getPos();
         	}
         	
-        	if(isOnTable(key)){
+        	if(!isOnTable(key)){
         		try {
-					throw new Exception("Variável Duplicada ["+linha+","+pos+"]: "+key);
+					throw new Exception("Variável não Declarada ["+linha+","+pos+"]: "+key);
 				} catch (Exception e) {
 					System.out.println(e.getMessage());
 				}      	
@@ -411,7 +409,7 @@ public class mySemantic extends DepthFirstAdapter {
 	}
 	
 	public boolean isOnTable(String key){
-		return this.myTable.contains(key);
+		return this.myTable.containsKey(key);
 	}
 	
 }
