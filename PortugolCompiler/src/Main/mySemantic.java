@@ -18,7 +18,7 @@ import java.util.*;
 import org.sablecc.sablecc.node.AIdBasic;
 
 public class mySemantic extends DepthFirstAdapter {
-    // emitter methods for each node    
+    // mySemantic methods for each node    
     // exemplo do: http://www.dcs.gla.ac.uk/scripts/global/wim/blosxom.cgi/Gannet/Language/gannetc-compiler-sablecc.html
 
 	private Hashtable<String, String> myTable = new Hashtable<>();
@@ -294,9 +294,35 @@ public class mySemantic extends DepthFirstAdapter {
     }
 
     public void outAVariavelExpressao(AVariavelExpressao node){
+    	    PVariavel var = node.getVariavel();
+        	String key;
+        	int linha;
+        	int pos;
+        	
+        	try {
+        		key = ((AVariavelVariavel) var).getId().getText(); 
+        		linha = ((AVariavelVariavel) var).getId().getLine();
+        		pos = ((AVariavelVariavel) var).getId().getPos();
+        	}catch(Exception e){
+        		key = ((AVetorVariavel) var).getId().getText(); 
+        		linha = ((AVetorVariavel) var).getId().getLine();
+        		pos = ((AVetorVariavel) var).getId().getPos();
+        	}
+        	
+        	if(isOnTable(key)){
+        		try {
+					throw new Exception("Variável Duplicada ["+linha+","+pos+"]: "+key);
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+				}      	
+        	}
+     }
+    
+    public void outAMenosExpressaoExpressao(AMenosExpressaoExpressao node)
+    {
         defaultOut(node);
     }
-
+    
     public void outAOuExpressaoLogica(AOuExpressaoLogica node){
         defaultOut(node);
     }
@@ -368,7 +394,7 @@ public class mySemantic extends DepthFirstAdapter {
 
 	
 	
-	//Funções auxiliáres
+	//Funções auxiliares
 	public String remFromTable(String key){
 		return this.myTable.remove(key);
 	}

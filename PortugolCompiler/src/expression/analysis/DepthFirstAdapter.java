@@ -1064,6 +1064,31 @@ public class DepthFirstAdapter extends AnalysisAdapter
         outAVariavelExpressao(node);
     }
 
+    public void inAMenosExpressaoExpressao(AMenosExpressaoExpressao node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAMenosExpressaoExpressao(AMenosExpressaoExpressao node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAMenosExpressaoExpressao(AMenosExpressaoExpressao node)
+    {
+        inAMenosExpressaoExpressao(node);
+        if(node.getMenos() != null)
+        {
+            node.getMenos().apply(this);
+        }
+        if(node.getExpressao() != null)
+        {
+            node.getExpressao().apply(this);
+        }
+        outAMenosExpressaoExpressao(node);
+    }
+
     public void inAOuExpressaoLogica(AOuExpressaoLogica node)
     {
         defaultIn(node);

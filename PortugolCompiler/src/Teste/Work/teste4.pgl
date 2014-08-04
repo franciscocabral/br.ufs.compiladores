@@ -1,10 +1,7 @@
 programa teste4
 inicio
    
-    //inteiro: x = 4;
-    //inteiro: y = 2;
-
-    inteiro:  x,y; 
+    inteiro: x,y; 
     x <- 4;
     y <- 2;
 

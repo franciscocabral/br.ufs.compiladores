@@ -313,7 +313,8 @@ Productions
     termo 			{-> expressao} =  
                       {expressao}  a_parenteses expressao f_parenteses 			{-> expressao}
                     | {valor} valor                                    			{-> New expressao.valor(valor)}
-                    | {variavel} variavel                              			{-> New expressao.variavel(variavel)};
+                    | {variavel} variavel                              			{-> New expressao.variavel(variavel)}
+                    | {menos_expressao} menos termo                             {-> New expressao.menos_expressao(menos,termo.expressao)};
 
 //Expressao Logico-Relacional
 	expressao_logica = 
@@ -431,7 +432,8 @@ Abstract Syntax Tree
 			            | {dividido}  	[l]: expressao [r]: expressao
 			            | {resto}  		[l]: expressao [r]: expressao
 			            | {valor}     	valor
-			            | {variavel}  	variavel;
+			            | {variavel}  	variavel
+			            | {menos_expressao} menos expressao;
    
    //Expressao Logico-Relacional
 	expressao_logica 	=	  

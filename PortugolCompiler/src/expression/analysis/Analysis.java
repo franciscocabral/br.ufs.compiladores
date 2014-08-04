@@ -55,6 +55,7 @@ public interface Analysis extends Switch
     void caseARestoExpressao(ARestoExpressao node);
     void caseAValorExpressao(AValorExpressao node);
     void caseAVariavelExpressao(AVariavelExpressao node);
+    void caseAMenosExpressaoExpressao(AMenosExpressaoExpressao node);
     void caseAOuExpressaoLogica(AOuExpressaoLogica node);
     void caseAXorExpressaoLogica(AXorExpressaoLogica node);
     void caseAEExpressaoLogica(AEExpressaoLogica node);

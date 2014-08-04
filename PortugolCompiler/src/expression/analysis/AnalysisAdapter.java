@@ -333,6 +333,12 @@ public class AnalysisAdapter implements Analysis
     }
 
     @Override
+    public void caseAMenosExpressaoExpressao(AMenosExpressaoExpressao node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
     public void caseAOuExpressaoLogica(AOuExpressaoLogica node)
     {
         defaultCase(node);
