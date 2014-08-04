@@ -12,7 +12,7 @@ inicio
        prox_val <- anterior + atual; //Expressão soma de anterior + atual = proxima
        escreva(prox_val); 
        anterior <- atual; 
-       atual <- pro_val; 
+       atual <- prox_val; 
    fim enquanto;
  
 fim.

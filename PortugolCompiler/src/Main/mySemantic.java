@@ -116,12 +116,10 @@ public class mySemantic extends DepthFirstAdapter {
 
     public void outAValorInteiroValor(AValorInteiroValor node){
     	putInTable(node.toString(), "inteiro");
-        defaultOut(node);
     }
 
     public void outAValorCaractereValor(AValorCaractereValor node){
     	putInTable(node.toString(), "caractere");
-        defaultOut(node);
     }
 
     public void outAAtribuicaoComando(AAtribuicaoComando node){
@@ -186,7 +184,14 @@ public class mySemantic extends DepthFirstAdapter {
     		String tipo = getFromTable(key);
     		String[] exps = node.getExpressao().toString().split(" ");
     		for(String exp: exps){
-    			String expTipo = getFromTable(exp); 
+    			String expTipo = getTipo(exp); 
+    			if(expTipo == null){
+    	    		try {
+    					throw new Exception("Variável não declarada ["+linha+","+pos+"]: "+key);
+    				} catch (Exception e) {
+    					System.out.println(e.getMessage());
+    				}
+    			}
     			if ((tipo.contains("inteiro") && !expTipo.contains("inteiro"))
     					|| (tipo.contains("real") && !(expTipo.contains("real") || expTipo.contains("inteiro")))
     					|| (tipo.contains("caractere") && !expTipo.contains("caractere"))){
@@ -215,14 +220,19 @@ public class mySemantic extends DepthFirstAdapter {
         		linha = ((AVetorVariavel) var).getId().getLine();
         		pos = ((AVetorVariavel) var).getId().getPos();
         	}
+
+    		try {
+	        	if(!isOnTable(key)){
+	    				throw new Exception("Variável não declarada ["+linha+","+pos+"]: "+key);
+	        	}else{
+	        		if(getFromTable(key).contains("constante")){
+	        			throw new Exception("Tentando ler Constante ["+linha+","+pos+"]: "+key);
+	        		}
+	        	}
         	
-        	if(!isOnTable(key)){
-        		try {
-    				throw new Exception("Variável não declarada ["+linha+","+pos+"]: "+key);
-    			} catch (Exception e) {
-    				System.out.println(e.getMessage());
-    			}
-        	}
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
         
         }
     }
@@ -393,6 +403,25 @@ public class mySemantic extends DepthFirstAdapter {
 	
 	
 	//Funções auxiliares
+    public String getTipo(String key){
+		String tipo;
+		if(key.matches("^'.*")){
+			return "caractere";
+		}else if(key.matches("^[0-9].*")){
+			if (key.contains(",")){
+				return "real";
+			}else{
+				return "inteiro";
+			}
+			
+		}else{
+			if(isOnTable(key)){
+				return getFromTable(key);
+			}
+		}
+		return null;
+    }
+    
 	public String remFromTable(String key){
 		return this.myTable.remove(key);
 	}
