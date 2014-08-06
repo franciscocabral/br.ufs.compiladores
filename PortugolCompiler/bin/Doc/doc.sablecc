@@ -213,15 +213,14 @@ Productions
                         | {bloco_caso}          bloco_caso caso_stant								{-> [bloco_caso.case, caso_stant.case]};
                         
     caso_stant			{-> case} = caso valor doispontos bloco_comando								{-> New case(valor.valor, [bloco_comando.comando])};
-    
-                        
+                           
     bloco_declaracao 	{-> declaracao*} = 
                           {declaracao_simples}  declaracao											{-> [declaracao.declaracao]}
                         | {bloco_declaracao}    bloco_declaracao declaracao							{-> [bloco_declaracao.declaracao, declaracao.declaracao]};
 
     declaracao 			{-> declaracao} = 
     					  {variavel}			tipo doispontos bloco_variavel pontovirgula			{-> New declaracao.variavel(tipo,[bloco_variavel.variavel])}
-                        | {constante}			constante id valor pontovirgula						{-> New declaracao.constante(id, valor)};
+                        | {constante}			constante id valor pontovirgula				        {-> New declaracao.constante(id, valor)};
 
 	bloco_programa		{-> bloco_programa} = 
 						  bloco_declaracao bloco_comando											{-> New bloco_programa([bloco_declaracao.declaracao], [bloco_comando.comando])};
@@ -381,12 +380,11 @@ Abstract Syntax Tree
     bloco_programa		= [bloco_declaracao]:declaracao* 	[bloco_comando]:comando* ;
     
     declaracao			= {variavel} 			[tipo]:	tipo  	[bloco_variavel]:	variavel*
-    					| {constante} 			[id]:	id		[valor]:			valor;
+    					| {constante} 			[id]: 	id 	[valor]: valor;
    
     variavel			= {variavel}            [id]: 	id 
                      	| {vetor}      			[id]: 	id		[inteiro]:inteiro;
-                     	
-                     	
+                     	                     	
     case				= [valor]: valor 	[bloco_comando]: comando*;                     	
                      	
     tipo                = 

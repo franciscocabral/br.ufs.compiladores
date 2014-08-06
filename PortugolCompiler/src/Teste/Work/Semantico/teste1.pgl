@@ -1,6 +1,7 @@
 programa teste1
 inicio
     
+    const H 1;
     inteiro: x, y;
     real: x,z; // x duplicado
     caractere: z; //z duplicado
@@ -15,6 +16,5 @@ inicio
 	se (x < y) entao
 	    escreva('Ok');
 	fim se;	
-    
-    const H 4;
+        
 fim.
