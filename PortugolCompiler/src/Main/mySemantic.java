@@ -6,10 +6,6 @@
 
 package Main;
 
-/**
- *
- * @author Francisco
- */
 import expression.node.*;
 import expression.analysis.*;
 
@@ -71,10 +67,11 @@ public class mySemantic extends DepthFirstAdapter {
     }
 
     public void outAConstanteDeclaracao(AConstanteDeclaracao node){
+   
     	String key = node.getId().getText();
     	int linha = node.getId().getLine();
     	int pos = node.getId().getPos();
-    	
+    	   	
     	if(isOnTable(key)){
     		try {
 				throw new Exception("Variável Duplicada ["+linha+","+pos+"]: "+key);
@@ -85,6 +82,12 @@ public class mySemantic extends DepthFirstAdapter {
     		putInTable(key, node.getValor().toString());
     	}
     }
+    
+  	public boolean isChar(String valor){
+  		if (valor.contains("'")) return true;
+  		return false;
+  	}
+  		
 
     public void outAVariavelVariavel(AVariavelVariavel node){
         defaultOut(node);
@@ -278,23 +281,93 @@ public class mySemantic extends DepthFirstAdapter {
     }
 
     public void outAMaisExpressao(AMaisExpressao node){
-        defaultOut(node);
+    	if (isChar(node.getL().toString()) && isChar(node.getR().toString())){
+			try {
+				throw new Exception("Erro na linha " + ((AValorCaractereValor) ((AValorExpressao) node.getL()).getValor()).getCaractere().getLine() + " (Strings não podem ser somadas).");
+			}catch(ClassCastException e){
+				try{
+					throw new Exception("Erro na linha " + ((AValorCaractereValor) ((AValorExpressao) node.getR()).getValor()).getCaractere().getLine() + " (Strings não podem ser somadas).");
+				}catch (Exception f) {
+					System.out.println(f.getMessage());
+					//Main.ocorreuErro = true;
+				}
+			}catch (Exception g) {
+				System.out.println(g.getMessage());
+				//Main.ocorreuErro = true;
+			}
+		}
     }
 
     public void outAMenosExpressao(AMenosExpressao node){
-        defaultOut(node);
+    	if (isChar(node.getL().toString()) && isChar(node.getR().toString())){
+			try {
+				throw new Exception("Erro na linha " + ((AValorCaractereValor) ((AValorExpressao) node.getL()).getValor()).getCaractere().getLine() + " (Strings não podem ser somadas).");
+			}catch(ClassCastException e){
+				try{
+					throw new Exception("Erro na linha " + ((AValorCaractereValor) ((AValorExpressao) node.getR()).getValor()).getCaractere().getLine() + " (Strings não podem ser somadas).");
+				}catch (Exception f) {
+					System.out.println(f.getMessage());
+					//Main.ocorreuErro = true;
+				}
+			}catch (Exception g) {
+				System.out.println(g.getMessage());
+				//Main.ocorreuErro = true;
+			}
+		}
     }
 
     public void outAVezesExpressao(AVezesExpressao node){
-        defaultOut(node);
+    	if (isChar(node.getL().toString()) && isChar(node.getR().toString())){
+			try {
+				throw new Exception("Erro na linha " + ((AValorCaractereValor) ((AValorExpressao) node.getL()).getValor()).getCaractere().getLine() + " (Strings não podem ser somadas).");
+			}catch(ClassCastException e){
+				try{
+					throw new Exception("Erro na linha " + ((AValorCaractereValor) ((AValorExpressao) node.getR()).getValor()).getCaractere().getLine() + " (Strings não podem ser somadas).");
+				}catch (Exception f) {
+					System.out.println(f.getMessage());
+					//Main.ocorreuErro = true;
+				}
+			}catch (Exception g) {
+				System.out.println(g.getMessage());
+				//Main.ocorreuErro = true;
+			}
+		}
     }
 
     public void outADivididoExpressao(ADivididoExpressao node){
-        defaultOut(node);
+    	if (isChar(node.getL().toString()) && isChar(node.getR().toString())){
+			try {
+				throw new Exception("Erro na linha " + ((AValorCaractereValor) ((AValorExpressao) node.getL()).getValor()).getCaractere().getLine() + " (Strings não podem ser somadas).");
+			}catch(ClassCastException e){
+				try{
+					throw new Exception("Erro na linha " + ((AValorCaractereValor) ((AValorExpressao) node.getR()).getValor()).getCaractere().getLine() + " (Strings não podem ser somadas).");
+				}catch (Exception f) {
+					System.out.println(f.getMessage());
+					//Main.ocorreuErro = true;
+				}
+			}catch (Exception g) {
+				System.out.println(g.getMessage());
+				//Main.ocorreuErro = true;
+			}
+		}
     }
 
     public void outARestoExpressao(ARestoExpressao node){
-        defaultOut(node);
+    	if (isChar(node.getL().toString()) && isChar(node.getR().toString())){
+			try {
+				throw new Exception("Erro na linha " + ((AValorCaractereValor) ((AValorExpressao) node.getL()).getValor()).getCaractere().getLine() + " (Strings não podem ser somadas).");
+			}catch(ClassCastException e){
+				try{
+					throw new Exception("Erro na linha " + ((AValorCaractereValor) ((AValorExpressao) node.getR()).getValor()).getCaractere().getLine() + " (Strings não podem ser somadas).");
+				}catch (Exception f) {
+					System.out.println(f.getMessage());
+					//Main.ocorreuErro = true;
+				}
+			}catch (Exception g) {
+				System.out.println(g.getMessage());
+				//Main.ocorreuErro = true;
+			}
+		}
     }
 
     public void outAValorExpressao(AValorExpressao node){
@@ -400,8 +473,6 @@ public class mySemantic extends DepthFirstAdapter {
         defaultOut(node);
     }
 
-	
-	
 	//Funções auxiliares
     public String getTipo(String key){
 		String tipo;

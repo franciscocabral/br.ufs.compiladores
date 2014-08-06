@@ -5,11 +5,15 @@ inicio
     real: x,z; // x duplicado
     caractere: z; //z duplicado
     x <- 1;
-    
+    y <- 2;
     y <- y + 3,14; //y é inteiro e não pode receber real
     
-    const e 1;  //e = e logico
+    p <- (3+ (2 * 2)); // variavel p não declarada
     
-    leia(e);  //Constante não pode ser lida
+    escreva('teste');
+	
+	se (x < y) entao
+	    escreva('Ok');
+	fim se;	
     
 fim.
