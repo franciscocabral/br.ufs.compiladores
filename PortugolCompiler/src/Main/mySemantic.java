@@ -88,7 +88,6 @@ public class mySemantic extends DepthFirstAdapter {
   		return false;
   	}
   		
-
     public void outAVariavelVariavel(AVariavelVariavel node){
         defaultOut(node);
     }
@@ -175,8 +174,7 @@ public class mySemantic extends DepthFirstAdapter {
     		linha = ((AVetorVariavel) var).getId().getLine();
     		pos = ((AVetorVariavel) var).getId().getPos();
     	}
-    	
-    	
+    		
     	if(!isOnTable(key)){
     		try {
 				throw new Exception("Variável não declarada ["+linha+","+pos+"]: "+key);
@@ -289,11 +287,9 @@ public class mySemantic extends DepthFirstAdapter {
 					throw new Exception("Erro na linha " + ((AValorCaractereValor) ((AValorExpressao) node.getR()).getValor()).getCaractere().getLine() + " (Strings não podem ser somadas).");
 				}catch (Exception f) {
 					System.out.println(f.getMessage());
-					//Main.ocorreuErro = true;
 				}
 			}catch (Exception g) {
 				System.out.println(g.getMessage());
-				//Main.ocorreuErro = true;
 			}
 		}
     }
@@ -307,11 +303,9 @@ public class mySemantic extends DepthFirstAdapter {
 					throw new Exception("Erro na linha " + ((AValorCaractereValor) ((AValorExpressao) node.getR()).getValor()).getCaractere().getLine() + " (Strings não podem ser somadas).");
 				}catch (Exception f) {
 					System.out.println(f.getMessage());
-					//Main.ocorreuErro = true;
 				}
 			}catch (Exception g) {
 				System.out.println(g.getMessage());
-				//Main.ocorreuErro = true;
 			}
 		}
     }
@@ -325,11 +319,9 @@ public class mySemantic extends DepthFirstAdapter {
 					throw new Exception("Erro na linha " + ((AValorCaractereValor) ((AValorExpressao) node.getR()).getValor()).getCaractere().getLine() + " (Strings não podem ser somadas).");
 				}catch (Exception f) {
 					System.out.println(f.getMessage());
-					//Main.ocorreuErro = true;
 				}
 			}catch (Exception g) {
 				System.out.println(g.getMessage());
-				//Main.ocorreuErro = true;
 			}
 		}
     }
@@ -343,11 +335,9 @@ public class mySemantic extends DepthFirstAdapter {
 					throw new Exception("Erro na linha " + ((AValorCaractereValor) ((AValorExpressao) node.getR()).getValor()).getCaractere().getLine() + " (Strings não podem ser somadas).");
 				}catch (Exception f) {
 					System.out.println(f.getMessage());
-					//Main.ocorreuErro = true;
 				}
 			}catch (Exception g) {
 				System.out.println(g.getMessage());
-				//Main.ocorreuErro = true;
 			}
 		}
     }
@@ -361,11 +351,9 @@ public class mySemantic extends DepthFirstAdapter {
 					throw new Exception("Erro na linha " + ((AValorCaractereValor) ((AValorExpressao) node.getR()).getValor()).getCaractere().getLine() + " (Strings não podem ser somadas).");
 				}catch (Exception f) {
 					System.out.println(f.getMessage());
-					//Main.ocorreuErro = true;
 				}
 			}catch (Exception g) {
 				System.out.println(g.getMessage());
-				//Main.ocorreuErro = true;
 			}
 		}
     }

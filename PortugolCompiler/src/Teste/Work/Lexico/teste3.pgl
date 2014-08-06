@@ -2,6 +2,7 @@ programa teste3
 inicio
 
     real: x,z;
+    const p 3;
 
     leia(x);
     z <- (x + 1);

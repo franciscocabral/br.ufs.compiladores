@@ -213,8 +213,7 @@ Productions
                         | {bloco_caso}          bloco_caso caso_stant								{-> [bloco_caso.case, caso_stant.case]};
                         
     caso_stant			{-> case} = caso valor doispontos bloco_comando								{-> New case(valor.valor, [bloco_comando.comando])};
-    
-                        
+                           
     bloco_declaracao 	{-> declaracao*} = 
                           {declaracao_simples}  declaracao											{-> [declaracao.declaracao]}
                         | {bloco_declaracao}    bloco_declaracao declaracao							{-> [bloco_declaracao.declaracao, declaracao.declaracao]};

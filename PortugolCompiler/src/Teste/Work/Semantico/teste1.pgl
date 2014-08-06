@@ -16,4 +16,5 @@ inicio
 	    escreva('Ok');
 	fim se;	
     
+    const H 4;
 fim.
