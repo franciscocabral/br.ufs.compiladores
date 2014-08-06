@@ -3,6 +3,7 @@ inicio
     blablabla
     inteiro: x, y;
     inteiro: z;
+    blabla
 
     leia(x,y);
     se(x > y) entao

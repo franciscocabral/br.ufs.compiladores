@@ -33,12 +33,8 @@ public class Main {
             FileReader infile = new FileReader(fileDir);
 
             myLexer l = new myLexer(new PushbackReader(new BufferedReader(infile), 1024));
-
-            Token now = null;
-            
             Parser p = new Parser(l);
-            Start tree = p.parse();
-            
+            p.parse();
         } catch (LexerException le) {
             System.out.println("\n" + le.getMessage());
         } catch (ParserException pe){
@@ -46,5 +42,6 @@ public class Main {
         } catch (Exception e) {
             throw new RuntimeException("\n" + e.getMessage());
         }
+       
     }
 }
