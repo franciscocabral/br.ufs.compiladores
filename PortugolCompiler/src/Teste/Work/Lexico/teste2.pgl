@@ -5,9 +5,11 @@ inicio
      *linha!
      */
     //Esse nao precisa fechar
-
+	
+	const minhaConstante 10;
     caractere: leianome[10], sobrenome[10];
-
+	const minhaConstante2 'texto';
+	
     leia(leianome,sobrenome);
     escreva(leianome, sobrenome);
 fim.

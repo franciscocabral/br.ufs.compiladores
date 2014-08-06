@@ -37,14 +37,18 @@ public class Main {
             Token now = null;
 
             do {
-                    now = l.next();
-                    if (now instanceof TBranco) {
-                        System.out.print(now.getText());
-                    } else if (now instanceof TComentarioLinha) {
-                        System.out.println(now.getClass().getSimpleName());
-                    } else {
-                        System.out.print(now.getClass().getSimpleName() + " ");
-                    }
+            		try{
+	                    now = l.next();
+	                    if (now instanceof TBranco) {
+	                        System.out.print(now.getText());
+	                    } else if (now instanceof TComentarioLinha) {
+	                        System.out.println(now.getClass().getSimpleName());
+	                    } else {
+	                        System.out.print(now.getClass().getSimpleName() + " ");
+	                    }
+            		} catch(LexerException le){
+            			System.out.print("\n" + le.getMessage());
+            		}
             } while (!(now instanceof EOF));         
             
         } catch (Exception e) {
